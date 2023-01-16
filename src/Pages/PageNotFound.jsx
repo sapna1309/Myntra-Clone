@@ -31,7 +31,11 @@ export default function PageNotFound() {
       >
         The page you're looking for does not seem to exist
       </Text>
-      <Link to="/">
+      <Link to="/" 
+       _hover={{
+        textDecoration:"none",
+      }}
+      >
         {" "}
         <Button
           onClick={() => navigate("/")}
@@ -43,13 +47,13 @@ export default function PageNotFound() {
           color={"white"}
           bg={"#08cf65"}
           _hover={{
-            bg: "grey",
-            color: "white",
+            bg: "red.300",
+            textDecoration:"none",
           }}
         >
           Home
         </Button>
       </Link>
-    </Box>
-  );
+ </Box>
+);
 }
