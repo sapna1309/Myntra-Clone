@@ -1,9 +1,10 @@
+import { Heading } from '@chakra-ui/layout'
 import React from 'react'
 
 const Home = () => {
   return (
     <div>
-        <h1>Welcome To Home Page</h1>
+        <Heading size={'lg'} >Welcome To Home Page</Heading>
     </div>
   )
 }
