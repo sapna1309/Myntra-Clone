@@ -1,4 +1,4 @@
-import { auth } from "../../Components/firebase"
+// import { auth } from "../../Components/firebase"
 import { SIGNUP_FAIL, SIGNUP_START, SIGNUP_SUCCESS } from "./Auth.type"
 import {createUserWithEmailAndPassword , updateProfile} from "firebase/auth"
 
