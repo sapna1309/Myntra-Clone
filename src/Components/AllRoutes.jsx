@@ -8,7 +8,6 @@ import Register from '../Pages/Register'
 
 import Product from '../Pages/Product'
 
-
 const AllRoutes = ({userName}) => {
   console.log(userName)
   
