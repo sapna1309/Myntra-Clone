@@ -14,9 +14,6 @@ function SingleCard({ ...props }) {
     images,
     discount,
     discounted_price,
-    rating,
-    rating_count,
-    size,
     strike_price,
   } = props.prod;
   return (

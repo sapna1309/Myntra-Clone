@@ -12,8 +12,6 @@ import {
   Heading,
   Text,
   useColorModeValue,
-  
-  Image,
   VStack
 } from '@chakra-ui/react';
 import { useState } from 'react';
@@ -22,7 +20,7 @@ import {Link, useNavigate} from "react-router-dom"
 import GoogleButton from 'react-google-button';
 import { createUserWithEmailAndPassword , updateProfile} from 'firebase/auth';
 import { auth } from '../Components/firebase';
-import { async } from '@firebase/util';
+//import { async } from '@firebase/util';
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
