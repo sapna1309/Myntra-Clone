@@ -6298,8 +6298,7 @@
         "rating_count": "8"
         }
         ],
-    "HomePageData":[
-        {
+    "HomePageData":{
         "HomePageOmgDeals":[
             {
             "id": "1",
@@ -6727,5 +6726,5 @@
             }
         ]
         }
-    ]
+    
 }
