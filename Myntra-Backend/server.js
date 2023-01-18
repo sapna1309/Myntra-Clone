@@ -10,3 +10,7 @@ server.use("", router);
 server.listen(PORT, () =>
   console.log(`JSON Server is running on port ${PORT}`)
 );
+
+//https://classic-world.onrender.com/MensData
+//https://classic-world.onrender.com/WomensData
+//https://classic-world.onrender.com/ChildrensData
