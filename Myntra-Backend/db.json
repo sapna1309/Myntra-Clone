@@ -6298,7 +6298,9 @@
         "rating_count": "8"
         }
         ],
-    "HomePageOmgDeals":[
+    "HomePageData":[
+        {
+        "HomePageOmgDeals":[
             {
             "id": "1",
             "image": "https://assets.myntassets.com/f_webp,w_98,c_limit,fl_progressive,dpr_2.0/assets/images/2023/1/12/6a845d9e-6155-4fc7-b670-9059773981931673520272538-image_jpeg_1470430614--1-.jpg"
@@ -6724,4 +6726,6 @@
             "image": "https://assets.myntassets.com/f_webp,w_136,c_limit,fl_progressive,dpr_2.0/assets/images/2023/1/8/b0fde03d-e392-46dc-9a54-d5511853e9441673167109556-HP_Shop-By-Category_31.jpg"
             }
         ]
+        }
+    ]
 }
