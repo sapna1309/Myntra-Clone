@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import AllRoutes from './Components/AllRoutes';
 import { auth } from './Components/firebase';
-import Login from './Pages/Login';
 
 function App() {
   const [userName, setUserName]=useState("");
