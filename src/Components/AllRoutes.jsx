@@ -7,11 +7,11 @@ import PageNotFound from '../Pages/PageNotFound'
 import Register from '../Pages/Register'
 
 import Product from '../Pages/Product'
- fp06_174_Day_3
+ 
 import AdminDashboard from '../Pages/Admin/Admin-Dashboard'
 
 import SingleProductPage from './SingleProductPage'
- main
+ 
 
 const AllRoutes = ({userName}) => {
   console.log(userName)
