@@ -1,8 +1,10 @@
-import { Box, Button, Flex, Grid, Image, Text } from "@chakra-ui/react";
-import { prodErrorMap } from "firebase/auth";
+import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
+//import { prodErrorMap } from "firebase/auth";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import Footer from "../Components/Footer";
+import Navbar from "../Components/Navbar";
 import { getSingleProductAPI } from "../Redux/Product/Product.api";
 
 const SingleProductPage = () => {
@@ -33,7 +35,6 @@ const SingleProductPage = () => {
     category,
     discount,
     discounted_price,
-    pid = id,
     rating,
     rating_count,
     size,
@@ -41,8 +42,11 @@ const SingleProductPage = () => {
   } = singleProduct;
 
   return (
+
     <div>
-      <Box mb={"4rem"}>
+      <Navbar/>
+      <div>
+      <Box mb={"4rem"} mt={120} >
 
         {/* box-shadow: ; */}
         <Flex
@@ -202,6 +206,8 @@ const SingleProductPage = () => {
           </Button>
         </Flex>
       </Box>
+      </div>
+      <Footer/>
     </div>
   );
 };
