@@ -14,13 +14,19 @@ import {
   useColorModeValue,
   VStack
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {Link, useNavigate} from "react-router-dom"
 import GoogleButton from 'react-google-button';
-import { createUserWithEmailAndPassword , updateProfile} from 'firebase/auth';
-import { auth } from '../Components/firebase';
-//import { async } from '@firebase/util';
+import { createUserWithEmailAndPassword , updateProfile, signInWithPopup} from 'firebase/auth';
+import { auth, provider } from '../Components/firebase';
+import Navbar from '../Components/Navbar';
+
+// https://classic-world.onrender.com/MensData
+
+
+
+
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,10 +36,32 @@ export default function Register() {
     email:"",
     password:"",
   })
+  const [googleValue, setGoogleValue]=useState("")
   const [submitbutton , setSubmitbutton]=useState(false)
   const navigate=useNavigate()
-
   const[error, setError]=useState("")
+
+  const submitPost = async () => {
+    
+    
+    const payload = value ;
+    console.log(payload)
+    fetch("http://localhost:8080/users", {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        
+      })
+      .catch((err) => {
+        console.log(err);
+});
+};
 
   const handleSubmit=()=>{
     
@@ -41,33 +69,61 @@ export default function Register() {
           setError("fill all fields")
           return 
     }
-    console.log(value);
+   
     setError("")
     setSubmitbutton(true)
     createUserWithEmailAndPassword(auth,value.email,value.password)
     .then(async(res)=>{
 
       setSubmitbutton(false)
+      
       const user=res.user
+      
       await updateProfile(user,{
         displayName:value.fname
-      })
+      
+      })   
       navigate("/")
-
-
-      console.log(user)
-      console.log(res)
+      // console.log(user)
+      // console.log("res",res)
     })
     .catch((err)=>{
       setSubmitbutton(false)
       setError(err.message)
-      console.log("error-", err.message)
+      // console.log("error-", err.message)
     })
+
+    submitPost();
 
   }
 
+  
+  
+
+
+  const GoodleSignin=()=>{
+      signInWithPopup(auth,provider).then((data)=>{
+             setGoogleValue(data.user.email)
+             localStorage.setItem("email",data.user.email)
+             navigate("/")
+
+
+      })
+      
+  }
+
+  useEffect(()=>{
+    setGoogleValue(localStorage.getItem("email"))
+    
+  },[])
+
+  
+
   return (
+    <Box>
+      <Navbar/>
     <Flex
+    mt={20}
       minH={'100vh'}
       align={'center'}
       justify={'center'}
@@ -97,7 +153,7 @@ export default function Register() {
           <Stack spacing={4}>
             <VStack>
               <Text fontWeight={"500"} >Easly using</Text>
-              <GoogleButton/>
+              <GoogleButton  onClick={GoodleSignin} />
               <Text fontWeight={"500"} >-Or using E-mail-</Text>
               
             </VStack>
@@ -171,6 +227,7 @@ export default function Register() {
         </Box>
       </Stack>
     </Flex>
+    </Box>
   );
 }
 

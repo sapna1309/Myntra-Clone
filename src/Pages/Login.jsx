@@ -19,12 +19,13 @@ import {
   import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
   import {Link, useNavigate} from "react-router-dom"
   import GoogleButton from 'react-google-button';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { auth } from '../Components/firebase';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile,signInWithPopup } from 'firebase/auth';
+import { auth, provider } from '../Components/firebase';
+import Navbar from '../Components/Navbar';
   
   export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
-
+    const [googleValue, setGoogleValue]=useState("")
    
   const [value , setValue]=useState({
     email:"",
@@ -57,12 +58,27 @@ import { auth } from '../Components/firebase';
     })
 
   }
+
+  const GoodleSignin=()=>{
+    signInWithPopup(auth,provider).then((data)=>{
+           setGoogleValue(data.user.email)
+           localStorage.setItem("email",data.user.email)
+           navigate("/")
+
+
+    })
+    
+}
+
   
     return (
+      <Box>
+        <Navbar/>
       <Flex
         minH={'100vh'}
         align={'center'}
         justify={'center'}
+        mt={55}
         bg={useColorModeValue("rgb(248, 230, 233)")}>
         <Stack spacing={0} mx={'auto'} maxW={'lg'} py={12} px={6}>
           <Stack align={'center'}  >
@@ -82,7 +98,7 @@ import { auth } from '../Components/firebase';
             <Stack spacing={4}>
               <VStack>
                 <Text fontWeight={"500"} >Easly using</Text>
-                <GoogleButton/>
+                <GoogleButton onClick={GoodleSignin} />
                 <Text fontWeight={"500"} >-Or using E-mail-</Text>
                 
               </VStack>
@@ -135,5 +151,6 @@ import { auth } from '../Components/firebase';
           </Box>
         </Stack>
       </Flex>
+      </Box>
     );
   }

@@ -1,0 +1,27 @@
+{
+  "users": [
+    {
+      "fname": "Deepti",
+      "lname": "baghel",
+      "email": "Dipti@gmail.com",
+      "password": "123456",
+      "id": 1
+    },
+    {
+      "fname": "sapna",
+      "lname": "sharma",
+      "email": "s@gmail.com",
+      "password": "123456",
+      "id": 2
+    }
+  ],
+  "admin": [
+    {
+      "fname": "Sapna",
+      "lname": "sharma",
+      "email": "",
+      "password": "",
+      "id": 1
+    }
+  ]
+}
