@@ -7,6 +7,7 @@ import PageNotFound from '../Pages/PageNotFound'
 import Register from '../Pages/Register'
 
 import Product from '../Pages/Product'
+import AdminDashboard from '../Pages/Admin/Admin-Dashboard'
 
 const AllRoutes = ({userName}) => {
   console.log(userName)
@@ -19,6 +20,7 @@ const AllRoutes = ({userName}) => {
             <Route path='*' element={<PageNotFound/>} ></Route>
             <Route path='/login' element={<Login/>} ></Route>
             <Route path='/register' element={<Register/>} ></Route>
+            <Route path='/admin-dashboard' element={<AdminDashboard/>} ></Route>
         </Routes>
     </div>
   )
