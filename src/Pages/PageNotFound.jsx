@@ -1,6 +1,7 @@
 import { Box, Heading, Text, Button, Link } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
+
 export default function PageNotFound() {
   const navigate = useNavigate();
   return (
@@ -54,6 +55,7 @@ export default function PageNotFound() {
           Home
         </Button>
       </Link>
+   
  </Box>
 );
 }
