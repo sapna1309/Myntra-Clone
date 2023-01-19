@@ -21,6 +21,7 @@ import {
   import GoogleButton from 'react-google-button';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile,signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../Components/firebase';
+import Navbar from '../Components/Navbar';
   
   export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
@@ -71,10 +72,13 @@ import { auth, provider } from '../Components/firebase';
 
   
     return (
+      <Box>
+        <Navbar/>
       <Flex
         minH={'100vh'}
         align={'center'}
         justify={'center'}
+        mt={55}
         bg={useColorModeValue("rgb(248, 230, 233)")}>
         <Stack spacing={0} mx={'auto'} maxW={'lg'} py={12} px={6}>
           <Stack align={'center'}  >
@@ -147,5 +151,6 @@ import { auth, provider } from '../Components/firebase';
           </Box>
         </Stack>
       </Flex>
+      </Box>
     );
   }

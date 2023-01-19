@@ -1,8 +1,10 @@
-import { Box, Heading, Image, Center, Grid } from '@chakra-ui/react';
+import { Box, Image, Center, Grid } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import axios from 'axios';
 import HomePageHeader from '../assets/HomePageHeader.png';
 import { useEffect } from 'react';
+import Navbar from '../Components/Navbar';
+import Footer from '../Components/Footer';
 
 
 
@@ -23,10 +25,11 @@ const Home = () => {
   console.log("Data",data);
   return (
     <Box width={'100%'} >
-        <Heading size={'lg'} >Welcome To Home Page</Heading>
+        {/* <Heading size={'lg'} >Welcome To Home Page</Heading> */}
+        <Navbar/>
         <Center>
         <Image src={HomePageHeader}
-          alt='home-page-header' width={"95%"} />
+          alt='home-page-header' width={"95%"} mt={100} />
            </Center>
           <Image src='https://assets.myntassets.com/f_webp,w_980,c_limit,fl_progressive,dpr_2.0/assets/images/2023/1/12/3d8b5917-e115-425b-8c93-2c2e427f9d4f1673517461716-OMG-Deal--2-.jpg' alt='omgDeals' />
           <Grid gridTemplateColumns={"repeat(10,1fr)"} >
@@ -59,6 +62,7 @@ const Home = () => {
               <Image key={i} src={el.image} />
             ))}
           </Grid>
+          <Footer/>
     </Box>
   )
 }

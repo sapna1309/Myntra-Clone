@@ -7,7 +7,6 @@ import {
   Flex,
   Grid,
   Heading,
-  Radio,
   Text,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +15,8 @@ import { getMensProducts } from "../Redux/Product/Product.action";
 import LoadingPage from "./LoadingPage";
 import PageNotFound from "./PageNotFound";
 import Pagination from "../Components/Pagination";
+import Navbar from "../Components/Navbar";
+import Footer from "../Components/Footer";
 
 let brands = ["HRX by Hrithik Roshan ",
   "Roadster" ,
@@ -84,8 +85,8 @@ const Product = () => {
 
   return (
     <div>
-      Product
-      <div className={prodStyle.product_container}>
+      <Navbar/>
+      <div className={prodStyle.product_container} style={{marginTop:'60px'}} >
         <Box ml={"1rem"} textAlign={"left"}>
           <Text
             display={"inline-block"}
@@ -161,7 +162,7 @@ const Product = () => {
 
         {/* </div> */}
       </div>
-
+<Footer/>
     </div>
   );
 };

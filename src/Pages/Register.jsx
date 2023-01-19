@@ -20,6 +20,7 @@ import {Link, useNavigate} from "react-router-dom"
 import GoogleButton from 'react-google-button';
 import { createUserWithEmailAndPassword , updateProfile, signInWithPopup} from 'firebase/auth';
 import { auth, provider } from '../Components/firebase';
+import Navbar from '../Components/Navbar';
 
 // https://classic-world.onrender.com/MensData
 
@@ -29,7 +30,6 @@ import { auth, provider } from '../Components/firebase';
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
-  const [details, setDetails]=useState([])
   const [value , setValue]=useState({
     fname:"",
     lname:"",
@@ -111,7 +111,6 @@ export default function Register() {
       })
       
   }
-  console.log(details)
 
   useEffect(()=>{
     setGoogleValue(localStorage.getItem("email"))
@@ -121,8 +120,10 @@ export default function Register() {
   
 
   return (
-
+    <Box>
+      <Navbar/>
     <Flex
+    mt={20}
       minH={'100vh'}
       align={'center'}
       justify={'center'}
@@ -226,6 +227,7 @@ export default function Register() {
         </Box>
       </Stack>
     </Flex>
+    </Box>
   );
 }
 

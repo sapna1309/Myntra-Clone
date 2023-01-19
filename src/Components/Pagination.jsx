@@ -1,7 +1,7 @@
 import { Box, Button } from "@chakra-ui/react";
 import React from "react";
-import { useDispatch } from "react-redux";
-import { getMensProducts } from "../Redux/Product/Product.action";
+//import { useDispatch } from "react-redux";
+//import { getMensProducts } from "../Redux/Product/Product.action";
 
 const Pagination = ({
   setCurrentPage,
@@ -25,7 +25,6 @@ const Pagination = ({
   console.log(currentPage ,typeof totalPages)
   return (
     <div>
-      Pagination
       <Box mb={"1rem"}>
         <Button w={"1rem"} fontSize={{sm:"0.7rem"}}
           isDisabled={currentPage === 1}

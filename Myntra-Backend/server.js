@@ -14,3 +14,7 @@ server.listen(PORT, () =>
 //https://classic-world.onrender.com/MensData
 //https://classic-world.onrender.com/WomensData
 //https://classic-world.onrender.com/ChildrensData
+//https://classic-world.onrender.com/WishList
+//https://classic-world.onrender.com/Cart
+//https://classic-world.onrender.com/UsersList
+//https://classic-world.onrender.com/AdminData

@@ -44,10 +44,10 @@
   export default function Footer() {
     return (
       <Box
-        bg={useColorModeValue('gray.50', 'gray.900')}
+        bg={useColorModeValue('white', 'gray.900')}
         color={useColorModeValue('gray.700', 'gray.200')}>
-        <Container as={Stack} maxW={'6xl'} py={10}>
-          <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={8}>
+        <Container as={Stack} maxW={'6xl'} py={10} m={'auto'} border={'0px solid black'} >
+          <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} border={'0px solid gray'} justifyContent={'space-between'} >
             {/* <Stack align={'flex-start'}>
               <Text fontSize={"12px"} fontWeight={"bold"}>Online Shopping</Text> */}
               {/* <Link href={'#'}>Men</Link>
@@ -55,8 +55,8 @@
                 <Link href={'#'}>Women</Link>
                
               </Stack> */}
-              <Flex direction={"column"} gap={"40px"}>
-              <Stack align={'flex-start'}>
+              <Flex direction={"column"} gap={"40px"}  border={'0px solid gray'}  >
+              <Stack align={'flex-center'}>
               <Text fontSize={"14px"} fontWeight={"bold"}>ONLINE SHOPPING</Text>
               <Link href={'#'}>Men</Link>
               <Link href={'#'}>Women</Link>
@@ -66,7 +66,7 @@
               <Link href={'#'}>Myntra insider</Link>
             </Stack>
 
-            <VStack align={'flex-start'}>
+            <VStack align={'flex-center'}  border={'0px solid gray'} >
               <Text fontSize={"14px"} fontWeight={"bold"}>USEFUL LINKS</Text>
               <Link href={'#'}>Blog</Link>
               <Link href={'#'}>Careers</Link>
@@ -76,7 +76,7 @@
               
             </VStack>
 
-            <VStack align={'flex-start'}>
+            <VStack align={'flex-center'} border={'0px solid gray'} >
               <Text fontSize={"14px"} fontWeight={"bold"}>POPULAR SEARCHES</Text>
               <Link href={'#'}>Footwear</Link>
               <Link href={'#'}>Casuals</Link>
@@ -90,7 +90,7 @@
               
             </VStack>
 
-            <Stack align={'flex-start'}>
+            <Stack align={'flex-center'}  border={'0px solid gray'} >
             <Text fontSize={"14px"} fontWeight={"bold"}>Registered Office Address</Text>
               <Link href={'#'}>Begonia and Clover situated,</Link>
               <Link href={'#'}>BegEmbassy Tech Village,</Link>
@@ -104,7 +104,7 @@
               
             </Stack>
 
-            <Stack align={'flex-start'} direction={"column"} >
+            <Stack align={'flex-center'} direction={"column"} border={'0px solid gray'}  >
             <Text fontSize={"12px"} fontWeight={"bold"}>POPULAR SEARCHES</Text>
             <Box w={"auto"} display={"flex"} align={'flex-start'} width={"800px"} flexDirection={"column"}>
             <Link >Makeup|Dresses For Girls|T-Shirts|Sandals|Headphones|Babydolls|Blazers For Men|Handbags|Ladies Watches|Bags|Sport|Shoes|Reebok|Shoes|Puma|Shoes|Boxers|Wallets|Tops|Earrings|Fastrack Watches|Kurtis|Nike|Smart Watches|Titan Watches|Designer Blouse|Gowns Rings|Cricket Shoes|Forever 21  Eye Makeup|Photo Frames|Punjabi Suits|Bikini  Myntra Fashion|Show  Lipstick|Saree|Watches|Dresses|Lehenga|Nike Shoes|Goggles  Bras  Suit|Chinos  Shoes|Adidas Shoes|Woodland Shoes|Jewellery  Designers Sarees</Link>
@@ -112,7 +112,7 @@
             </Stack>
             </Flex>
 
-            <Stack align={'flex-start'}>
+            <Stack align={'flex-center'}  border={'0px solid gray'} >
             <Text fontSize={"14px"} fontWeight={"bold"}>CUSTOMER POLICIES</Text>
               <Link href={'#'}>Contact Us</Link>
               <Link href={'#'}>FAQ</Link>
@@ -126,7 +126,7 @@
               <Link href={'#'}  >Grievance Officer</Link>
             </Stack>
 
-            <Stack align={'flex-start'}>
+            <Stack align={'flex-center'}  border={'0px solid gray'} >
             <Text fontSize={"14px"} fontWeight={"bold"}>LEGAL</Text>
               <Link href={'#'}>Cookies Policy</Link>
               <Link href={'#'}>Privacy Policy</Link>
@@ -136,7 +136,7 @@
             </Stack>
 
             
-            <Stack align={'flex-start'}>
+            <Stack align={'flex-center'}  border={'0px solid gray'} >
             <Text fontSize={"14px"} fontWeight={"bold"}>FOLLOW US</Text>
               <Link href={'#'}>Facebook</Link>
               <Link href={'#'}>Twitter</Link>

@@ -8,7 +8,7 @@
   import { BsSuitHeart } from "react-icons/bs";
  
    import {SearchIcon} from '@chakra-ui/icons'
-  
+  import CWLOGO from '../assets/CWLOGO-1.png';
 
 
 import {
@@ -40,21 +40,23 @@ import {
   ChevronRightIcon,
 } from '@chakra-ui/icons';
 
-export default function WithSubnavigation() {
+export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Box>
+    <Box >
       <Flex
         bg={useColorModeValue('white', 'gray.800')}
         color={useColorModeValue('gray.600', 'white')}
         minH={'60px'}
-        py={{ base: 2 }}
+        zIndex={999}
+        pos={"fixed"} top={0}
+        py={{ base: 2, md:0 }}
         px={{ base: 4 }}
         borderBottom={1}
         borderStyle={'solid'}
         borderColor={useColorModeValue('gray.200', 'gray.900')}
-        align={'center'}>
+        alignItems={'center'}>
         <Flex
           flex={{ base: 1, md: 'auto' }}
           ml={{ base: -2 }}
@@ -71,11 +73,11 @@ export default function WithSubnavigation() {
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
        
 
-             <Box>
+             <Box border={'0px solid black'} >
                   <Image
-                    src={`data:image/jpeg;base64,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`}
+                    src={CWLOGO}
                     // ml="10px"
-                    width="80%"
+                    width="100%"
                   />
                 </Box>
 
@@ -152,7 +154,7 @@ const DesktopNav = () => {
   const popoverContentBgColor = useColorModeValue('white', 'gray.800');
 
   return (
-    <Stack direction={'row'} spacing={4} w={"600px"}>
+    <Stack direction={'row'} spacing={4} w={"600px"} alignItems={'center'} >
       {NAV_ITEMS.map((navItem) => (
         <Box key={navItem.label}>
           <Popover trigger={'hover'} placement={'bottom-start'}>
