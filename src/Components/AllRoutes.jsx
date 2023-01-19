@@ -7,6 +7,7 @@ import PageNotFound from '../Pages/PageNotFound'
 import Register from '../Pages/Register'
 
 import Product from '../Pages/Product'
+import SingleProductPage from './SingleProductPage'
 
 const AllRoutes = ({userName}) => {
   console.log(userName)
@@ -16,6 +17,7 @@ const AllRoutes = ({userName}) => {
         <Routes>
             <Route path='/' element={<Home/>} ></Route>
             <Route path='/product' element={<Product/>} ></Route>
+            <Route path='/product/:id' element={<SingleProductPage/>} ></Route>
             <Route path='*' element={<PageNotFound/>} ></Route>
             <Route path='/login' element={<Login/>} ></Route>
             <Route path='/register' element={<Register/>} ></Route>
