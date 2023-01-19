@@ -6728,6 +6728,29 @@
             "image": "https://assets.myntassets.com/f_webp,w_136,c_limit,fl_progressive,dpr_2.0/assets/images/2023/1/8/b0fde03d-e392-46dc-9a54-d5511853e9441673167109556-HP_Shop-By-Category_31.jpg"
             }
         ]
+        },
+    "UsersList":[
+        {
+            "id":1
         }
+    ],
+    "AdminData":[
+        {"id":1,
+          "name":"Sapna Sharma",
+          "email":"sapna@gmail.com",
+          "password":"sapna12345",
+          "contact":987654321
+       }
+    ],
+    "WishList":[
+      {
+        "id":1
+      }  
+    ],
+    "Cart":[
+        {
+            "id":1
+        }
+    ]    
     
 }
