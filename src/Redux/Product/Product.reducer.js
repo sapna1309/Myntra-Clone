@@ -3,6 +3,7 @@ import * as types from "./Product.type"
 let initialState={
     loading:false,
     error:false,
+    totalPages:0,
     products:[]
     
 }
@@ -21,8 +22,8 @@ export const mensProductReducer = (state =initialState , {type , payload})=>{
                ...state,
                loading:false,
                error:false,
-               products:payload
-               
+               products:payload.data,
+               totalPages:payload.headers["x-total-count"],               
             }
         }
         case types.GET_PRODUCTS_ERROR:{ 

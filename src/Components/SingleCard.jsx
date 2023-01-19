@@ -6,9 +6,12 @@ import {
   Box,
   Button,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 function SingleCard({ ...props }) {
+  const navigate = useNavigate()
   // console.log(props.prod.title)
   const {
+    id,
     title,
     brand,
     images,
@@ -20,7 +23,7 @@ function SingleCard({ ...props }) {
 
    
     // <div className={Style.cardContainer}>
-    <Card border={"none"} _hover={ {boxShadow:"rgba(0, 0, 0, 0.24) 0px 3px 8px"}}>
+    <Card border={"none"} _hover={ {boxShadow:"rgba(0, 0, 0, 0.24) 0px 3px 8px"}} onClick={()=>navigate(`/product/${id}`)} >
       <CardBody textAlign={"left"}>
         <Box>
           <Image  src={images[0]} width={"100%"} _hover={{p:"0.5rem"}} overflow={"hidden"} borderRadius={"0.9rem"}/>

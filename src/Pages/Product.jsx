@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import prodStyle from "../Styles/Products.module.css";
 import SingleCard from "../Components/SingleCard";
 import {
@@ -15,41 +15,60 @@ import { useEffect } from "react";
 import { getMensProducts } from "../Redux/Product/Product.action";
 import LoadingPage from "./LoadingPage";
 import PageNotFound from "./PageNotFound";
+import Pagination from "../Components/Pagination";
 
-let brands = [];
+let brands = ["HRX by Hrithik Roshan ",
+  "Roadster" ,
+  "The Indian Garage Co ",
+  "HIGHLANDER" ,
+  "LOCOMOTIVE" ,
+  "United Colors of Benetton" ,
+  "IVOC" ,
+  "H&M" ,
+  "Mast & Harbour" ,
+  "Lee" ,
+  "DENNISON" ,
+  "HERE&NOW" ,
+  "Levis" ,
+  "WROGN",
+  "Urbano Fashion",
+  "High Star",
+  "KRA",
+  "Blackberrys",
+  "Artengo By Decathlon",
+  "FITINC"
+];/**
+,
+*/
+
 
 const Product = () => {
-  const { loading, error, products } = useSelector((store) => store.mens);
-
+  const { loading, error, totalPages,products } = useSelector((store) => store.mens);
+  // page state
+  const [currentPage, setCurrentPage] = useState(1);
+  
   const dispatch = useDispatch();
-  console.log(products);
+
+  
+  console.log(products , currentPage);
 
   useEffect(() => {
     if (products.length === 0) {
-      getMensProducts(dispatch);
+      dispatch(getMensProducts(currentPage));
     }
-  }, [dispatch,products.length]);
-
-  // to get brands
-
-  let objMens = {};
-  const getCategory = () => {
-    let res = products.map((prod) => prod.brand);
-
-    for (let i = 0; i < res.length; i++) {
-      if (objMens[res[i]] === undefined) {
-        objMens[res[i]] = 1;
-      }
-    }
-
-    for (let key in objMens) {
-      brands.push(key);
-    }
-  };
+  }, [dispatch,products.length,currentPage]);
+  
   console.log(brands);
+  
+  useEffect(()=>{
 
-  getCategory();
-
+    dispatch(getMensProducts(currentPage));
+   
+  },[dispatch,currentPage])
+  const handlePage = (val) =>{
+    setCurrentPage((prev) => prev + val)
+  }
+  
   if (loading)
     return (
       <>
@@ -77,7 +96,7 @@ const Product = () => {
             {" "}
             Myntra -
           </Text>{" "}
-          ({products.length})
+          ({totalPages})
         </Box>
 
         <Flex
@@ -85,35 +104,15 @@ const Product = () => {
           flexDirection={"row"}
           justifyContent={"space-between"}
         >
-          <Box  w={"25%"}>
+          <Box  w={"20%"}>
             <Flex justifyContent={"space-between"} alignItems={"baseline"} p={"0 1rem"}>
               <Text fontSize={"1.2rem"} fontWeight={700}>Filters</Text>
               <Text fontSize={"0.9rem"} fontWeight={"700"} color={"red"}>Clear All</Text>
             </Flex>
 
-            <Box textAlign="left" mt={1} >
-              <Flex flexDirection={"column"} pt={"0.5rem"} border={"1px solid gray"} >
-                <Radio pl={"1rem"}>Mens</Radio>
-                <Radio pl={"1rem"}>Womens</Radio>
-                <Radio pl={"1rem"}>Childrens</Radio>
-              </Flex>
+           
 
-              <Box border={"1px solid gray"} >
-
-
-              <Heading fontSize={"1rem"} textAlign="left" mb={"0.5rem"} pt={"1rem"} pl={"0.5rem"}>
-                Categories
-              </Heading>
-
-              <Flex flexDirection={"column"}>
-                <Checkbox pl={"1rem"}>Mens</Checkbox>
-                <Checkbox pl={"1rem"}>Womens</Checkbox>
-                <Checkbox pl={"1rem"}>SweatShirts</Checkbox>
-                <Checkbox pl={"1rem"}>Kurtas</Checkbox>
-              </Flex>
-              </Box>
-            </Box>
-            <Box border={"1px solid gray"}>
+            <Box border={"1px solid gray"} overflowY={"scroll"} h={250}>
               <Heading fontSize={"1rem"} textAlign="left" mb={"0.5rem"} pt={"1rem"} pl={"0.5rem"}>
                 Brands
               </Heading>
@@ -131,10 +130,11 @@ const Product = () => {
                 ))}
               </Flex>
             </Box>
+
           </Box>
           {/* filters end */}
 
-          <Box border={"1px solid red"} w={"74%"}>
+          <Box border={"1px solid red"} w={"80%"}>
             <div className={prodStyle.products}>
               <Box border={"1px solid red"}> top filters</Box>
 
@@ -153,11 +153,15 @@ const Product = () => {
                   ))}
               </Grid>
             </div>
+      <Box>
+        <Pagination handlePage={handlePage} setCurrentPage={setCurrentPage} currentPage ={currentPage} totalPages={totalPages}/>
+      </Box>
           </Box>
         </Flex>
 
         {/* </div> */}
       </div>
+
     </div>
   );
 };
