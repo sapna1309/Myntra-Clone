@@ -108,6 +108,7 @@ export default function Navbar() {
        
 
              <Box border={'0px solid black'} >
+              <Text>-----</Text>
              <NavLink to="/"><Image
                     src={CWLOGO}
                     
