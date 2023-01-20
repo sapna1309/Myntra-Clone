@@ -6729,17 +6729,83 @@
         },
     "UsersList":[
         {
-            "id":1
-        }
+            "id":1,
+            "fname": "Kanchan",
+            "lname": "Kumari",
+            "email": "k@gmail.com",
+            "password": "12345KK",
+            "contact": "1234567891"
+        },
+        {    "id": 2,
+            "fname": "Kavita",
+            "lname": "Saxena",
+            "email": "kt@gmail.com",
+            "password": "12345KS",
+            "contact": "1234567890"
+        },
+        {    "id": 3,
+        "fname": "Deepak",
+        "lname": "Singh",
+        "email": "d@gmail.com",
+        "password": "12345DS",
+        "contact": "1234567892"
+       },
+       {    "id": 4,
+        "fname": "ADarsha",
+        "lname": "Khatua",
+        "email": "a@gmail.com",
+        "password": "12345AK",
+        "contact": "1234567893"
+       },
+       {    "id": 5,
+        "fname": "Deepti",
+        "lname": "Singh",
+        "email": "d@gmail.com",
+        "password": "12345DS",
+        "contact": "1234567895"
+       },
+       {    "id": 6,
+        "fname": "Akash",
+        "lname": "Fulari",
+        "email": "af@gmail.com",
+        "password": "12345AF",
+        "contact": "1234567896"
+       },
+       {    "id": 7,
+        "fname": "Sankalp",
+        "lname": "Tiwari",
+        "email": "s@gmail.com",
+        "password": "12345ST",
+        "contact": "12345678928"
+       },
+       {    "id": 8,
+        "fname": "Tanisha",
+        "lname": "Singh",
+        "email": "t@gmail.com",
+        "password": "12345TS",
+        "contact": "1234567899"
+       },
+       {    "id": 9,
+        "fname": "Gautam",
+        "lname": "Verma",
+        "email": "gv@gmail.com",
+        "password": "12345GV",
+        "contact": "1234567800"
+       },
+       {    "id": 10,
+        "fname": "Mayur",
+        "lname": "Wagh",
+        "email": "m@gmail.com",
+        "password": "12345MW",
+        "contact": "1234567822"
+       }
     ],
-    "AdminData":[
-        {"id":1,
+    "AdminData":{"id":1,
           "name":"Sapna Sharma",
           "email":"sapna@gmail.com",
           "password":"sapna12345",
           "contact":987654321
-       }
-    ],
+       },
     "WishList":[
       {
         "id":1
