@@ -13,6 +13,7 @@ import WomensPage from "../Pages/Admin/WomensPage";
 import KidsPage from "../Pages/Admin/KidsPage";
 import UsersPage from "../Pages/Admin/UsersPage";
 import AdminProfilePage from "../Pages/Admin/AdminProfilePage";
+import Address from "../Pages/Address";
 
 const AllRoutes = ({ userName }) => {
   console.log(userName);
@@ -33,6 +34,7 @@ const AllRoutes = ({ userName }) => {
         <Route path='/admin-kids' element={<KidsPage/>} ></Route>
         <Route path='/admin-users' element={<UsersPage/>} ></Route>
         <Route path='/admin-profile' element={<AdminProfilePage/>} ></Route>
+        <Route path="/address" element={<Address/>} ></Route>
       </Routes>
     </div>
   );
