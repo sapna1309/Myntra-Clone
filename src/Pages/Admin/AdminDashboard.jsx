@@ -1,11 +1,12 @@
+import { Box } from '@chakra-ui/layout';
 import React from 'react'
 import AdminNavbar from '../../Components/AdminNavbar';
 
 const AdminDashboard = () => {
   return (
-    <div>
+    <Box minH="100vh" bg={'gray.100'}>
         <AdminNavbar/>
-    </div>
+    </Box>
   )
 }
 

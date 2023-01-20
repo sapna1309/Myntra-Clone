@@ -1,7 +1,3 @@
-
- 
-  
-  
   import { AiFillHeart } from "react-icons/ai";
   import { CgProfile } from "react-icons/cg";
   import { BsHandbag } from "react-icons/bs";
