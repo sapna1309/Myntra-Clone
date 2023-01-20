@@ -60,10 +60,10 @@ export default function Navbar() {
   const [verifya , setVerifya] = useState(false);
 
 
-    let navigate=useNavigate()
+    // let navigate=useNavigate()
 
     const fetchData = async() => {
-         let res= await fetch(" http://localhost:8080/users")
+         let res= await fetch("https://classic-world.onrender.com/UsersList")
          let data=await res.json();
          setVerify(true);
          setLoginUser(data);
