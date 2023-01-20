@@ -1,3 +1,5 @@
+import { StarIcon } from "@chakra-ui/icons";
+import { FaRegHeart } from "react-icons/fa";
 import {
   Card,
   CardBody,
@@ -5,11 +7,13 @@ import {
   Image,
   Box,
   Button,
+  Flex,
+  Stack,
 } from "@chakra-ui/react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 function SingleCard({ ...props }) {
-  const navigate = useNavigate()
-  // console.log(props.prod.title)
+  const navigate = useNavigate();
   const {
     id,
     title,
@@ -18,32 +22,89 @@ function SingleCard({ ...props }) {
     discount,
     discounted_price,
     strike_price,
+    rating,
+    rating_count,
   } = props.prod;
+
+  const handleAddToWishlist = async () => {
+    // console.log("newItem:",props)
+    await axios
+      .post(`https://classic-world.onrender.com/WishList/`, { props })
+      .then((res) => alert("Added to Wishlist Successfully...."))
+      .catch((err) => alert(err));
+  };
+
   return (
-
-   
     // <div className={Style.cardContainer}>
-    <Card border={"none"} _hover={ {boxShadow:"rgba(0, 0, 0, 0.24) 0px 3px 8px"}} onClick={()=>navigate(`/product/${id}`)} >
+    <Card
+      border={"none"}
+      _hover={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
+      onClick={() => navigate(`/product/${id}`)}
+    >
       <CardBody textAlign={"left"}>
-        <Box>
-          <Image  src={images[0]} width={"100%"} _hover={{p:"0.5rem"}} overflow={"hidden"} borderRadius={"0.9rem"}/>
-        </Box>
+        <Stack spacing={2}>
+          <Box>
+            <Image
+              src={images[0]}
+              width={"100%"}
+              _hover={{ p: "0.5rem" }}
+              overflow={"hidden"}
+              borderRadius={"0.9rem"}
+            />
+          </Box>
 
-        <Text fontSize={"1rem"} fontWeight={700}>{brand}</Text>
-        <Text fontSize={"0.8rem"} color={"gray.500"}>{title}</Text>
-        <Box display={"flex"} justifyContent={"space-between" } alignItems={"baseline"}>
-        <Text fontSize={"0.9rem"} fontWeight={"600"}> Rs.{discounted_price}</Text>
-        <Text fontSize={"0.7rem"} alignItems={"baseline"} textDecoration={"line-through"}>Rs.{strike_price}</Text>
-        <Text fontSize={"0.7rem"} color="pink.300">{discount}</Text>
+          <Text fontSize={"1rem"} fontWeight={700} noOfLines={1}>
+            {brand}
+          </Text>
+          <Text fontSize={"0.8rem"} color={"gray.500"} noOfLines={1}>
+            {title}
+          </Text>
+          <Box
+            display={"flex"}
+            justifyContent={"space-between"}
+            alignItems={"baseline"}
+          >
+            <Text fontSize={"0.9rem"} fontWeight={"600"}>
+              {" "}
+              Rs.{discounted_price}
+            </Text>
+            <Text
+              fontSize={"0.7rem"}
+              alignItems={"baseline"}
+              textDecoration={"line-through"}
+            >
+              Rs.{strike_price}
+            </Text>
+            <Text fontSize={"0.7rem"} color="pink.300">
+              {discount}
+            </Text>
+          </Box>
 
+          <Box>
+            <Flex justifyContent={"space-between"} alignItems={"center"}>
+              <Text>
+                {" "}
+                {rating} <StarIcon fontSize={"0.8rem"} />
+              </Text>
+              <Text>{rating_count}</Text>
+            </Flex>
+          </Box>
 
-
-        </Box>
-
-        <Box textAlign={"center"} mt={"0.5rem"}>
-          <Button  backgroundColor={"pink.400"} color={"white"} _hover={{color:"pink.400", backgroundColor:"White",
-          border:"3px solid #e91f99"} }>Add To Wishlist</Button>
-        </Box>
+          <Box textAlign={"center"} mt={"0.5rem"}>
+            <Button
+              backgroundColor={"pink.400"}
+              color={"white"}
+              _hover={{
+                color: "pink.400",
+                backgroundColor: "White",
+                border: "3px solid #e91f99",
+              }}
+              onClick={() => handleAddToWishlist()}
+            >
+              <FaRegHeart fontVariant={"primary"} /> Add To Wishlist
+            </Button>
+          </Box>
+        </Stack>
       </CardBody>
     </Card>
     // </div>

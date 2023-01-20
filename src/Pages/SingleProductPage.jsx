@@ -1,4 +1,7 @@
 import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
+import { FaRegHeart } from "react-icons/fa";
+
+import axios from "axios";
 //import { prodErrorMap } from "firebase/auth";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -27,7 +30,7 @@ const SingleProductPage = () => {
     fetchSingleProduct();
   }, []);
 
-  console.log(singleProduct);
+  // console.log(singleProduct);
 
   const {
     title,
@@ -40,6 +43,23 @@ const SingleProductPage = () => {
     size,
     strike_price,
   } = singleProduct;
+
+  const handleAddToWishlist= async ()=>{
+    alert("sdfghjkl")
+    // console.log("newItem:",props)
+    await axios.post(`https://classic-world.onrender.com/WishList/`,{singleProduct})
+    .then((res)=>alert("Added to Wishlist Successfully...."))
+    .catch((err)=>alert(err))
+
+  }
+  const AddtoBag= async ()=>{
+    // console.log("newItem:",props)
+    await axios.post(`https://classic-world.onrender.com/cart/`,{singleProduct})
+    .then((res)=>alert("Added to bag Successfully...."))
+    .catch((err)=>alert(err))
+
+  }
+
 
   return (
 
@@ -55,16 +75,18 @@ const SingleProductPage = () => {
           p={"0.5rem 3rem"}
         >
           <Box w={{ md: "100%" }} boxShadow={"rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px"}>
-            <Image
+            <Image 
+            src={poster}
+            position={"relative"}
+            bgSize={"cover"}
+            bgRepeat={"no-repeat"}
+              h={"100%"}
               m={"auto"}
               w={{ sm: "50%", md: "70%" }}
               p={"0.5rem"}
-              src={poster}
+              
             /> 
-            <Box>
-           
-              {rating}|{rating_count}
-            </Box>
+            
           </Box>
 
           <Box  w={"100%"}  p={"0 2rem"} boxShadow={"rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px"}>
@@ -107,8 +129,9 @@ const SingleProductPage = () => {
                 Select Size
               </Text>
               <Flex gap={"0.5rem"}>
-                {size?.map((sz) => (
+                {size?.map((sz,i) => (
                   <Button
+                  key={i}
                     backgroundColor={"#fff"}
                     border={"1px solid gray"}
                     borderRadius={"50%"}
@@ -156,6 +179,24 @@ const SingleProductPage = () => {
                 </Text>
                 <Text color={"gray.400"}> {title}</Text>
               </Flex>
+              <Flex
+                flexDirection={{ sm: "column", lg: "row" }}
+                justifyContent={"space-between"}
+              >
+                <Text color={"gray.600"} display={"inline-block"}>
+                  Rating: 
+                </Text>
+                <Text color={"gray.400"}> {rating}</Text>
+              </Flex>
+              <Flex
+                flexDirection={{ sm: "column", lg: "row" }}
+                justifyContent={"space-between"}
+              >
+                <Text color={"gray.600"} display={"inline-block"}>
+                  Review: 
+                </Text>
+                <Text color={"gray.400"}> {rating_count}</Text>
+              </Flex>
             </Box>
             <Box
               textAlign={"left"}
@@ -163,26 +204,32 @@ const SingleProductPage = () => {
               mt={"1rem"}
               borderTop={"2px solid gray"}
               p={"1rem"}
-              display={{ base: "none", md: "inline-block", lg: "inline-block" }}
+              display={{ base: "inlibe-block", md: "inline-block", lg: "inline-block" }}
             >
+              {/* fontSize={"1.2rem"} color={"pink.500"} fontWeight={700} */}
               <Flex gap={"0.5rem"} justifyContent={"center"}>
-                <Button outlineColor={"gray"} borderRadius={"0.2rem"} w={"50%"}>
-                  Wishlist
+                <Button _hover={{color:"black"}} fontSize={"1.2rem"} color={"pink.500"} outlineColor={"gray"} borderRadius={"0.2rem"} w={"50%"} onClick={handleAddToWishlist}>
+                  <Flex gap={"0.5rem"}>
+                  <FaRegHeart fontSize={"1.5rem"} backgroundColor="#fff"/>
+                    Wishlist
+                  </Flex>
+                  
                 </Button>
                 <Button
+                _hover={{backgroundColor:"white",color:"pink.500",outlineColor:"pink.500"}}
                   borderRadius={"0.2rem"}
                   w={"50%"}
                   color={"#fff"}
                   backgroundColor={"pink.500"}
+                  onClick={AddtoBag}
+                  fontSize={"1.2rem"}
+                  fontWeight={700}
                 >
                   Add To Bag
                 </Button>
               </Flex>
             </Box>
-          </Box>
-        </Flex>
-      </Box>
-      <Box
+            {/* <Box
         display={{ md: "none", lg: "none" }}
         position={"fixed"}
         bottom={0}
@@ -193,7 +240,7 @@ const SingleProductPage = () => {
         backgroundColor={"#fff"}
       >
         <Flex justifyContent={"space-between"}>
-          <Button outlineColor={"gray"} borderRadius={"0.2rem"} w={"49%"}>
+          <Button outlineColor={"gray"} borderRadius={"0.2rem"} w={"49%"} onClick={handleAddToWishlist}>
             WISHLIST
           </Button>
           <Button
@@ -205,7 +252,11 @@ const SingleProductPage = () => {
             ADD TO BAG
           </Button>
         </Flex>
+      </Box> */}
+          </Box>
+        </Flex>
       </Box>
+     
       </div>
       <Footer/>
     </div>
