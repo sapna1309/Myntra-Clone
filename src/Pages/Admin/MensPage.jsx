@@ -14,9 +14,9 @@ const MensPage = () => {
   
   console.log("Mens",MensData);
   return (
-    <Box bg={'gray.100'}  width={'100%'} >
+    <Box bg={'gray.100'}  width={'full'} >
       <AdminNavbar/>
-      <Box  style={{ width: "85vw", margin: "auto", marginLeft:"250px" }} >
+      <Box  style={{ width: "90%", margin: "auto", marginLeft:"250px" }} >
     <TableContainer>
     <Table variant='striped' colorScheme='pink'  >
       <Thead bg={'#990578'} >
