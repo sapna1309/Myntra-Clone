@@ -1,4 +1,4 @@
-import {  ADD_KIDS_SUCCESS, ADD_MENS_SUCCESS, ADD_WOMENS_SUCCESS, GET_PRODUCTS_ERROR, GET_PRODUCTS_LOADING } from "./Admin.type"
+import {  ADD_KIDS_SUCCESS, ADD_MENS_SUCCESS, ADD_WOMENS_SUCCESS, DELETE_PRODUCT_KIDS, DELETE_PRODUCT_MENS, DELETE_PRODUCT_WOMENS, GET_KIDS_SUCCESS, GET_MENS_SUCCESS, GET_PRODUCTS_ERROR, GET_PRODUCTS_LOADING, GET_WOMENS_SUCCESS, UPDATE_PRODUCT_KIDS, UPDATE_PRODUCT_MENS, UPDATE_PRODUCT_WOMENS } from "./Admin.type"
 
 const initialState={
  loading:false,
@@ -27,7 +27,6 @@ export const adminReducer=(state=initialState,{type,payload})=>{
             ...state,
             loading:false,
             error:false,
-            mensData:[...state.mensData,payload],
         }
     }
     case ADD_WOMENS_SUCCESS:{
@@ -35,7 +34,6 @@ export const adminReducer=(state=initialState,{type,payload})=>{
             ...state,
             loading:false,
             error:false,
-            womensData:[...state.womensData,payload],
         }
     }
     case ADD_KIDS_SUCCESS:{
@@ -43,7 +41,78 @@ export const adminReducer=(state=initialState,{type,payload})=>{
             ...state,
             loading:false,
             error:false,
-            kidsData:[...state.kidsData,payload],
+        }
+    }
+    case GET_MENS_SUCCESS:{
+        return{
+            ...state,
+            loading:false,
+            error:false,
+            mensData:payload,
+        }
+    }
+    case GET_WOMENS_SUCCESS:{
+        return{
+            ...state,
+            loading:false,
+            error:false,
+            womensData:payload,
+        }
+    }
+    case GET_KIDS_SUCCESS:{
+        return{
+            ...state,
+            loading:false,
+            error:false,
+            kidsData:payload,
+        }
+    }
+    case UPDATE_PRODUCT_MENS:{
+        return{
+            ...state,
+            loading:false,
+            error:false,
+            mensData:[...state.mensData,payload]
+        }
+    }
+    case UPDATE_PRODUCT_WOMENS:{
+        return{
+            ...state,
+            loading:false,
+            error:false,
+            womensData:[...state.womensData,payload]
+        }
+    }
+    case UPDATE_PRODUCT_KIDS:{
+        return{
+            ...state,
+            loading:false,
+            error:false,
+            kidsData:[...state.kidsData,payload]
+        }
+    }
+    case DELETE_PRODUCT_MENS:{
+        return{
+            ...state,
+            loading:false,
+            error:false,
+            mensData:[...state.mensData,payload]
+        }
+    }
+    case DELETE_PRODUCT_WOMENS:{
+        return{
+            ...state,
+            loading:false,
+            error:false,
+            womensData:[...state.womensData,payload]
+        }
+    }
+    case DELETE_PRODUCT_KIDS:{
+        return{
+            ...state,
+            loading:false,
+            error:false,
+            kidsData:[...state.kidsData,payload]
         }
     }
     default:{
