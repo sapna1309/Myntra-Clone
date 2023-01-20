@@ -19,6 +19,7 @@ import {
   useDisclosure,
   Menu,
   MenuButton,
+  AvatarBadge,
   // MenuDivider,
   // MenuItem,
   // MenuList,
@@ -34,11 +35,11 @@ import {ImMan,ImWoman} from 'react-icons/im';
 import {FaChild,FaUsers,FaHouseUser} from 'react-icons/fa'
 const LinkItems= [
   { name: 'Home', icon: AiFillHome, path:'/admin-dashboard'},
-  { name: 'Add Products', icon: HiFolderAdd, path:'/add-product' },
-  { name: 'Men', icon: ImMan, path:'/mens' },
-  { name: 'Women', icon: ImWoman, path:'/womens' },
-  { name: 'Kids', icon: FaChild, path:'/kids' },
-  { name: 'Users', icon: FaUsers, path:'/users' },
+  { name: 'Add Product', icon: HiFolderAdd, path:'/add-products' },
+  { name: 'Men', icon: ImMan, path:'/admin-men' },
+  { name: 'Women', icon: ImWoman, path:'/admin-women' },
+  { name: 'Kids', icon: FaChild, path:'/admin-kids' },
+  { name: 'Users', icon: FaUsers, path:'/admin-users' },
   { name: 'Profile', icon: FaHouseUser, path:'/admin-profile' },
 ];
 
@@ -47,7 +48,7 @@ export default function AdminNavbar({
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+    <Box>
       <SidebarContent
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
@@ -85,7 +86,9 @@ const SidebarContent = ({ onClose, ...rest }) => {
     //   top={10}
       {...rest}>
       <Flex h="20" alignItems="center" mx="6" justifyContent="space-between">
+     
         <Image src={CWLOGO} alt='classic-world' display={{ base: 'none', md: 'flex' }}/>
+      
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
@@ -100,6 +103,7 @@ const NavItem = ({ icon, children, ...rest }) => {
   return (
     <Link href={children.path} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
       <Flex
+        _groupActive={{color:'#990578'}}
         align="center"
         p="4"
         mx="4"
@@ -107,14 +111,14 @@ const NavItem = ({ icon, children, ...rest }) => {
         role="group"
         cursor="pointer"
         _hover={{
-          bg: 'cyan.400',
+          bg: '#72749B',
           color: 'white',
         }}
         {...rest}>
         {icon && (
           <Icon
             mr="4"
-            fontSize="16"
+            fontSize="20"
             _groupHover={{
               color: 'white',
             }}
@@ -145,14 +149,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
         aria-label="open menu"
         icon={<FiMenu />}
       />
-
-      <Text
-        display={{ base: 'flex', md: 'none' }}
-        fontSize="2xl"
-        fontFamily="monospace"
-        fontWeight="bold">
-        <Image src={CWLOGO} alt='classic-world' width={"100px"} />
-      </Text>
+      
+      <Image src={CWLOGO} alt='classic-world' width={"100px"}  display={{ base: 'flex', md: 'none' }}/>
+    
       
       <HStack spacing={{ base:0, md:3 }}  mr={{base:3,md:8}}>
         <IconButton
@@ -168,17 +167,17 @@ const MobileNav = ({ onOpen, ...rest }) => {
               transition="all 0.3s"
               _focus={{ boxShadow: 'none' }}>
               <HStack>
-                <Avatar
-                  size={{base:"sm",md:"md"}}
-                  src={AdminProfile}
-                />
+                <Avatar size={'sm'}
+                  src={AdminProfile}>
+                  <AvatarBadge boxSize='1em' bg='green.500' />
+                  </Avatar>
                 <VStack
                   display={{ base: 'none', md: 'flex' }}
                   alignItems="flex-start"
                   spacing="1px"
                   >
-                  <Text fontSize={{base:"sm",md:"md"}} fontWeight={500} >Sapna Sharma</Text>
-                  <Text fontSize={{base:"xs",md:"sm"}} color="gray.600">
+                  <Text fontSize={'sm'} fontWeight={500} >Sapna Sharma</Text>
+                  <Text fontSize={'xs'} fontWeight={500} color="gray.600">
                     Admin
                   </Text>
                 </VStack>
