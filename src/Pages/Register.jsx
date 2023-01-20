@@ -35,6 +35,7 @@ export default function Register() {
     lname:"",
     email:"",
     password:"",
+    contact:"",
   })
   const [googleValue, setGoogleValue]=useState("")
   const [submitbutton , setSubmitbutton]=useState(false)
@@ -46,7 +47,7 @@ export default function Register() {
     
     const payload = value ;
     console.log(payload)
-    fetch("http://localhost:8080/users", {
+    fetch("https://classic-world.onrender.com/UsersList", {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
@@ -197,6 +198,12 @@ export default function Register() {
                   </Button>
                 </InputRightElement>
               </InputGroup>
+            </FormControl>
+            <FormControl id="contact" isRequired>
+              <FormLabel>Contact no.</FormLabel>
+              <Input type="email"
+              onChange={(e)=>setValue((prev)=>({...prev, contact:e.target.value}))}
+               />
             </FormControl>
             <Stack spacing={10} pt={2}>
               <Text color={"red"} align={"left"}>{error}</Text>
