@@ -1,10 +1,15 @@
+
   import { AiFillHeart } from "react-icons/ai";
+
   import { CgProfile } from "react-icons/cg";
   import { BsHandbag } from "react-icons/bs";
   import { BsSuitHeart } from "react-icons/bs";
  
    import {SearchIcon} from '@chakra-ui/icons'
   import CWLOGO from '../assets/CWLOGO-1.png';
+  import Login from "../Pages/Login";
+   import Home from "../Pages/Home";
+
 
 
 import {
@@ -27,6 +32,14 @@ import {
   PopoverContent,
   useColorModeValue,
   useBreakpointValue,
+  Tag,
+  Menu,
+ MenuList,
+ MenuGroup,
+  MenuDivider,
+  MenuButton,
+  MenuItem,
+  HStack,
   useDisclosure,
 } from '@chakra-ui/react';
 import {
@@ -34,10 +47,28 @@ import {
   CloseIcon,
   ChevronDownIcon,
   ChevronRightIcon,
-} from '@chakra-ui/icons';
+} from '@chakra-ui/icons'
+ import {NavLink, useNavigate} from "react-router-dom"
+import { useEffect,useState} from "react";
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
+  const [LoginUser, setLoginUser] = useState([]);
+  const [verify , setVerify] = useState(false);
+  const [verifya , setVerifya] = useState(false);
+
+    const fetchData = async() => {
+         let res= await fetch("https://classic-world.onrender.com/UsersList")
+         let data=await res.json();
+         setVerify(true);
+         setLoginUser(data);
+    }
+
+    useEffect(() => {
+          fetchData();
+
+        
+    },[])
 
   return (
     <Box >
@@ -70,11 +101,12 @@ export default function Navbar() {
        
 
              <Box border={'0px solid black'} >
-                  <Image
+              
+             <NavLink to="/"><Image
                     src={CWLOGO}
-                    // ml="10px"
+                    
                     width="100%"
-                  />
+                  /></NavLink>
                 </Box>
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={0}>
@@ -98,16 +130,66 @@ export default function Navbar() {
           direction={'row'}
           spacing={6}
             mr={"2%"}>
-            <VStack>
+            <VStack spacing={1}>
+
+            
+
           <CgProfile/>
-          <Button
-            as={'a'}
-            fontSize={'xs'}
-            fontWeight={700}
-            variant={'link'}
-            href={'#'}>
-            Profile
-          </Button>
+         
+           <Menu>
+  <MenuButton  >
+    <Button as={'a'} fontSize={"xs"} fontWeight={"700"} variant={'link'}>Profile</Button>
+  </MenuButton>
+  <MenuList>
+    <MenuGroup >
+     
+       <Flex direction={"column"} align={"flex-start"} padding={"10px"}>
+      {verify && !verifya ? <Text fontWeight={"bold"} fontSize={"15px"}>Hello {LoginUser[LoginUser.length-1].fname}</Text> : <Text fontWeight={"bold"} fontSize={"15px"}>Welcome</Text>}
+      {verify && !verifya ? <Text fontWeight={"500"} fontSize={"13px"}> {LoginUser[LoginUser.length-1].email}</Text>  : <Text fontSize={"12px"} fontWeight={"500"}>To access account and manage orders</Text>}
+      {verifya ? <NavLink to="/Login"><Button  mt={"10px"} variant='outline' fontSize={"13px"} fontWeight={"bold"} color="#FF3F6C">LOGIN / SIGNUP</Button></NavLink> : <Button  isDisabled={true} mt={"10px"} variant='outline' fontSize={"13px"} fontWeight={"bold"} color="#FF3F6C">LOGIN / SIGNUP</Button>}
+      </Flex>
+       
+       
+    </MenuGroup>
+    <MenuDivider />
+    <MenuGroup >
+     <Flex direction={"column"} gap={"5px"} align={"flex-start"} padding={"10px"} fontWeight={"500"} fontSize={"13px"}>
+       <Link>Orders</Link>
+       <Link>Wishlist</Link>
+       <Link>Gift Cards</Link>
+       <Link>Contact Us</Link>
+         <Stack direction={'row'} align={'center'} spacing={1}>
+         
+       <Link>Myntra Insider</Link>
+       <Tag
+                size={'sm'}
+                bg={useColorModeValue('pink.400', 'green.800')}
+                ml={2}
+                color={'white'}>
+                New
+              </Tag>
+       </Stack>
+     </Flex>
+    </MenuGroup>
+    <MenuDivider />
+    <MenuGroup >
+     <Flex direction={"column"} gap={"5px"} align={"flex-start"} padding={"10px"} fontWeight={"500"} fontSize={"13px"}>
+       <Link>Myntra Credit</Link>
+       <Link>Coupons</Link>
+       <Link>Saved Cards</Link>
+       <Link>Saved VPA</Link>
+       <Link>Saved Addresses</Link>
+     </Flex>
+    </MenuGroup>
+    <MenuDivider />
+    <MenuGroup >
+     <Flex direction={"column"} gap={"5px"} align={"flex-start"} padding={"10px"} fontWeight={"500"} fontSize={"13px"}>
+       <Button variant='outline' onClick={()=>setVerifya(true)}>Logout</Button>
+       
+     </Flex>
+    </MenuGroup>
+  </MenuList>
+</Menu>
           </VStack>
          
           <VStack>
@@ -150,9 +232,9 @@ const DesktopNav = () => {
   const popoverContentBgColor = useColorModeValue('white', 'gray.800');
 
   return (
-    <Stack direction={'row'} spacing={4} w={"600px"} alignItems={'center'} >
+    <Stack direction={'row'} spacing={4} w={"600px"} alignItems={'center'} border={"0px solid red"}>
       {NAV_ITEMS.map((navItem) => (
-        <Box key={navItem.label}>
+        <Box key={navItem.label} border={"0px solid blue"}>
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
               <Link
@@ -178,7 +260,7 @@ const DesktopNav = () => {
                 p={4}
                 rounded={'xl'}
                 minW={'4xl'}>
-                <Flex direction={"row"} width={"1000px"} gap={"20px"}>
+                <Flex direction={"row"} width={"full"}  gap={"20px"}  justifyContent={"space-between"}>
                   {navItem.children.map((child) => (
                     <DesktopSubNav key={child.label} {...child} />
                   ))}
@@ -201,7 +283,7 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
       p={2}
       rounded={'md'}
       _hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}>
-      <Stack direction={'column'} align={'flex-start'} spacing={0} >
+      <Stack direction={'column'} align={'flex-start'} spacing={0} border={"0px solid pink"}>
         <Flex direction={"column"} align={"flex-start"}>
           <Text
             transition={'all .3s ease'}
@@ -212,7 +294,7 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
             {label}
           </Text>
           </Flex>
-          <Flex direction={"column"} align={"flex-start"}>
+          <Flex direction={"column"} align={"flex-start"} gap={"5px"}>
           {subLabel.map((el, i) => (
           <Text fontSize={"sm"} key={i}>
             {el}
@@ -300,12 +382,7 @@ const MobileNavItem = ({ label, children, href }) => {
   );
 };
 
-// interface NavItem {
-//   label: string;
-//   subLabel?: string;
-//   children?: Array<NavItem>;
-//   href?: string;
-// }
+
 
 
   
@@ -384,7 +461,7 @@ const MobileNavItem = ({ label, children, href }) => {
         {
           label: "Indian and Fusion Wear",
           subLabel: [
-            "Crop tops over Lehenga",
+            "Crop tops Lehenga",
             "Palazzo Lehenga",
             "jacket over Sari",
             "Pants under Saree",
