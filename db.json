@@ -11,8 +11,57 @@
       "fname": "sapna",
       "lname": "sharma",
       "email": "s@gmail.com",
-      "password": "123456",
+      "password": "1234567",
       "id": 2
+    },
+    {
+      "fname": "sankalp",
+      "lname": "tiwari",
+      "email": "sankalp@gmail.com",
+      "password": 456789,
+      "id": 3
+    },
+    {
+      "fname": "akash",
+      "lname": "fulari",
+      "email": "akash@gmail.com",
+      "password": "akash123",
+      "id": 4
+    },
+    {
+      "fname": "piyush",
+      "lname": "pathak",
+      "email": "piyush@gmail.com",
+      "password": "piyush123",
+      "id": 5
+    },
+    {
+      "fname": "shivam",
+      "lname": "pandey",
+      "email": "shivam@gmail.com",
+      "password": "shivam123",
+      "id": 6
+    },
+    {
+      "fname": "abc",
+      "lname": "ti",
+      "email": "abc@gmail.com",
+      "password": "abc123",
+      "id": 7
+    },
+    {
+      "fname": "akash",
+      "lname": "tiwari",
+      "email": "akash@gmail.com",
+      "password": "akash1234",
+      "id": 8
+    },
+    {
+      "fname": "akash",
+      "lname": "tiwari",
+      "email": "akasha@gmail.com",
+      "password": "akash1234",
+      "id": 9
     }
   ],
   "admin": [

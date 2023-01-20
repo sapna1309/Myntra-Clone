@@ -41,6 +41,7 @@ export default function Register() {
   const navigate=useNavigate()
   const[error, setError]=useState("")
 
+
   const submitPost = async () => {
     
     
@@ -69,6 +70,8 @@ export default function Register() {
           setError("fill all fields")
           return 
     }
+
+  
    
     setError("")
     setSubmitbutton(true)
@@ -163,6 +166,7 @@ export default function Register() {
                   <FormLabel>First Name</FormLabel>
                   <Input type="text" 
                   onChange={(e)=>setValue((prev)=>({...prev, fname:e.target.value}))}
+                  
                    />
                 </FormControl>
               </Box>
