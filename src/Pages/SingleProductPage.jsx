@@ -30,7 +30,7 @@ const SingleProductPage = () => {
     fetchSingleProduct();
   }, []);
 
-  // console.log(singleProduct);
+  // console.log("singleProduct:",singleProduct);
 
   const {
     title,
@@ -45,18 +45,18 @@ const SingleProductPage = () => {
   } = singleProduct;
 
   const handleAddToWishlist= async ()=>{
-    alert("sdfghjkl")
+    
     // console.log("newItem:",props)
-    await axios.post(`https://classic-world.onrender.com/WishList/`,{singleProduct})
+    await axios.post(`https://classic-world.onrender.com/WishList/`,singleProduct)
     .then((res)=>alert("Added to Wishlist Successfully...."))
-    .catch((err)=>alert(err))
+    .catch((err)=>alert("Already Exists in Your Bag"))
 
   }
   const AddtoBag= async ()=>{
     // console.log("newItem:",props)
-    await axios.post(`https://classic-world.onrender.com/cart/`,{singleProduct})
+    await axios.post(`https://classic-world.onrender.com/cart/`,singleProduct)
     .then((res)=>alert("Added to bag Successfully...."))
-    .catch((err)=>alert(err))
+    .catch((err)=>alert("Already Exists in Your Bag"))
 
   }
 
