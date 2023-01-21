@@ -14,6 +14,8 @@ import {
     ButtonGroup,
   } from '@chakra-ui/react';
 import {  useState } from 'react';
+import PaymentNavbar from '../Components/PaymentNavbar';
+import { Link, useNavigate} from "react-router-dom"
   
   export default function Address() {
     const [toggel , setToggle]=useState(true)
@@ -27,6 +29,7 @@ import {  useState } from 'react';
         city:"",
         state:"", 
     })
+    const navigate=useNavigate()
 
     const {name , mobileno, pinCode, address,town , city, state}=value
 
@@ -42,13 +45,19 @@ import {  useState } from 'react';
         
     }
 
+   const handleTogge=()=>{
+    setToggle(!toggel)
+   }
+
     return (
+      <Box>
+        <PaymentNavbar/>
       <Flex
         minH={'100vh'}
         align={'center'}
         justify={'center'}
         lineHeight={"18.5714px"}
-        border={"1px solid gray"}
+        border={"0px solid gray"}
         >
         <HStack spacing={[0, 0, 8]} mx={'auto'}  py={12} px={6} border={"0px solid gray"} alignItems={"flex-start"} 
         display={["grid" , "grid" , "flex"]}
@@ -165,7 +174,8 @@ import {  useState } from 'react';
 
               <ButtonGroup>
                 <HStack>
-                  <Button fontSize={"12px"} bg="#fff" border={"1px solid"}  
+                  <Button fontSize={"12px"} bg="#fff" border={"1px solid"} 
+                  onClick={handleTogge} 
                     _hover={{
                       bg: '#ff3f6c',
                       border:"none",
@@ -239,12 +249,16 @@ import {  useState } from 'react';
                    <Text fontSize={"14px"} fontWeight={"500"} >Total Amount</Text>
                    <Text fontSize={"14px"} fontWeight={"500"} >₹3,498</Text>
                 </HStack>
-
+                <Link to="/payment" >
                 <Button bg={"#ff3f6c"} color={"#fff"}
                  _hover={{
-                  bg: '#ff3f6c',
-                }}
-                >Checkout</Button>
+                   bg: '#ff3f6c',
+                  }}
+                  w="full"
+                  
+                  >Checkout</Button>
+                  </Link>
+                
 
             </Stack>
           </Box>
@@ -253,5 +267,7 @@ import {  useState } from 'react';
         </HStack>
         
       </Flex>
+      </Box>
     );
+
   }
