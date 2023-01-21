@@ -14,6 +14,9 @@ import KidsPage from "../Pages/Admin/KidsPage";
 import UsersPage from "../Pages/Admin/UsersPage";
 import AdminProfilePage from "../Pages/Admin/AdminProfilePage";
 import Address from "../Pages/Address";
+
+import Wishlist from "../Pages/Wishlist";
+
 import Payment from "../Pages/Payment";
 
 const AllRoutes = ({ userName }) => {
@@ -25,6 +28,7 @@ const AllRoutes = ({ userName }) => {
         <Route path="/" element={<Home />}></Route>
         <Route path="/product" element={<Product />}></Route>
         <Route path="/product/:id" element={<SingleProductPage />}></Route>
+        <Route path="/wishlist" element={<Wishlist />}></Route>
         <Route path="*" element={<PageNotFound />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>

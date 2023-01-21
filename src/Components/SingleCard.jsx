@@ -12,7 +12,11 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 function SingleCard({ ...props }) {
+
+  const [wishlist ,setWishlist] = useState([])
+
   const navigate = useNavigate();
   const {
     id,
@@ -25,13 +29,14 @@ function SingleCard({ ...props }) {
     rating,
     rating_count,
   } = props.prod;
+  let prod =props.prod
 
   const handleAddToWishlist = async () => {
-    // console.log("newItem:",props)
-    await axios
-      .post(`https://classic-world.onrender.com/WishList/`, { props })
-      .then((res) => alert("Added to Wishlist Successfully...."))
-      .catch((err) => alert(err));
+         await axios
+        .post(`https://classic-world.onrender.com/WishList/`, prod )
+        .then((res) => alert("Added to Wishlist Successfully...."))
+        .catch((err) => alert("Already Exists"));
+    
   };
 
   return (
@@ -39,11 +44,11 @@ function SingleCard({ ...props }) {
     <Card
       border={"none"}
       _hover={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
-      onClick={() => navigate(`/product/${id}`)}
+      
     >
       <CardBody textAlign={"left"}>
         <Stack spacing={2}>
-          <Box>
+          <Box onClick={() => navigate(`/product/${id}`)}>
             <Image
               src={images[0]}
               width={"100%"}

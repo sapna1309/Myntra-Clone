@@ -148,7 +148,13 @@ const Product = () => {
         className={prodStyle.product_container}
         style={{ marginTop: "60px" }}
       >
-        <Box ml={"1rem"} textAlign={"left"}>
+        <Flex
+          position={"relative"}
+          padding={"0 1rem 0.5rem 1rem"}
+          flexDirection={"row"}
+          justifyContent={"space-between"}
+        >
+          <Box  backgroundColor={"white"} textAlign={"left"} zIndex={"100"} w={"20%"} position={"fixed"}>
           <Text
             display={"inline-block"}
             fontSize={"1.2rem"}
@@ -160,18 +166,11 @@ const Product = () => {
           </Text>{" "}
           ({totalPages})
         </Box>
-
-        <Flex
-          position={"relative"}
-          padding={"0.5rem 1rem 0.5rem 1rem"}
-          flexDirection={"row"}
-          justifyContent={"space-between"}
-        >
           <Box
             display={{ sm: "none", lg: "inline-block" }}
             position={"fixed"}
             w={"20%"}
-            top={"6rem"}
+            top={"5.5rem"}
             zIndex={"100"}
             backgroundColor={"#FFF"}
           >
@@ -229,12 +228,11 @@ const Product = () => {
             ml={{ md: "", lg: "22%", sm: "" }}
           >
             <div className={prodStyle.products}>
-              <Flex justifyContent={"space-between"}>
-                <Box
-                  w={{ sm: "100%", md: "100%", lg: "40%" }}
-                  borderBottom={"2px solid gray"}
-                  m={"0.5rem"}
-                >
+              <Flex
+                justifyContent={"space-between"}
+                borderBottom={"2px solid gray"}
+              >
+                <Box w={{ sm: "100%", md: "100%", lg: "40%" }} m={"0.5rem"}>
                   <Select
                     variant="flushed"
                     placeholder="All"
@@ -246,29 +244,27 @@ const Product = () => {
                     <option value="PriceHTL">Price:High To Low</option>
                   </Select>
                 </Box>
-                <Box width={"100%"} textAlign={"right"}> 
-                <Select
-                    variant="flushed"
-                    placeholder="All"   
+                <Box width={"100%"} textAlign={"right"}>
+                  <Text
+                    display={{ lg: "none" }}
+                    textAlign={"left"}
+                    borderBottom={"1px solid gray"}
+                    p={"0.6rem 0"}
+                    pl={"1rem"}
+                    fontSize={"1.1rem"}
+                    backgroundColor={"white"}
+                    position={"sticky"}
                   >
-                    {/* {brands?.map((brand, i) => (
-                      <option> 
-                      <Checkbox
-                        textAlign={"left"}
-                        fontSize={"0.7rem"}
-                        key={i}
-                        pl={"1rem"}
-                        value={brand}
-                        // isChecked
-                        onChange={(e) => handleCheck(e)}
-                      >
-                        {brand}
-                      </Checkbox>
-                      </option>
-                    ))} */}
-                   
-                  </Select>
-                  {/* <Flex display={{lg:"none",md:"100%",sm:"100%"}} flexDirection={"column"} flexWrap={"wrap"}  w={"100%"} textAlign={"left"}>
+                    Brands
+                  </Text>
+                  <Flex
+                    overflowY={"scroll"}
+                    height={"100px"}
+                    display={{ lg: "none" }}
+                    mt={"1rem"}
+                    flexDirection={"column"}
+                    textAlign={"left"}
+                  >
                     {brands?.map((brand, i) => (
                       <Checkbox
                         textAlign={"left"}
@@ -282,7 +278,7 @@ const Product = () => {
                         {brand}
                       </Checkbox>
                     ))}
-                  </Flex> */}
+                  </Flex>
                 </Box>
               </Flex>
 

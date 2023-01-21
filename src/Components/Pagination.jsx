@@ -25,7 +25,7 @@ const Pagination = ({
   console.log(currentPage ,typeof totalPages)
   return (
     <div>
-      <Box mb={"1rem"}>
+      <Box mt={"2rem"} mb={"1rem"}>
         <Button w={"1rem"} fontSize={{sm:"0.7rem"}}
           isDisabled={currentPage === 1}
           onClick={() => handlePageChange(-1)}
@@ -33,7 +33,7 @@ const Pagination = ({
           Prev
         </Button>
         {buttonArr.map((btn, i) => (
-          <Button display={{base:"none",md:"inline-block"}} w={"1rem"} fontSize={{sm:"0.7rem" }} onClick={() => setCurrentPage(btn)} m={"0 0.2rem"} key={i}>
+          <Button _hover={{backgroundColor:"pink.500",color:"white"}} display={{base:"none",md:"inline-block"}} w={"1rem"} fontSize={{sm:"0.7rem" }} onClick={() => setCurrentPage(btn)} m={"0 0.2rem"} key={i}>
             {btn}
           </Button>
         ))}
