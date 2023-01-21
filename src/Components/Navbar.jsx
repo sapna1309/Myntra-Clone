@@ -60,7 +60,9 @@ export default function Navbar() {
     const fetchData = async() => {
          let res= await fetch("https://classic-world.onrender.com/UsersList")
          let data=await res.json();
-         console.log(data)
+         
+
+         
          setVerify(true);
          setLoginUser(data);
     }
