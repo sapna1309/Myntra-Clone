@@ -14,7 +14,10 @@ import KidsPage from "../Pages/Admin/KidsPage";
 import UsersPage from "../Pages/Admin/UsersPage";
 import AdminProfilePage from "../Pages/Admin/AdminProfilePage";
 import Address from "../Pages/Address";
+
 import Wishlist from "../Pages/Wishlist";
+
+import Payment from "../Pages/Payment";
 
 const AllRoutes = ({ userName }) => {
   console.log(userName);
@@ -37,6 +40,7 @@ const AllRoutes = ({ userName }) => {
         <Route path='/admin-users' element={<UsersPage/>} ></Route>
         <Route path='/admin-profile' element={<AdminProfilePage/>} ></Route>
         <Route path="/address" element={<Address/>} ></Route>
+        <Route path="/payment" element={<Payment/>} ></Route>
       </Routes>
     </div>
   );
