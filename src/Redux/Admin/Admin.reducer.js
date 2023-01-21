@@ -1,11 +1,13 @@
-import {  ADD_KIDS_SUCCESS, ADD_MENS_SUCCESS, ADD_WOMENS_SUCCESS, DELETE_PRODUCT_KIDS, DELETE_PRODUCT_MENS, DELETE_PRODUCT_WOMENS, GET_KIDS_SUCCESS, GET_MENS_SUCCESS, GET_PRODUCTS_ERROR, GET_PRODUCTS_LOADING, GET_WOMENS_SUCCESS, UPDATE_PRODUCT_KIDS, UPDATE_PRODUCT_MENS, UPDATE_PRODUCT_WOMENS } from "./Admin.type"
+import {  ADD_KIDS_SUCCESS, ADD_MENS_SUCCESS, ADD_WOMENS_SUCCESS, DELETE_PRODUCT_KIDS, DELETE_PRODUCT_MENS, DELETE_PRODUCT_WOMENS, GET_ADMINDATA_SUCCESS, GET_KIDS_SUCCESS, GET_MENS_SUCCESS, GET_PRODUCTS_ERROR, GET_PRODUCTS_LOADING, GET_USERSLIST_SUCCESS, GET_WOMENS_SUCCESS, UPDATE_PRODUCT_KIDS, UPDATE_PRODUCT_MENS, UPDATE_PRODUCT_WOMENS } from "./Admin.type"
 
 const initialState={
  loading:false,
  error:false,
  mensData:[],
  womensData:[],
- kidsData:[]
+ kidsData:[],
+ usersListData:[],
+ adminData:{}
 }
 export const adminReducer=(state=initialState,{type,payload})=>{
   switch(type){
@@ -72,7 +74,7 @@ export const adminReducer=(state=initialState,{type,payload})=>{
             ...state,
             loading:false,
             error:false,
-            mensData:[...state.mensData,payload]
+            mensData:[...state.mensData,payload],
         }
     }
     case UPDATE_PRODUCT_WOMENS:{
@@ -80,7 +82,7 @@ export const adminReducer=(state=initialState,{type,payload})=>{
             ...state,
             loading:false,
             error:false,
-            womensData:[...state.womensData,payload]
+            womensData:[...state.womensData,payload],
         }
     }
     case UPDATE_PRODUCT_KIDS:{
@@ -88,7 +90,7 @@ export const adminReducer=(state=initialState,{type,payload})=>{
             ...state,
             loading:false,
             error:false,
-            kidsData:[...state.kidsData,payload]
+            kidsData:[...state.kidsData,payload],
         }
     }
     case DELETE_PRODUCT_MENS:{
@@ -96,7 +98,7 @@ export const adminReducer=(state=initialState,{type,payload})=>{
             ...state,
             loading:false,
             error:false,
-            mensData:[...state.mensData,payload]
+            mensData:[...state.mensData,payload],
         }
     }
     case DELETE_PRODUCT_WOMENS:{
@@ -104,7 +106,7 @@ export const adminReducer=(state=initialState,{type,payload})=>{
             ...state,
             loading:false,
             error:false,
-            womensData:[...state.womensData,payload]
+            womensData:[...state.womensData,payload],
         }
     }
     case DELETE_PRODUCT_KIDS:{
@@ -112,7 +114,23 @@ export const adminReducer=(state=initialState,{type,payload})=>{
             ...state,
             loading:false,
             error:false,
-            kidsData:[...state.kidsData,payload]
+            kidsData:[...state.kidsData,payload],
+        }
+    }
+    case GET_USERSLIST_SUCCESS:{
+        return{
+            ...state,
+            loading:false,
+            error:false,
+            usersListData:payload,
+        }
+    }
+    case GET_ADMINDATA_SUCCESS:{
+        return{
+            ...state,
+            loading:false,
+            error:false,
+            adminData:payload,
         }
     }
     default:{
