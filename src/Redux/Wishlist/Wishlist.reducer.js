@@ -9,7 +9,7 @@ let initialState ={
 export const wishlistReducer = (state = initialState ,{type,payload})=>{
     switch(type){
 
-        case types.GET_CART_LOADING:{
+        case types.GET_WISHLIST_LOADING:{
             return {
                 ...state,
                 loading:true,
@@ -17,7 +17,7 @@ export const wishlistReducer = (state = initialState ,{type,payload})=>{
             }
         }
 
-        case types.GET_CART_SUCCESS:{
+        case types.GET_WISHLIST_SUCCESS:{
             return {
                 ...state,
                 loading:false,
@@ -26,7 +26,7 @@ export const wishlistReducer = (state = initialState ,{type,payload})=>{
             }
         }
 
-        case types.GET_CART_ERROR:{
+        case types.GET_WISHLIST_ERROR:{
             return{
                 ...state,
                 loading:false,
