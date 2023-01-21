@@ -36,6 +36,7 @@ export default function Register() {
     email:"",
     password:"",
     contact:"",
+    isAuth:"true",
   })
   const [googleValue, setGoogleValue]=useState("")
   const [submitbutton , setSubmitbutton]=useState(false)
