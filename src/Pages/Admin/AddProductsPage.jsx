@@ -17,7 +17,7 @@ import {
   Textarea,
   FormHelperText
 } from '@chakra-ui/react';
-
+import BeatLoader from "react-spinners/BeatLoader";
 import { useToast } from '@chakra-ui/react';
 import AdminNavbar from '../../Components/AdminNavbar';
 import {useDispatch} from 'react-redux';
@@ -196,7 +196,7 @@ const Form2 = ({productDetails,setProductDetails}) => {
               focusBorderColor="brand.400"
               rounded="md"
               value={productDetails.images}
-              onChange={(e)=>setProductDetails({...productDetails,images:e.target.value})}
+              onChange={(e)=>setProductDetails({...productDetails,images:[e.target.value]})}
             />
           </InputGroup>
         </FormControl>
@@ -278,7 +278,7 @@ title:"",
 discounted_price:"",
 strike_price:"",
 discount:"",
-images:"",
+images:[],
 size:"",
 country:"",
 description:"",}
@@ -286,11 +286,13 @@ description:"",}
 export default function AddProductsPage() {
   const toast = useToast();
   const [step, setStep] = useState(1);
+  const [loading,setLoading]=useState(false)
   const [progress, setProgress] = useState(33.33);
   const [productDetails,setProductDetails]=useState(initialProduct);
 
+  //const loading = useSelector((store)=>store.adminManager.loading);
   const dispatch = useDispatch();
-
+  //console.log(loading);
   const handleSubmit=()=>{
     if(productDetails.category==="Mens"){
       dispatch(postMensData(productDetails))
@@ -299,17 +301,23 @@ export default function AddProductsPage() {
     }else if(productDetails.category==="Kids"){
       dispatch(postKidsData(productDetails))
     }
-    toast({
-      title: 'Successfully Added.',
-      description: "You have added product successfully.",
-      status: 'success',
-      duration: 3000,
-      isClosable: true,
-    });
-   // console.log("Product",productDetails);
-    setProductDetails(initialProduct)
-    //window.location.reload();
-  }
+    setTimeout(()=>{
+      toast({
+        title: 'Successfully Added.',
+        description: "You have added product successfully.",
+        status: 'success',
+        duration:1500,
+        isClosable: true,
+      });
+      setLoading(false);
+      setStep(1);
+      setProgress(33.33);
+    },2000)
+   setLoading(true); 
+  
+   setProductDetails(initialProduct)
+   }
+   console.log("Image",productDetails.images);
   return (
     <Box minH="100vh" bg={'gray.100'} >
       <AdminNavbar/>
@@ -321,9 +329,16 @@ export default function AddProductsPage() {
         maxWidth={800}
         p={6}
         m="10px auto"
-        as="form">
+        // mt={'150px'}
+        pos={"absolute"}
+        top={150}
+        left={'33%'}
+        right={'18%'}
+        as="form"
+        >
         <Progress
           hasStripe
+          colorScheme='pink'
           value={progress}
           mb="5%"
           mx="5%"
@@ -362,9 +377,12 @@ export default function AddProductsPage() {
             </Flex>
             {step === 3 ? (
               <Button
-                w="7rem"
+                // w="7rem"
                 colorScheme="blue"
                 variant="solid"
+                isLoading={loading}
+                loadingText='Submitting'
+                spinner={<BeatLoader size={10} color='white' />}
                 onClick={handleSubmit}>
                 Submit
               </Button>
