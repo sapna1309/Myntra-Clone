@@ -67,15 +67,15 @@ export default function Navbar() {
     useEffect(() => {
           fetchData();
 
-        
-    },[])
+          
+       },[])
 
   return (
     <Box >
       <Flex
         bg={useColorModeValue('white', 'gray.800')}
         color={useColorModeValue('gray.600', 'white')}
-        minH={'60px'}
+        minH={{sm:"2rem", md:"2rem" , lg:"60px"}}
         zIndex={999}
         pos={"fixed"} top={0}
         py={{ base: 2, md:0 }}
