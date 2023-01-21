@@ -7,4 +7,6 @@ export const fetchWishlistAPI = async()=>{
         //  console.log( "fetchCart:", res.data)
          return res.data
 }
-// fetchWishlistAPI()
+
+
+
