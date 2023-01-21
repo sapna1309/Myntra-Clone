@@ -5,6 +5,8 @@ export const GET_PRODUCTS_ERROR='get/productsError';
 export const GET_MENS_SUCCESS='get/mansSuccess';
 export const GET_WOMENS_SUCCESS='get/womensSuccess';
 export const GET_KIDS_SUCCESS='get/kidsSuccess';
+export const GET_USERSLIST_SUCCESS='get/usersList';
+export const GET_ADMINDATA_SUCCESS='get/adminData';
 
 //ADD_TYPE
 

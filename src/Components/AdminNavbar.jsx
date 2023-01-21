@@ -1,4 +1,5 @@
 import React from 'react';
+import {NavLink} from 'react-router-dom'
 import CWLOGO from '../assets/CWLOGO-1.png';
 import AdminProfile from '../assets/AdminProfile.jpg';
 import {
@@ -12,27 +13,21 @@ import {
   Icon,
   Image,
   useColorModeValue,
-  Link,
   Drawer,
   DrawerContent,
   Text,
   useDisclosure,
   Menu,
   MenuButton,
-  AvatarBadge,
-  // MenuDivider,
-  // MenuItem,
-  // MenuList,
+  AvatarBadge
 } from '@chakra-ui/react';
-import {
-  FiMenu,
-  //FiChevronDown,
-} from 'react-icons/fi';
+import {FiMenu} from 'react-icons/fi';
 import {AiFillHome} from 'react-icons/ai'
 import {BsFillBellFill} from 'react-icons/bs'
 import {HiFolderAdd} from 'react-icons/hi'
 import {ImMan,ImWoman} from 'react-icons/im';
-import {FaChild,FaUsers,FaHouseUser} from 'react-icons/fa'
+import {FaChild,FaUsers} from 'react-icons/fa'
+import {RiAccountPinCircleFill} from 'react-icons/ri'
 const LinkItems= [
   { name: 'Home', icon: AiFillHome, path:'/admin-dashboard'},
   { name: 'Add Product', icon: HiFolderAdd, path:'/add-products' },
@@ -40,18 +35,19 @@ const LinkItems= [
   { name: 'Women', icon: ImWoman, path:'/admin-women' },
   { name: 'Kids', icon: FaChild, path:'/admin-kids' },
   { name: 'Users', icon: FaUsers, path:'/admin-users' },
-  { name: 'Profile', icon: FaHouseUser, path:'/admin-profile' },
+  { name: 'Account', icon: RiAccountPinCircleFill, path:'/admin-profile' },
 ];
-
+//RiLogoutCircleFill
 export default function AdminNavbar({
   children,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box>
+  <Box border={'0px solid black'} pos={'fixed'} top={0} right={0} left={0} zIndex={999}>
       <SidebarContent
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
+        border={'0px solid black'}
       />
       <Drawer
         autoFocus={false}
@@ -83,25 +79,24 @@ const SidebarContent = ({ onClose, ...rest }) => {
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
-    //   top={10}
       {...rest}>
-      <Flex h="20" alignItems="center" mx="6" justifyContent="space-between">
+      <Flex h="20" alignItems="center" mx="6" justifyContent="space-between"  >
      
         <Image src={CWLOGO} alt='classic-world' display={{ base: 'none', md: 'flex' }}/>
       
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} item={link.path}>
           {link}
         </NavItem>
       ))}
     </Box>
   );
 };
-const NavItem = ({ icon, children, ...rest }) => {
+const NavItem = ({ icon, children, item,...rest }) => {
   return (
-    <Link href={children.path} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+    <NavLink to={item} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
       <Flex
         _groupActive={{color:'#990578'}}
         align="center"
@@ -127,7 +122,7 @@ const NavItem = ({ icon, children, ...rest }) => {
         )}
         {children.name}
       </Flex>
-    </Link>
+    </NavLink>
   );
 };
 const MobileNav = ({ onOpen, ...rest }) => {
@@ -181,20 +176,8 @@ const MobileNav = ({ onOpen, ...rest }) => {
                     Admin
                   </Text>
                 </VStack>
-                {/* <Box display={{ base: 'none', md: 'flex' }}>
-                  <FiChevronDown />
-                </Box> */}
               </HStack>
             </MenuButton>
-            {/* <MenuList
-              bg={useColorModeValue('white', 'gray.900')}
-              borderColor={useColorModeValue('gray.200', 'gray.700')}>
-              <MenuItem>Profile</MenuItem>
-              <MenuItem>Settings</MenuItem>
-              <MenuItem>Billing</MenuItem>
-              <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
-            </MenuList> */}
           </Menu>
         </Flex>
       </HStack>

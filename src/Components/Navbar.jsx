@@ -60,22 +60,46 @@ export default function Navbar() {
     const fetchData = async() => {
          let res= await fetch("https://classic-world.onrender.com/UsersList")
          let data=await res.json();
+         
+
+         
          setVerify(true);
          setLoginUser(data);
     }
 
+
+
+    // const updateHandle=async(id)=>{
+    //   const payload={
+    //     id:id,
+    //     fname:
+    //   }
+    //    try{
+    //     let res= await fetch(`https://classic-world.onrender.com/UsersList${id}`,{
+    //       method:"PATCH",
+    //       Body:JSON.stringify({!isAuth}),
+    //       header:{
+    //         "Content-Type": "application/json"
+    //       },
+    //     })
+    //    }
+    //    catch(err){
+    //       console.log(err)
+    //    }
+    // }
+
     useEffect(() => {
           fetchData();
 
-        
-    },[])
+          
+       },[])
 
   return (
     <Box >
       <Flex
         bg={useColorModeValue('white', 'gray.800')}
         color={useColorModeValue('gray.600', 'white')}
-        minH={'60px'}
+        minH={{sm:"2rem", md:"2rem" , lg:"60px"}}
         zIndex={999}
         pos={"fixed"} top={0}
         py={{ base: 2, md:0 }}

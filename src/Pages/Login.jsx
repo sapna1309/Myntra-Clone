@@ -25,11 +25,15 @@ import Navbar from '../Components/Navbar';
   
   export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
-    const [googleValue, setGoogleValue]=useState("")
+    const [googleValue, setGoogleValue]=useState("");
+    
+
    
   const [value , setValue]=useState({
     email:"",
     password:"",
+
+    isAuth:"true",
   })
   const [submitbutton , setSubmitbutton]=useState(false)
   const navigate=useNavigate()
