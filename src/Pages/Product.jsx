@@ -144,9 +144,9 @@ const Product = () => {
   return (
     <div>
       <Navbar />
-      <div
+      <Box
         className={prodStyle.product_container}
-        style={{ marginTop: "60px" }}
+        mt={{ sm: "10rem",md:"3.9rem" ,lg:"7.2rem"}}
       >
         <Flex
           position={"relative"}
@@ -154,7 +154,7 @@ const Product = () => {
           flexDirection={"row"}
           justifyContent={"space-between"}
         >
-          <Box  backgroundColor={"white"} textAlign={"left"} zIndex={"100"} w={"20%"} position={"fixed"}>
+          <Box  backgroundColor={"white"} textAlign={"left"} zIndex={"100"} w={"20%"} position={"sticky"}>
           <Text
             display={"inline-block"}
             fontSize={"1.2rem"}
@@ -226,11 +226,15 @@ const Product = () => {
             border={"1px solid gray"}
             w={{ lg: "80%", sm: "100%", md: "100%" }}
             ml={{ md: "", lg: "22%", sm: "" }}
+            position={"relative"}
           >
             <div className={prodStyle.products}>
               <Flex
                 justifyContent={"space-between"}
                 borderBottom={"2px solid gray"}
+                position={"fixed"}
+                zIndex={14}
+                backgroundColor={"white"}
               >
                 <Box w={{ sm: "100%", md: "100%", lg: "40%" }} m={"0.5rem"}>
                   <Select
@@ -290,6 +294,7 @@ const Product = () => {
                   md: "repeat(3,1fr)",
                 }}
                 gap={"0.9rem"}
+                mt={"10rem"}
               >
                 {checked ? (
                   <>
@@ -320,7 +325,7 @@ const Product = () => {
         </Flex>
 
         {/* </div> */}
-      </div>
+      </Box>
       <Footer />
     </div>
   );
