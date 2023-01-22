@@ -9,6 +9,10 @@
   import CWLOGO from '../assets/CWLOGO-1.png';
   import Login from "../Pages/Login";
    import Home from "../Pages/Home";
+   import Wishlist from '../Pages/Wishlist';
+   import Address from "../Pages/Address";
+   import Cart from "../Pages/Cart";
+   import Product from "../Pages/Product";
 
 
 
@@ -50,56 +54,61 @@ import {
 } from '@chakra-ui/icons'
  import {NavLink, useNavigate} from "react-router-dom"
 import { useEffect,useState} from "react";
+import { useParams } from "react-router-dom";
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
   const [LoginUser, setLoginUser] = useState([]);
   const [verify , setVerify] = useState(false);
   const [verifya , setVerifya] = useState(false);
+  const [mensData , setmensData] = useState([]);
+  const [value , setValue] = useState('');
 
     const fetchData = async() => {
          let res= await fetch("https://classic-world.onrender.com/UsersList")
          let data=await res.json();
          
-
-         
          setVerify(true);
          setLoginUser(data);
     }
 
+    const fetchmensData = async() => {
+      let r= await fetch(`https://classic-world.onrender.com/MensData`)
+      let deta=await r.json();
+     setmensData(deta);
+ }
 
 
-    // const updateHandle=async(id)=>{
-    //   const payload={
-    //     id:id,
-    //     fname:
-    //   }
-    //    try{
-    //     let res= await fetch(`https://classic-world.onrender.com/UsersList${id}`,{
-    //       method:"PATCH",
-    //       Body:JSON.stringify({!isAuth}),
-    //       header:{
-    //         "Content-Type": "application/json"
-    //       },
-    //     })
-    //    }
-    //    catch(err){
-    //       console.log(err)
-    //    }
-    // }
+ const { id } = useParams();
+   console.log(id);
+   
 
     useEffect(() => {
           fetchData();
-
+          fetchmensData();
           
        },[])
 
+      //  useEffect(() => {
+      //   fetchmensData();
+      //  },[value])
+
+       const handleChange = (e) => {
+             setValue(e.target.value);
+            //  fetchmensData(e.target.value);
+            
+       }
+
+         console.log(value);
+
+         console.log(mensData);
+
   return (
-    <Box >
+    <Box w={"full"} border={'0px solid black'}>
       <Flex
         bg={useColorModeValue('white', 'gray.800')}
         color={useColorModeValue('gray.600', 'white')}
-        minH={{sm:"2rem", md:"2rem" , lg:"60px"}}
+        minH={"60px"}
         zIndex={999}
         pos={"fixed"} top={0}
         py={{ base: 2, md:0 }}
@@ -107,7 +116,7 @@ export default function Navbar() {
         borderBottom={1}
         borderStyle={'solid'}
         borderColor={useColorModeValue('gray.200', 'gray.900')}
-        alignItems={'center'}>
+        alignItems={'center'} border={'0px solid black'}>
         <Flex
           flex={{ base: 1, md: 'auto' }}
           ml={{ base: -2 }}
@@ -121,7 +130,7 @@ export default function Navbar() {
             aria-label={'Toggle Navigation'}
           />
         </Flex>
-        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} w={"full"}>
        
 
              <Box border={'0px solid black'} >
@@ -133,8 +142,8 @@ export default function Navbar() {
                   /></NavLink>
                 </Box>
 
-          <Flex display={{ base: 'none', md: 'flex' }} ml={0}>
-            <DesktopNav />
+          <Flex display={{ base: 'none', md: 'flex' }} ml={0} w={"full"} alignItems={"center"} justifyContent={"center"}>
+            <NavLink to="/Product"><DesktopNav /></NavLink>
           </Flex>
         </Flex>
 
@@ -144,9 +153,18 @@ export default function Navbar() {
       pointerEvents='none'
       children={<SearchIcon color='gray.300' />}
     />
-    <Input type='text' placeholder='Search for produts,brands and more' />
+    <Input type='text' placeholder='Search for produts,brands and more' value={value} onChange={handleChange} />
+    {value === 'mens'? 
+     <div style={{ overflowY: 'scroll', height: '200px' }} mt={"20px"}>
+              {mensData.map((el) => {
+                  return <div key={el.id}>
+                      <p>{el.title}</p>
+                  </div>
+              })}
+            </div> : <p></p>}
   </InputGroup>
             </Stack>
+           
 
         <Stack
           flex={{ base: 1, md: 0 }}
@@ -164,12 +182,12 @@ export default function Navbar() {
   <MenuButton  >
     <Button as={'a'} fontSize={"xs"} fontWeight={"700"} variant={'link'}>Profile</Button>
   </MenuButton>
-  <MenuList>
+  <MenuList ml={"50%"} >
     <MenuGroup >
      
        <Flex direction={"column"} align={"flex-start"} padding={"10px"}>
       {verify && !verifya ? <Text fontWeight={"bold"} fontSize={"15px"}>Hello {LoginUser[LoginUser.length-1].fname}</Text> : <Text fontWeight={"bold"} fontSize={"15px"}>Welcome</Text>}
-      {verify && !verifya ? <Text fontWeight={"500"} fontSize={"13px"}> {LoginUser[LoginUser.length-1].email}</Text>  : <Text fontSize={"12px"} fontWeight={"500"}>To access account and manage orders</Text>}
+      {verify && !verifya ? <Text fontWeight={"500"} fontSize={"13px"}> {LoginUser[LoginUser.length-1].email}</Text>  : <Text fontSize={"12px"} fontWeight={"500"}>To access account and orders</Text>}
       {verifya ? <NavLink to="/Login"><Button  mt={"10px"} variant='outline' fontSize={"13px"} fontWeight={"bold"} color="#FF3F6C">LOGIN / SIGNUP</Button></NavLink> : <Button  isDisabled={true} mt={"10px"} variant='outline' fontSize={"13px"} fontWeight={"bold"} color="#FF3F6C">LOGIN / SIGNUP</Button>}
       </Flex>
        
@@ -179,7 +197,7 @@ export default function Navbar() {
     <MenuGroup >
      <Flex direction={"column"} gap={"5px"} align={"flex-start"} padding={"10px"} fontWeight={"500"} fontSize={"13px"}>
        <Link>Orders</Link>
-       <Link>Wishlist</Link>
+       <NavLink to="/Wishlist"><Link>Wishlist</Link></NavLink>
        <Link>Gift Cards</Link>
        <Link>Contact Us</Link>
          <Stack direction={'row'} align={'center'} spacing={1}>
@@ -202,13 +220,13 @@ export default function Navbar() {
        <Link>Coupons</Link>
        <Link>Saved Cards</Link>
        <Link>Saved VPA</Link>
-       <Link>Saved Addresses</Link>
+       <NavLink to="/Address"><Link>Addresses</Link></NavLink>
      </Flex>
     </MenuGroup>
     <MenuDivider />
     <MenuGroup >
      <Flex direction={"column"} gap={"5px"} align={"flex-start"} padding={"10px"} fontWeight={"500"} fontSize={"13px"}>
-       <Button variant='outline' onClick={()=>setVerifya(true)}>Logout</Button>
+     <Button variant='outline'  onClick={()=>setVerifya(true)}>Logout</Button>
        
      </Flex>
     </MenuGroup>
@@ -216,21 +234,21 @@ export default function Navbar() {
 </Menu>
           </VStack>
          
-          <VStack>
+          <VStack spacing={"1"}>
           <BsSuitHeart/>
-          <Button
+          <NavLink to="/Wishlist"><Button
             as={'a'}
             fontSize={'xs'}
             fontWeight={700}
             variant={'link'}
             href={'#'}>
             Wishlist
-          </Button>
+          </Button></NavLink>
           </VStack>
 
-          <VStack>
+          <VStack spacing={"1"}>
           <BsHandbag />
-          <Button
+          <NavLink to="/Cart"><Button
             as={'a'}
             fontSize={'xs'}
             fontWeight={700}
@@ -238,7 +256,7 @@ export default function Navbar() {
              
             href={'#'}>
             Bag
-          </Button>
+          </Button></NavLink>
           </VStack>
         </Stack>
       </Flex>

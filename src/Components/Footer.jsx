@@ -7,9 +7,9 @@
     Stack,
     Text,
     Flex,
-    Tag,
+    
     VStack,
-    HStack,
+   
     Image,
     useColorModeValue,
   } from '@chakra-ui/react';
@@ -20,6 +20,7 @@
     FaYoutube,
    FaInstagram
   } from 'react-icons/fa';
+  
   
   export default function Footer() {
     return (

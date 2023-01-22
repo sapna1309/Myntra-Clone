@@ -1,4 +1,4 @@
-import * as types from "./Wishlist.type"
+import * as types from "./Cart.type"
 
 let initialState ={
     loading:false,

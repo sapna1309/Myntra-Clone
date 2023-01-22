@@ -15,11 +15,13 @@ import {
   } from '@chakra-ui/react';
 import {  useState } from 'react';
 import PaymentNavbar from '../Components/PaymentNavbar';
-import { Link, useNavigate} from "react-router-dom"
+import { Link} from "react-router-dom"
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
   
   export default function Address() {
     const [toggel , setToggle]=useState(true)
-    const[error, setError]=useState("")
+    // const[error, setError]=useState("")
     const [value , setValue]=useState({
         name:"",
         mobileno:"",
@@ -29,16 +31,18 @@ import { Link, useNavigate} from "react-router-dom"
         city:"",
         state:"", 
     })
-    const navigate=useNavigate()
+    
 
     const {name , mobileno, pinCode, address,town , city, state}=value
 
     const handleSubmit=()=>{
         if(!name || !mobileno || !pinCode || !address || !town || !city || !state){
-            setError("fill all fields")
+          toast.error(`Please fill the field first`, {
+            position: "top-center",
+          });
             return 
         }
-        setError("")
+        
         console.log(value)
         setToggle(!toggel)
         
@@ -53,19 +57,21 @@ import { Link, useNavigate} from "react-router-dom"
       <Box>
         <PaymentNavbar/>
       <Flex
+        
         minH={'100vh'}
         align={'center'}
         justify={'center'}
         lineHeight={"18.5714px"}
         border={"0px solid gray"}
         >
-        <HStack spacing={[0, 0, 8]} mx={'auto'}  py={12} px={6} border={"0px solid gray"} alignItems={"flex-start"} 
+        <HStack mt={9} zIndex="9" spacing={[0, 0, 8]} mx={'auto'}  py={12} px={6} border={"0px solid gray"} alignItems={"flex-start"} 
         display={["grid" , "grid" , "flex"]}
         w={["full" ,"full" ,"70%"] }
         // mt={[4 , 4 , 0]}
                >
         {
             toggel ? 
+            <Box padding={8} borderRight={"1px solid lightgray"}>
           <Box
           border={"1px solid lightgray"}
             p={6}
@@ -122,7 +128,7 @@ import { Link, useNavigate} from "react-router-dom"
                   justify={'space-between'}>
                   <Checkbox>Make this my default address</Checkbox>
                 </Stack>
-                <Text  color={"red"} >{error}</Text>
+                {/* <Text  color={"red"} >{error}</Text> */}
                 <Button
                   fontSize={"14px"}
                   bg={'#ff3f6c'}
@@ -135,6 +141,7 @@ import { Link, useNavigate} from "react-router-dom"
                 </Button>
               </Stack>
             </Stack>
+            </Box>
           </Box>
           :
           <Box border={"0px solid lightgray"}
@@ -267,6 +274,7 @@ import { Link, useNavigate} from "react-router-dom"
         </HStack>
         
       </Flex>
+      <ToastContainer/>
       </Box>
     );
 

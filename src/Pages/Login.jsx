@@ -27,6 +27,12 @@ import {
 import { auth, provider } from "../Components/firebase";
 import Navbar from "../Components/Navbar";
 
+
+
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
+    
+
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [googleValue, setGoogleValue] = useState("");
@@ -48,6 +54,7 @@ export default function Login() {
       return;
     }
     console.log(value);
+
     setError("");
     setSubmitbutton(true);
     signInWithEmailAndPassword(auth, value.email, value.password)
@@ -62,6 +69,23 @@ export default function Login() {
         console.log("error-", err.message);
       });
   };
+
+    setError("")
+    setSubmitbutton(true)
+    signInWithEmailAndPassword(auth,value.email,value.password)
+    .then(async(res)=>{
+      setSubmitbutton(false)
+      navigate("/")
+      console.log(res)
+    })
+    .catch((err)=>{
+      setSubmitbutton(false)
+     toast.error(`${err.message}`, {
+        position: "top-center",
+      });
+      console.log("error-", err.message)
+    })
+
 
   const GoodleSignin = () => {
     signInWithPopup(auth, provider).then((data) => {
@@ -169,6 +193,8 @@ export default function Login() {
           </Box>
         </Stack>
       </Flex>
-    </Box>
-  );
-}
+      <ToastContainer />
+      </Box>
+    );
+   }
+  
