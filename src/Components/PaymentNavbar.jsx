@@ -41,9 +41,8 @@ const activeStyle={
         <HStack spacing={[2 , 3, 4]} >
           {
            links.map((link)=>(
-            <Box>
+            <Box key={link.path} >
             <NavLink
-            key={link.path}
             to={link.path}
             style={({isActive})=>{
               return isActive ? activeStyle : defaultStyle

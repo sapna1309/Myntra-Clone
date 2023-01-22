@@ -27,10 +27,10 @@
       <Box
         bg={useColorModeValue('white', 'gray.900')}
         color={useColorModeValue('gray.700', 'gray.200')}>
-      <Container as={Stack} maxW={'6xl'} py={10} m={'auto'} border={'0px solid black'} >
+      <Container as={Stack} ml={'22%'} maxW={'5xl'} py={10} border={'0px solid black'} >
           <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} border={'0px solid gray'} justifyContent={'space-between'} >
           <Flex direction={"column"} gap={"20px"} lineHeight={"16px"}  border={'0px solid gray'}  >
-              <Stack align={'flex-center'} >
+              <Stack align={'flex-start'} >
               <Text fontSize={"14px"} fontWeight={"bold"}>ONLINE SHOPPING</Text>
               <Link href={'#'}>Men</Link>
               <Link href={'#'}>Women</Link>
@@ -40,7 +40,7 @@
               <Text>Myntra Insider</Text>
             </Stack>
 
-            <VStack align={'flex-center'}  border={'0px solid gray'} >
+            <VStack align={'flex-start'}  border={'0px solid gray'} >
               <Text fontSize={"14px"} fontWeight={"bold"}>USEFUL LINKS</Text>
               <Link href={'#'}>Blog</Link>
               <Link href={'#'}>Careers</Link>
@@ -50,7 +50,7 @@
            </VStack>
            </Flex>
           
-           <Stack align={'flex-center'}  border={'0px solid gray'} lineHeight={"16px"}>
+           <Stack align={'flex-start'}  border={'0px solid gray'} lineHeight={"16px"}>
             <Text fontSize={"14px"} fontWeight={"bold"}>CUSTOMER POLICIES</Text>
               <Link href={'#'}>Contact Us</Link>
               <Link href={'#'}>FAQ</Link>
@@ -64,8 +64,8 @@
               <Link href={'#'}  >Grievance Officer</Link>
             </Stack>
            <VStack>
-            <Stack align={'flex-center'}  border={'0px solid gray'} >
-            <Stack>
+            <Stack align={'flex-start'}  border={'0px solid gray'} >
+            <Stack align={'flex-start'} >
             <Text fontSize={"14px"} fontWeight={"bold"}>EXPERIENCE MYNTRA APP ON MOBILE</Text>
             <Flex gap={"5%"}>
               <Image w={"50%"} src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"/>
@@ -88,7 +88,7 @@
             </Stack>
             </VStack>
             
-            <Stack w={"100%"} gap={"10px"} ml={"20%"} align={'flex-center'}  lineHeight={"20px"} border={'0px solid gray'} >
+            <Stack w={"100%"} gap={"10px"} ml={"40%"} align={'flex-center'}  lineHeight={"20px"} border={'0px solid gray'} >
             <Text   fontSize={"14px"} fontWeight={"bold"}>ACCURANCE</Text>
             <Flex  gap={"2px"}>
               
@@ -105,7 +105,7 @@
           </SimpleGrid>
         </Container>
         <Flex  direction ={'column'}>
-        <VStack maxW={'6xl'}  m={'auto'} border={'0px solid black'}  >
+        <VStack maxW={'5xl'}  m={'auto'} border={'0px solid black'} ml={'23%'} >
            
             <Flex w={"full"} display={"flex"} align={'flex-start'}  flexDirection={"column"} border={'0px solid black'}   >
             <Text align={'flex-start'} fontSize={"14px"}  fontWeight={"bold"}>POPULAR SEARCHES</Text>
@@ -121,7 +121,7 @@
             </Flex>
             </VStack>
 
-             <VStack maxW={'xl'} py={"5"}  border={'0px solid black'} ml={"7%"}>
+             <VStack maxW={'xl'} py={"5"}  border={'0px solid black'} ml={"11%"}>
               <Flex w={"auto"} display={"flex"} align={'flex-start'}  flexDirection={"column"}>
             <Text align={'flex-start'} fontSize={"14px"} fontWeight={"bold"}>Registered Office Address</Text>
               <Text>Begonia and Clover situated,</Text>

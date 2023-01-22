@@ -1,20 +1,18 @@
+import { AiFillHeart } from "react-icons/ai";
 
-  import { AiFillHeart } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
+import { BsHandbag } from "react-icons/bs";
+import { BsSuitHeart } from "react-icons/bs";
 
-  import { CgProfile } from "react-icons/cg";
-  import { BsHandbag } from "react-icons/bs";
-  import { BsSuitHeart } from "react-icons/bs";
- 
-   import {SearchIcon} from '@chakra-ui/icons'
-  import CWLOGO from '../assets/CWLOGO-1.png';
-  import Login from "../Pages/Login";
-   import Home from "../Pages/Home";
-   import Wishlist from '../Pages/Wishlist';
-   import Address from "../Pages/Address";
-   import Cart from "../Pages/Cart";
-   import Product from "../Pages/Product";
-
-
+import { SearchIcon } from "@chakra-ui/icons";
+import CWLOGO from "../assets/CWLOGO-1.png";
+// import Login from "../Pages/Login";
+// import Home from "../Pages/Home";
+// import Wishlist from "../Pages/Wishlist";
+// import Address from "../Pages/Address";
+// import Cart from "../Pages/Cart";
+// import Product from "../Pages/Product";
+import { auth } from './firebase';
 
 import {
   Box,
@@ -38,226 +36,352 @@ import {
   useBreakpointValue,
   Tag,
   Menu,
- MenuList,
- MenuGroup,
+  MenuList,
+  MenuGroup,
   MenuDivider,
   MenuButton,
   MenuItem,
   HStack,
   useDisclosure,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 import {
   HamburgerIcon,
   CloseIcon,
   ChevronDownIcon,
   ChevronRightIcon,
-} from '@chakra-ui/icons'
- import {NavLink, useNavigate} from "react-router-dom"
-import { useEffect,useState} from "react";
-import { useParams } from "react-router-dom";
+} from "@chakra-ui/icons";
+import { NavLink} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCartData } from "../Redux/Cart/Cart.action";
+//import { useParams } from "react-router-dom";
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
   const [LoginUser, setLoginUser] = useState([]);
-  const [verify , setVerify] = useState(false);
-  const [verifya , setVerifya] = useState(false);
-  const [mensData , setmensData] = useState([]);
-  const [value , setValue] = useState('');
+  const [verify, setVerify] = useState(false);
+  const [verifya, setVerifya] = useState(false);
+  const [mensData, setmensData] = useState([]);
+  const [value, setValue] = useState("");
+  const {cartData} = useSelector((store)=>store.cart);
+  const dispatch= useDispatch();
 
-    const fetchData = async() => {
-         let res= await fetch("https://classic-world.onrender.com/UsersList")
-         let data=await res.json();
-         
-         setVerify(true);
-         setLoginUser(data);
-    }
+  useEffect(()=>{
+    dispatch(fetchCartData());
+  },[]);
 
-    const fetchmensData = async() => {
-      let r= await fetch(`https://classic-world.onrender.com/MensData`)
-      let deta=await r.json();
-     setmensData(deta);
- }
+  const fetchData = async () => {
+    let res = await fetch("https://classic-world.onrender.com/UsersList");
+    let data = await res.json();
 
+    setVerify(true);
+    setLoginUser(data);
+  };
 
- const { id } = useParams();
-   console.log(id);
-   
+  const fetchmensData = async () => {
+    let r = await fetch(`https://classic-world.onrender.com/MensData`);
+    let deta = await r.json();
+    setmensData(deta);
+  };
 
-    useEffect(() => {
-          fetchData();
-          fetchmensData();
-          
-       },[])
+  // const { id } = useParams();
+  // console.log(id);
 
-      //  useEffect(() => {
-      //   fetchmensData();
-      //  },[value])
+  useEffect(() => {
+    fetchData();
+    fetchmensData();
+  }, []);
 
-       const handleChange = (e) => {
-             setValue(e.target.value);
-            //  fetchmensData(e.target.value);
-            
-       }
+  //  useEffect(() => {
+  //   fetchmensData();
+  //  },[value])
 
-         console.log(value);
+  const handleChange = (e) => {
+    setValue(e.target.value);
+    //  fetchmensData(e.target.value);
+  };
 
-         console.log(mensData);
+  //console.log(value);
+
+  //console.log(mensData);
+  const [userName, setUserName]=useState("");
+  const [userEmail,setUserEmail]=useState('');
+  useEffect(()=>{
+    auth.onAuthStateChanged((user,email)=>{
+      if(user){
+        setUserName(user.displayName)
+        setUserEmail(user.email)
+       // console.log(user.displayName)
+      }else{
+        setUserName("")
+        setUserEmail("");
+      }
+    })
+
+  },[])
 
   return (
-    <Box w={"full"} border={'0px solid black'}>
+    <Box w={"full"} border={"0px solid black"}>
       <Flex
-        bg={useColorModeValue('white', 'gray.800')}
-        color={useColorModeValue('gray.600', 'white')}
+        bg={useColorModeValue("white", "gray.800")}
+        color={useColorModeValue("gray.600", "white")}
         minH={"60px"}
         zIndex={999}
-        pos={"fixed"} top={0}
-        py={{ base: 2, md:0 }}
+        pos={"fixed"}
+        top={0}
+        py={{ base: 2, md: 0 }}
         px={{ base: 4 }}
         borderBottom={1}
-        borderStyle={'solid'}
-        borderColor={useColorModeValue('gray.200', 'gray.900')}
-        alignItems={'center'} border={'0px solid black'}>
+        borderStyle={"solid"}
+        borderColor={useColorModeValue("gray.200", "gray.900")}
+        alignItems={"center"}
+        border={"0px solid black"}
+      >
         <Flex
-          flex={{ base: 1, md: 'auto' }}
+          flex={{ base: 1, md: "auto" }}
           ml={{ base: -2 }}
-          display={{ base: 'flex', md: 'none' }}>
+          display={{ base: "flex", md: "none" }}
+        >
           <IconButton
             onClick={onToggle}
             icon={
               isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
             }
-            variant={'ghost'}
-            aria-label={'Toggle Navigation'}
+            variant={"ghost"}
+            aria-label={"Toggle Navigation"}
           />
         </Flex>
-        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} w={"full"}>
-       
+        <Flex
+          flex={{ base: 1 }}
+          justify={{ base: "center", md: "start" }}
+          w={"full"}
+        >
+          <Box border={"0px solid black"}>
+            <NavLink to="/">
+              <Image src={CWLOGO} width="100%" />
+            </NavLink>
+          </Box>
 
-             <Box border={'0px solid black'} >
-              
-             <NavLink to="/"><Image
-                    src={CWLOGO}
-                    
-                    width="100%"
-                  /></NavLink>
-                </Box>
-
-          <Flex display={{ base: 'none', md: 'flex' }} ml={0} w={"full"} alignItems={"center"} justifyContent={"center"}>
-            <NavLink to="/Product"><DesktopNav /></NavLink>
+          <Flex
+            display={{ base: "none", md: "flex" }}
+            ml={0}
+            w={"full"}
+            alignItems={"center"}
+            justifyContent={"center"}
+          >
+            <NavLink to="/Product">
+              <DesktopNav />
+            </NavLink>
           </Flex>
         </Flex>
 
-        <Stack w={"35%"}  mr={"5%"} >
-        <InputGroup>
-    <InputLeftElement
-      pointerEvents='none'
-      children={<SearchIcon color='gray.300' />}
-    />
-    <Input type='text' placeholder='Search for produts,brands and more' value={value} onChange={handleChange} />
-    {value === 'mens'? 
-     <div style={{ overflowY: 'scroll', height: '200px' }} mt={"20px"}>
-              {mensData.map((el) => {
-                  return <div key={el.id}>
+        <Stack w={"35%"} mr={"5%"}>
+          <InputGroup>
+            <InputLeftElement
+              pointerEvents="none"
+              children={<SearchIcon color="gray.300" />}
+            />
+            <Input
+              type="text"
+              placeholder="Search for produts,brands and more"
+              value={value}
+              onChange={handleChange}
+            />
+            {value === "mens" ? (
+              <div style={{ overflowY: "scroll", height: "200px" }} mt={"20px"}>
+                {mensData.map((el) => {
+                  return (
+                    <div key={el.id}>
                       <p>{el.title}</p>
-                  </div>
-              })}
-            </div> : <p></p>}
-  </InputGroup>
-            </Stack>
-           
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <p></p>
+            )}
+          </InputGroup>
+        </Stack>
 
         <Stack
           flex={{ base: 1, md: 0 }}
-          justify={'flex-end'}
-          direction={'row'}
+          justify={"flex-end"}
+          direction={"row"}
           spacing={6}
-            mr={"2%"}>
-            <VStack spacing={1}>
+          mr={"2%"}
+        >
+          <VStack spacing={1}>
+            <CgProfile />
 
-            
-
-          <CgProfile/>
-         
-           <Menu>
-  <MenuButton  >
-    <Button as={'a'} fontSize={"xs"} fontWeight={"700"} variant={'link'}>Profile</Button>
-  </MenuButton>
-  <MenuList ml={"50%"} >
-    <MenuGroup >
-     
-       <Flex direction={"column"} align={"flex-start"} padding={"10px"}>
-      {verify && !verifya ? <Text fontWeight={"bold"} fontSize={"15px"}>Hello {LoginUser[LoginUser.length-1].fname}</Text> : <Text fontWeight={"bold"} fontSize={"15px"}>Welcome</Text>}
-      {verify && !verifya ? <Text fontWeight={"500"} fontSize={"13px"}> {LoginUser[LoginUser.length-1].email}</Text>  : <Text fontSize={"12px"} fontWeight={"500"}>To access account and orders</Text>}
-      {verifya ? <NavLink to="/Login"><Button  mt={"10px"} variant='outline' fontSize={"13px"} fontWeight={"bold"} color="#FF3F6C">LOGIN / SIGNUP</Button></NavLink> : <Button  isDisabled={true} mt={"10px"} variant='outline' fontSize={"13px"} fontWeight={"bold"} color="#FF3F6C">LOGIN / SIGNUP</Button>}
-      </Flex>
-       
-       
-    </MenuGroup>
-    <MenuDivider />
-    <MenuGroup >
-     <Flex direction={"column"} gap={"5px"} align={"flex-start"} padding={"10px"} fontWeight={"500"} fontSize={"13px"}>
-       <Link>Orders</Link>
-       <NavLink to="/Wishlist"><Link>Wishlist</Link></NavLink>
-       <Link>Gift Cards</Link>
-       <Link>Contact Us</Link>
-         <Stack direction={'row'} align={'center'} spacing={1}>
-         
-       <Link>Myntra Insider</Link>
-       <Tag
-                size={'sm'}
-                bg={useColorModeValue('pink.400', 'green.800')}
-                ml={2}
-                color={'white'}>
-                New
-              </Tag>
-       </Stack>
-     </Flex>
-    </MenuGroup>
-    <MenuDivider />
-    <MenuGroup >
-     <Flex direction={"column"} gap={"5px"} align={"flex-start"} padding={"10px"} fontWeight={"500"} fontSize={"13px"}>
-       <Link>Myntra Credit</Link>
-       <Link>Coupons</Link>
-       <Link>Saved Cards</Link>
-       <Link>Saved VPA</Link>
-       <NavLink to="/Address"><Link>Addresses</Link></NavLink>
-     </Flex>
-    </MenuGroup>
-    <MenuDivider />
-    <MenuGroup >
-     <Flex direction={"column"} gap={"5px"} align={"flex-start"} padding={"10px"} fontWeight={"500"} fontSize={"13px"}>
-     <Button variant='outline'  onClick={()=>setVerifya(true)}>Logout</Button>
-       
-     </Flex>
-    </MenuGroup>
-  </MenuList>
-</Menu>
+            <Menu>
+              <MenuButton>
+                <Button
+                  as={"a"}
+                  fontSize={"xs"}
+                  fontWeight={"700"}
+                  variant={"link"}
+                >
+                  Profile
+                </Button>
+              </MenuButton>
+              <MenuList ml={"50%"}>
+                <MenuGroup>
+                  <Flex
+                    direction={"column"}
+                    align={"flex-start"}
+                    padding={"10px"}
+                  >
+                    {verify && !verifya ? (
+                      <Text fontWeight={"bold"} fontSize={"15px"}>
+                        Hello {userName}
+                      </Text>
+                    ) : (
+                      <Text fontWeight={"bold"} fontSize={"15px"}>
+                        Welcome
+                      </Text>
+                    )}
+                    {verify && !verifya ? (
+                      <Text fontWeight={"500"} fontSize={"13px"}>
+                        {" "}
+                        {userEmail}
+                      </Text>
+                    ) : (
+                      <Text fontSize={"12px"} fontWeight={"500"}>
+                        To access account and orders
+                      </Text>
+                    )}
+                    {verifya ? (
+                    
+                        <Button
+                          mt={"10px"}
+                          variant="outline"
+                          fontSize={"13px"}
+                          fontWeight={"bold"}
+                          color="#FF3F6C"
+                        >
+                            <NavLink to="/Login">
+                          LOGIN </NavLink>/ <NavLink to='/Register' >SIGNUP</NavLink> 
+                        </Button>
+                     
+                    ) : (
+                      <Button
+                        isDisabled={true}
+                        mt={"10px"}
+                        variant="outline"
+                        fontSize={"13px"}
+                        fontWeight={"bold"}
+                        color="#FF3F6C"
+                      >
+                        LOGIN / SIGNUP
+                      </Button>
+                    )}
+                  </Flex>
+                </MenuGroup>
+                <MenuDivider />
+                <MenuGroup>
+                  <Flex
+                    direction={"column"}
+                    gap={"5px"}
+                    align={"flex-start"}
+                    padding={"10px"}
+                    fontWeight={"500"}
+                    fontSize={"13px"}
+                  >
+                     <NavLink to="/Wishlist">
+                    <Link>Orders</Link>
+                    <Link>Wishlist</Link>
+                    </NavLink>
+                    <Link>Gift Cards</Link>
+                    <Link>Contact Us</Link>
+                    <Stack direction={"row"} align={"center"} spacing={1}>
+                      <Link>Myntra Insider</Link>
+                      <Tag
+                        size={"sm"}
+                        bg={useColorModeValue("pink.400", "green.800")}
+                        ml={2}
+                        color={"white"}
+                      >
+                        New
+                      </Tag>
+                    </Stack>
+                  </Flex>
+                </MenuGroup>
+                <MenuDivider />
+                <MenuGroup>
+                  <Flex
+                    direction={"column"}
+                    gap={"5px"}
+                    align={"flex-start"}
+                    padding={"10px"}
+                    fontWeight={"500"}
+                    fontSize={"13px"}
+                  >
+                    <Link>Myntra Credit</Link>
+                    <Link>Coupons</Link>
+                    <Link>Saved Cards</Link>
+                    <Link>Saved VPA</Link>
+                    <NavLink to="/Address">
+                      <Link>Addresses</Link>
+                    </NavLink>
+                  </Flex>
+                </MenuGroup>
+                <MenuDivider />
+                <MenuGroup>
+                  <Flex
+                    direction={"column"}
+                    gap={"5px"}
+                    align={"flex-start"}
+                    padding={"10px"}
+                    fontWeight={"500"}
+                    fontSize={"13px"}
+                  >
+                    {verifya? <Button variant="outline" isDisabled={true} onClick={() => setVerifya(true)}>
+                      Logout
+                    </Button>: <Button variant="outline" isDisabled={false} onClick={() => setVerifya(true)}>
+                      Logout
+                    </Button>}
+                   
+                  </Flex>
+                </MenuGroup>
+              </MenuList>
+            </Menu>
           </VStack>
+          <NavLink to="/Wishlist">
+          <VStack spacing={2}>
+           
+           
+            <BsSuitHeart />
+              <Button
+                as={"a"}
+                fontSize={"xs"}
+                fontWeight={700}
+                variant={"link"}
+                href={"#"}
+              >
+                Wishlist
+              </Button>
+          
+          </VStack>
+          </NavLink>
+          <NavLink to="/Cart">
+            <HStack spacing={-1} alignItems={'flex-start'} >
+          <VStack spacing={2}>
+          
+            <BsHandbag />
+              <Button
+                as={"a"}
+                fontSize={"xs"}
+                fontWeight={700}
+                variant={"link"}
+                href={"#"}
+              >
+                Bag
+              </Button>
          
-          <VStack spacing={"1"}>
-          <BsSuitHeart/>
-          <NavLink to="/Wishlist"><Button
-            as={'a'}
-            fontSize={'xs'}
-            fontWeight={700}
-            variant={'link'}
-            href={'#'}>
-            Wishlist
-          </Button></NavLink>
           </VStack>
-
-          <VStack spacing={"1"}>
-          <BsHandbag />
-          <NavLink to="/Cart"><Button
-            as={'a'}
-            fontSize={'xs'}
-            fontWeight={700}
-            variant={'link'}
-             
-            href={'#'}>
-            Bag
-          </Button></NavLink>
-          </VStack>
+          <Text bg={'pink.500'} color={'white'} paddingX={2} borderRadius={'50%'} >{cartData.length}</Text>
+          </HStack>
+          </NavLink>
         </Stack>
       </Flex>
 
@@ -269,27 +393,34 @@ export default function Navbar() {
 }
 
 const DesktopNav = () => {
-  const linkColor = useColorModeValue('grey.600', 'gray.200');
-  const linkHoverColor = useColorModeValue('pink.800', 'white');
-  const popoverContentBgColor = useColorModeValue('white', 'gray.800');
+  const linkColor = useColorModeValue("grey.600", "gray.200");
+  const linkHoverColor = useColorModeValue("pink.800", "white");
+  const popoverContentBgColor = useColorModeValue("white", "gray.800");
 
   return (
-    <Stack direction={'row'} spacing={4} w={"600px"} alignItems={'center'} border={"0px solid red"}>
+    <Stack
+      direction={"row"}
+      spacing={4}
+      w={"600px"}
+      alignItems={"center"}
+      border={"0px solid red"}
+    >
       {NAV_ITEMS.map((navItem) => (
         <Box key={navItem.label} border={"0px solid blue"}>
-          <Popover trigger={'hover'} placement={'bottom-start'}>
+          <Popover trigger={"hover"} placement={"bottom-start"}>
             <PopoverTrigger>
               <Link
                 p={2}
-                href={navItem.href ?? '#'}
-                fontSize={'sm'}
+                href={navItem.href ?? "#"}
+                fontSize={"sm"}
                 fontWeight={500}
                 color={linkColor}
                 _hover={{
-                  textDecoration: 'none',
+                  textDecoration: "none",
                   color: linkHoverColor,
-                  borderBottom:"3px solid red"
-                }}>
+                  borderBottom: "3px solid red",
+                }}
+              >
                 {navItem.label}
               </Link>
             </PopoverTrigger>
@@ -297,17 +428,23 @@ const DesktopNav = () => {
             {navItem.children && (
               <PopoverContent
                 border={0}
-                boxShadow={'lg'}
+                boxShadow={"lg"}
                 bg={popoverContentBgColor}
                 p={4}
-                rounded={'xl'}
-                minW={'4xl'}>
-                <Flex direction={"row"} width={"full"}  gap={"20px"}  justifyContent={"space-between"}>
+                rounded={"xl"}
+                minW={"4xl"}
+              >
+                <Flex
+                  direction={"row"}
+                  width={"full"}
+                  gap={"20px"}
+                  justifyContent={"space-between"}
+                >
                   {navItem.children.map((child) => (
                     <DesktopSubNav key={child.label} {...child} />
                   ))}
                 </Flex>
-                </PopoverContent>
+              </PopoverContent>
             )}
           </Popover>
         </Box>
@@ -320,40 +457,48 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
   return (
     <Link
       href={href}
-      role={'group'}
-      display={'block'}
+      role={"group"}
+      display={"block"}
       p={2}
-      rounded={'md'}
-      _hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}>
-      <Stack direction={'column'} align={'flex-start'} spacing={0} border={"0px solid pink"}>
+      rounded={"md"}
+      _hover={{ bg: useColorModeValue("pink.50", "gray.900") }}
+    >
+      <Stack
+        direction={"column"}
+        align={"flex-start"}
+        spacing={0}
+        border={"0px solid pink"}
+      >
         <Flex direction={"column"} align={"flex-start"}>
           <Text
-            transition={'all .3s ease'}
-            _groupHover={{ color: 'pink.400' }}
+            transition={"all .3s ease"}
+            _groupHover={{ color: "pink.400" }}
             fontWeight={700}
             fontSize={"xs"}
-              color={"#D53F8C"}>
+            color={"#D53F8C"}
+          >
             {label}
           </Text>
-          </Flex>
-          <Flex direction={"column"} align={"flex-start"} gap={"5px"}>
+        </Flex>
+        <Flex direction={"column"} align={"flex-start"} gap={"5px"}>
           {subLabel.map((el, i) => (
-          <Text fontSize={"sm"} key={i}>
-            {el}
-          </Text>
-        ))}
-          </Flex>
-       
+            <Text fontSize={"sm"} key={i}>
+              {el}
+            </Text>
+          ))}
+        </Flex>
+
         <Flex
-          transition={'all .3s ease'}
-           direction={"column"}
-          transform={'translateX(-10px)'}
+          transition={"all .3s ease"}
+          direction={"column"}
+          transform={"translateX(-10px)"}
           opacity={0}
-          _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
-          justify={'flex-end'}
-          align={'center'}
-          flex={1}>
-          <Icon color={'pink.400'} w={5} h={5} as={ChevronRightIcon} />
+          _groupHover={{ opacity: "100%", transform: "translateX(0)" }}
+          justify={"flex-end"}
+          align={"center"}
+          flex={1}
+        >
+          <Icon color={"pink.400"} w={5} h={5} as={ChevronRightIcon} />
         </Flex>
       </Stack>
     </Link>
@@ -363,14 +508,14 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
 const MobileNav = () => {
   return (
     <Stack
-      bg={useColorModeValue('white', 'gray.800')}
+      bg={useColorModeValue("white", "gray.800")}
       p={4}
-      display={{ md: 'none' }}>
+      display={{ md: "none" }}
+    >
       {NAV_ITEMS.map((navItem) => (
         <MobileNavItem key={navItem.label} {...navItem} />
       ))}
-  </Stack>
-
+    </Stack>
   );
 };
 
@@ -382,36 +527,39 @@ const MobileNavItem = ({ label, children, href }) => {
       <Flex
         py={2}
         as={Link}
-        href={href ?? '#'}
-        justify={'space-between'}
-        align={'center'}
+        href={href ?? "#"}
+        justify={"space-between"}
+        align={"center"}
         _hover={{
-          textDecoration: 'none',
-        }}>
+          textDecoration: "none",
+        }}
+      >
         <Text
           fontWeight={600}
-          color={useColorModeValue('gray.600', 'gray.200')}>
+          color={useColorModeValue("gray.600", "gray.200")}
+        >
           {label}
         </Text>
         {children && (
           <Icon
             as={ChevronDownIcon}
-            transition={'all .25s ease-in-out'}
-            transform={isOpen ? 'rotate(180deg)' : ''}
+            transition={"all .25s ease-in-out"}
+            transform={isOpen ? "rotate(180deg)" : ""}
             w={6}
             h={6}
           />
         )}
       </Flex>
 
-      <Collapse in={isOpen} animateOpacity style={{ marginTop: '0!important' }}>
+      <Collapse in={isOpen} animateOpacity style={{ marginTop: "0!important" }}>
         <VStack
           mt={2}
           pl={4}
           borderLeft={1}
-          borderStyle={'solid'}
-          borderColor={useColorModeValue('gray.200', 'gray.700')}
-          align={'start'}>
+          borderStyle={"solid"}
+          borderColor={useColorModeValue("gray.200", "gray.700")}
+          align={"start"}
+        >
           {children &&
             children.map((child) => (
               <Link key={child.label} py={2} href={child.href}>
@@ -424,406 +572,376 @@ const MobileNavItem = ({ label, children, href }) => {
   );
 };
 
+const NAV_ITEMS = [
+  {
+    label: "MENS",
+    children: [
+      {
+        label: "Topwear",
+        subLabel: [
+          "T-Shirts",
+          "Casual Shirts",
+          "Formal Shirts",
+          "Sweatshirts",
+          "Sweaters",
+          "Jackets",
+          "Blazzers and Coats",
+          "Suits",
+          "Rain Jackets",
+        ],
+        href: "#",
+      },
+      {
+        label: "Indian and Festive Wear",
+        subLabel: [
+          "Kurtas and Kurtas Sets",
+          "Sherwanies",
+          "Nehru Jacket",
+          "Dhoties",
+        ],
+        href: "#",
+      },
+      {
+        label: "Bottomwear",
+        subLabel: [
+          "Jeans",
+          "Casual Trousers",
+          "Shorts",
+          "TrackPants and Joggers",
+        ],
+        href: "#",
+      },
+      {
+        label: "Innerwear ans Sleepwear",
+        subLabel: [
+          "Brief and Trunks",
+          "Vests",
+          "Sleepwear and Loungewear",
+          "Thermals",
+        ],
+        href: "#",
+      },
 
+      {
+        label: "Footwear",
+        subLabel: [
+          "Casual Shoes",
+          "Sports Shoes",
+          "Formal Shoes",
+          "Sneakers",
+          "Sandals and Floaters",
+          "Flip Flops",
+          "Socks",
+        ],
+        href: "#",
+      },
+    ],
+  },
+  {
+    label: "WOMEN",
+    children: [
+      {
+        label: "Indian and Fusion Wear",
+        subLabel: [
+          "Crop tops Lehenga",
+          "Palazzo Lehenga",
+          "jacket over Sari",
+          "Pants under Saree",
+          "Slit Dhoti under Blouse",
+          "Ethnic saree",
+          "Ethnic skirt",
+        ],
+        href: "#",
+      },
+      {
+        label: "Western Wear",
+        subLabel: [
+          "Dresses",
+          "Tops",
+          "TShirts",
+          "Jeans",
+          "Trousers & Capris",
+          "Shorts and Skirts",
+          "Co-ords",
+          "Playsuits",
+          "Jumpsuits",
+          "Shrungs",
+          "Sweaters & SweatShirts",
+          "Blazzers and Waistcoats",
+        ],
+        href: "#",
+      },
+      {
+        label: "Footwear",
+        subLabel: [
+          "Flats",
+          "Casual Shoes",
+          "Heels",
+          "Boots",
+          "Sports Shoes & Floaters",
+          "Sports and Active Wear",
+        ],
+        href: "#",
+      },
+      {
+        label: "Lingerie & Sleepwear",
+        subLabel: [
+          "Acne & Blemishes",
+          "Fine Lines & Wrinkles",
+          "Dark Circles",
+          "Dry Skin",
+          "Dullness",
+          "Lack of Fairness",
+          "Pigmentaion",
+        ],
+        href: "#",
+      },
+      {
+        label: "Beauty & Personal Care",
+        subLabel: [
+          "Take The SPF Quiz",
+          "SPF 30 and over",
+          "SPF 50 and over",
+          "After Sun",
+          "Tinted",
+          "Mineral",
+          "Eye Protection",
+        ],
+        href: "#",
+      },
+    ],
+  },
+  {
+    label: "KIDS",
+    children: [
+      {
+        label: "Boys Clothing",
+        subLabel: [
+          "T-Shirts",
+          "Casual Shirts",
+          "Formal Shirts",
+          "Sweatshirts",
+          "Sweaters",
+          "Jackets",
+          "Blazzers and Coats",
+          "Suits",
+          "Rain Jackets",
+        ],
+        href: "#",
+      },
+      {
+        label: "Girls Clothing",
+        subLabel: [
+          "Shampoo",
+          "Conditioners",
+          "Hair Treatments",
+          "Hair Masks",
+          "Hair Oils",
+          "Hair Sprays",
+          "Hair Styling",
+          "Hair Thinning & Loss",
+        ],
+        href: "#",
+      },
+      {
+        label: "Footwear",
+        subLabel: [
+          "Flats",
+          "Casual Shoes",
+          "Heels",
+          "Boots",
+          "Sports Shoes & Floaters",
+          "Sports and Active Wear",
+        ],
+        href: "#",
+      },
+      {
+        label: "Toys",
+        subLabel: ["Flat Irons", "Hair Dryers", "Rollers & Curling Tongs"],
+        href: "#",
+      },
+      {
+        label: "Infants",
+        subLabel: [" Removal Devices", " Removal Products", " Beauty Products"],
+        href: "#",
+      },
+    ],
+  },
+  {
+    label: "HOME & LIVING",
+    children: [
+      {
+        label: "Ben Linen & Furnishing",
+        subLabel: [
+          "New In",
+          "Clean Makeup",
+          "5 Rated Products",
+          "Gifts & Sets",
+          "Brushes & Applicators",
+          "Makeup Palettes",
+          "Nails",
+        ],
+        href: "#",
+      },
+      {
+        label: "Flooring",
+        subLabel: [
+          "Eye Liners",
+          "Lash & Brow Enhancers",
+          "Eye Shadows",
+          "Mascaras",
+          "Brow Pencils",
+        ],
+        href: "#",
+      },
+      {
+        label: "Bath",
+        subLabel: [
+          "BB && CC Cream",
+          "Blushers",
+          "Bronzers",
+          "Color Correctors",
+          "Concealers",
+          "Contour",
+          "Face Powders",
+          "Foundations",
+          "Highlighters",
+        ],
+        href: "#",
+      },
+      {
+        label: "Lamps and Lighting",
+        subLabel: [
+          "stastics",
+          "Lamps Balms",
+          "Lamp Glosses",
+          " Liners",
+          " Plumpers",
+          "Liquid Lamps",
+        ],
+        href: "#",
+      },
+      {
+        label: "Home Decor",
+        subLabel: [
+          "Accessories",
+          "Pre-Tan Preparation",
+          "Body Tanners",
+          "Post Tanning",
+        ],
+        href: "#",
+      },
+    ],
+  },
+  {
+    label: "BEAUTY",
+    children: [
+      {
+        label: "Makeup",
+        subLabel: [
+          "View All Bath & Body",
+          "New In",
+          "Clean Bath & Body",
+          "5 Rated Products",
+          "Gifts & Sets",
+          "Travel Sizes",
+          "At Home Spa",
+          "Decorants",
+          "Oral Care",
+        ],
+        href: "#",
+      },
+      {
+        label: "Skincare,Bath & Body",
+        subLabel: [
+          "Baths Oils/Soak",
+          "Bath Salts",
+          "Body Washes",
+          "Cleansing bars",
+          "Exfoliators",
+        ],
+        href: "#",
+      },
+      {
+        label: "Baby Care",
+        subLabel: [
+          "Accessories",
+          "Pre-Tan Preparation",
+          "Body Tanners",
+          "Post Tanning",
+        ],
+        href: "#",
+      },
+      {
+        label: "Moisturizers",
+        subLabel: ["Balms", "Butters", "Creams", "Lotions", "Oils"],
+        href: "#",
+      },
+      {
+        label: "Haircare",
+        subLabel: [
+          "Bust",
+          "Cellulite",
+          "Dry Skin",
+          "Hair Removal",
+          "Hands & Foot Care",
+          "Hans Soap Senitizers & Creams",
+          "Legs",
+          "Simming & Sculpting",
+          "Strecth Marks",
+          "Sunscreen",
+        ],
+        href: "#",
+      },
+    ],
+  },
+  {
+    label: "STUDIO",
+    children: [
+      {
+        label: "Galary",
+        subLabel: ["View All Fragrance", "New In", "5 Rated Products"],
+        href: "#",
+      },
+      {
+        label: "Top Brands",
+        subLabel: [
+          "NEOM Organics",
+          "Glasshouse Fragrances",
+          "KORRES",
+          "NEST Fragrance",
+          "Molton Brown",
+        ],
+        href: "#",
+      },
+      {
+        label: "Deoderants",
+        subLabel: [
+          "Perfume",
+          "EAU de Toilette",
+          "Body Spray",
+          "For Her",
+          "For Him",
+        ],
+        href: "#",
+      },
+      {
+        label: "Ethnic",
+        subLabel: [
+          "Scented Candles",
+          "Diffusers",
+          "Aromatherapy",
+          "Pillow Mists",
+          "Room Sprays",
+        ],
+        href: "#",
+      },
 
-
-  
-  const NAV_ITEMS = [
-    {
-      label: "MENS",
-      children: [
-        {
-          label: "Topwear",
-          subLabel: [
-            "T-Shirts",
-            "Casual Shirts",
-            "Formal Shirts",
-            "Sweatshirts",
-            "Sweaters",
-            "Jackets",
-            "Blazzers and Coats",
-            "Suits",
-            "Rain Jackets",
-           
-          ],
-          href: "#",
-        },
-        {
-          label: "Indian and Festive Wear",
-          subLabel: [
-            "Kurtas and Kurtas Sets",
-            "Sherwanies",
-            "Nehru Jacket",
-            "Dhoties",
-           
-          ],
-          href: "#",
-        },
-        {
-          label: "Bottomwear",
-          subLabel: [
-            "Jeans",
-            "Casual Trousers",
-            "Shorts",
-            "TrackPants and Joggers",
-          ],
-          href: "#",
-        },
-        {
-          label: "Innerwear ans Sleepwear",
-          subLabel: [
-            "Brief and Trunks",
-            "Vests",
-            "Sleepwear and Loungewear",
-            "Thermals",
-           
-          ],
-          href: "#",
-        },
-
-        {
-          label: "Footwear",
-          subLabel: [
-            "Casual Shoes",
-            "Sports Shoes",
-            "Formal Shoes",
-            "Sneakers",
-            "Sandals and Floaters",
-            "Flip Flops",
-            "Socks"
-           
-          ],
-          href: "#",
-        },
-      ],
-    },
-    {
-      label: "WOMEN",
-      children: [
-        {
-          label: "Indian and Fusion Wear",
-          subLabel: [
-            "Crop tops Lehenga",
-            "Palazzo Lehenga",
-            "jacket over Sari",
-            "Pants under Saree",
-            "Slit Dhoti under Blouse",
-            "Ethnic saree",
-            "Ethnic skirt",
-          ],
-          href: "#",
-        },
-        {
-          label: "Western Wear",
-          subLabel: [
-            "Dresses",
-            "Tops",
-            "TShirts",
-            "Jeans",
-            "Trousers & Capris",
-            "Shorts and Skirts",
-            "Co-ords",
-            "Playsuits",
-            "Jumpsuits",
-            "Shrungs",
-            "Sweaters & SweatShirts",
-            "Blazzers and Waistcoats",
-           
-          ],
-          href: "#",
-        },
-        {
-          label: "Footwear",
-          subLabel: [
-            "Flats",
-            "Casual Shoes",
-            "Heels",
-            "Boots",
-            "Sports Shoes & Floaters",
-            "Sports and Active Wear",
-           
-          ],
-          href: "#",
-        },
-        {
-          label: "Lingerie & Sleepwear",
-          subLabel: [
-            "Acne & Blemishes",
-            "Fine Lines & Wrinkles",
-            "Dark Circles",
-            "Dry Skin",
-            "Dullness",
-            "Lack of Fairness",
-            "Pigmentaion",
-            
-          ],
-          href: "#",
-        },
-        {
-          label: "Beauty & Personal Care",
-          subLabel: [
-            "Take The SPF Quiz",
-            "SPF 30 and over",
-            "SPF 50 and over",
-            "After Sun",
-            "Tinted",
-            "Mineral",
-            "Eye Protection",
-          ],
-          href: "#",
-        },
-
-     
-      ],
-    },
-    {
-      label: "KIDS",
-      children: [
-        {
-          label: "Boys Clothing",
-          subLabel: [
-            "T-Shirts",
-            "Casual Shirts",
-            "Formal Shirts",
-            "Sweatshirts",
-            "Sweaters",
-            "Jackets",
-            "Blazzers and Coats",
-            "Suits",
-            "Rain Jackets",
-           
-          ],
-          href: "#",
-        },
-        {
-          label: "Girls Clothing",
-          subLabel: [
-            "Shampoo",
-            "Conditioners",
-            "Hair Treatments",
-            "Hair Masks",
-            "Hair Oils",
-            "Hair Sprays",
-            "Hair Styling",
-            "Hair Thinning & Loss",
-            
-          ],
-          href: "#",
-        },
-        {
-          label: "Footwear",
-          subLabel: [
-            "Flats",
-            "Casual Shoes",
-            "Heels",
-            "Boots",
-            "Sports Shoes & Floaters",
-            "Sports and Active Wear",
-           
-          ],
-          href: "#",
-        },
-        {
-          label: "Toys",
-          subLabel: ["Flat Irons", "Hair Dryers", "Rollers & Curling Tongs"],
-          href: "#",
-        },
-        {
-          label: "Infants",
-          subLabel: [
-            " Removal Devices",
-            " Removal Products",
-            " Beauty Products",
-          ],
-          href: "#",
-        },
-      ],
-    },
-    {
-      label: "HOME & LIVING",
-      children: [
-        {
-          label: "Ben Linen & Furnishing",
-          subLabel: [
-            "New In",
-            "Clean Makeup",
-            "5 Rated Products",
-            "Gifts & Sets",
-            "Brushes & Applicators",
-            "Makeup Palettes",
-            "Nails",
-          ],
-          href: "#",
-        },
-        {
-          label: "Flooring",
-          subLabel: [
-            "Eye Liners",
-            "Lash & Brow Enhancers",
-            "Eye Shadows",
-            "Mascaras",
-            "Brow Pencils",
-          ],
-          href: "#",
-        },
-        {
-          label: "Bath",
-          subLabel: [
-            "BB && CC Cream",
-            "Blushers",
-            "Bronzers",
-            "Color Correctors",
-            "Concealers",
-            "Contour",
-            "Face Powders",
-            "Foundations",
-            "Highlighters",
-           
-          ],
-          href: "#",
-        },
-        {
-          label: "Lamps and Lighting",
-          subLabel: [
-            "stastics",
-            "Lamps Balms",
-            "Lamp Glosses",
-            " Liners",
-            " Plumpers",
-            "Liquid Lamps",
-          ],
-          href: "#",
-        },
-        {
-          label: "Home Decor",
-          subLabel: [
-            "Accessories",
-            "Pre-Tan Preparation",
-            "Body Tanners",
-            "Post Tanning",
-          ],
-          href: "#",
-        },
-      ],
-    },
-    {
-      label: "BEAUTY",
-      children: [
-        {
-          label: "Makeup",
-          subLabel: [
-            "View All Bath & Body",
-            "New In",
-            "Clean Bath & Body",
-            "5 Rated Products",
-            "Gifts & Sets",
-            "Travel Sizes",
-            "At Home Spa",
-            "Decorants",
-            "Oral Care",
-          ],
-          href: "#",
-        },
-        {
-          label: "Skincare,Bath & Body",
-          subLabel: [
-            "Baths Oils/Soak",
-            "Bath Salts",
-            "Body Washes",
-            "Cleansing bars",
-            "Exfoliators",
-          ],
-          href: "#",
-        },
-        {
-          label: "Baby Care",
-          subLabel: [
-            "Accessories",
-            "Pre-Tan Preparation",
-            "Body Tanners",
-            "Post Tanning",
-          ],
-          href: "#",
-        },
-        {
-          label: "Moisturizers",
-          subLabel: ["Balms", "Butters", "Creams", "Lotions", "Oils"],
-          href: "#",
-        },
-        {
-          label: "Haircare",
-          subLabel: [
-            "Bust",
-            "Cellulite",
-            "Dry Skin",
-            "Hair Removal",
-            "Hands & Foot Care",
-            "Hans Soap Senitizers & Creams",
-            "Legs",
-            "Simming & Sculpting",
-            "Strecth Marks",
-            "Sunscreen",
-          ],
-          href: "#",
-        },
-      ],
-    },
-    {
-      label: "STUDIO",
-      children: [
-        {
-          label: "Galary",
-          subLabel: ["View All Fragrance", "New In", "5 Rated Products"],
-          href: "#",
-        },
-        {
-          label: "Top Brands",
-          subLabel: [
-            "NEOM Organics",
-            "Glasshouse Fragrances",
-            "KORRES",
-            "NEST Fragrance",
-            "Molton Brown",
-          ],
-          href: "#",
-        },
-        {
-          label: "Deoderants",
-          subLabel: [
-            "Perfume",
-            "EAU de Toilette",
-            "Body Spray",
-            "For Her",
-            "For Him",
-          ],
-          href: "#",
-        },
-        {
-          label: "Ethnic",
-          subLabel: [
-            "Scented Candles",
-            "Diffusers",
-            "Aromatherapy",
-            "Pillow Mists",
-            "Room Sprays",
-          ],
-          href: "#",
-        },
-
-        {
-          label: "Upcoming Fashion",
-          subLabel: [
-            "In Shirts",
-            "In Pants",
-            "Casual",
-            "Watches",
-            "Footwear",
-          ],
-          href: "#",
-        },
-      ],
-    },
-  
-  ]
-
-  
+      {
+        label: "Upcoming Fashion",
+        subLabel: ["In Shirts", "In Pants", "Casual", "Watches", "Footwear"],
+        href: "#",
+      },
+    ],
+  },
+];

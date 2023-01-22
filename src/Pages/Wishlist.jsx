@@ -6,6 +6,7 @@ import { fetchWishlistData } from '../Redux/Wishlist/Wishlist.action'
 import LoadingPage from './LoadingPage'
 import PageNotFound from './PageNotFound'
 import WishlistCard from '../Components/WishlistCard'
+import Navbar from '../Components/Navbar'
 
 const Wishlist = () => {
 
@@ -25,13 +26,14 @@ if(error){
 }
   return (
     <div>
-        <Box p={"5rem 3rem 0 3rem"} textAlign={"left"} color={"gray.600"} fontSize={"1.2rem"}><Text fontWeight={600} color={"gray.800"} display={"inline-block"}>My WishList</Text> {wishlistData.length} items</Box>
+        <Navbar/>
+        <Box p={"5rem 3rem 0 3rem"} textAlign={"left"} mt={'3rem'} color={"gray.600"} fontSize={"1.2rem"}><Text fontWeight={600} color={"pink.500"} display={"inline-block"} ml={'2.5rem'}>My WishList :</Text> {wishlistData.length} items</Box>
         <Box p={"3rem 5rem"}>
             
             <Flex flexWrap={"wrap"} m={"auto"}>
                 {
                     wishlistData?.map((wish)=>(
-                        <WishlistCard prod={wish}/>
+                        <WishlistCard key={wish} prod={wish}/>
                     ))
                 }
 

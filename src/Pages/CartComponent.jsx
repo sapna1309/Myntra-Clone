@@ -22,10 +22,10 @@ const removeFromCart=(id)=>{
 
   return (
     <Box>
-      <Box border={"1px solid #9e998f"}>
-        <Flex>
+      <Box border={"0px solid #9e998f"} mb={5}  boxShadow={'base'} >
+        <Flex >
           <Box
-            width={{ sm: "30%", md: "30%", lg: "30%" }}
+            width={{ sm: "30%", md: "30%", lg: "33%" }}
             position={"relative "}
           >
             <Image src={cart.images}></Image>
@@ -38,7 +38,7 @@ const removeFromCart=(id)=>{
               onChange={() => handleCheckData(cart.id)}
             ></Checkbox>
           </Box>
-          <Stack w={"100%"}>
+          <Stack w={"100%"} ml={2} spacing={3}>
             <Box
               pl={"0.5rem"}
               textAlign={"left"}
@@ -47,13 +47,13 @@ const removeFromCart=(id)=>{
               <Text fontSize={{ md: "0.8rem" }} fontWeight={"700"}>
                 {cart.title}
               </Text>
-              <Text fontSize={{ md: "0.8rem" }}>
+              <Text fontSize={{ md: "0.8rem" }} mb={1} >
                 <Text display={"inline-block"} color={"gray.400"}>
                   Sold by:
                 </Text>
                 {cart.brand}
               </Text>
-              <Box>
+              <Box >
                 <Flex alignItems={"center"} gap={"1rem"}>
                   <Text
                     fontSize={{ sm: "0.8rem", md: "1rem" }}
@@ -83,6 +83,7 @@ const removeFromCart=(id)=>{
                   justifyContent={"space-between"}
                   alignItems={"baseline"}
                   gap={"0.5rem"}
+                  mt={1}
                 >
                   <Text fontSize={"0.9rem"} fontWeight={"600"}>
                     Rs.{cart.discounted_price * cart.qty}

@@ -5,14 +5,21 @@ import axios from "axios";
 //import { prodErrorMap } from "firebase/auth";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import {useParams } from "react-router-dom";
 import Footer from "../Components/Footer";
 import Navbar from "../Components/Navbar";
 import { getSingleProductAPI } from "../Redux/Product/Product.api";
+import { useDispatch } from "react-redux";
+import { fetchCartData } from "../Redux/Cart/Cart.action";
 
 const SingleProductPage = () => {
   const [singleProduct, setSingleProduct] = useState({});
   const [poster, setPoster] = useState("");
+  const dispatch= useDispatch();
+
+  useEffect(()=>{
+    
+  },[]);
 
   const { id } = useParams();
   // console.log(id)
@@ -55,7 +62,11 @@ const SingleProductPage = () => {
   const AddtoBag= async ()=>{
     // console.log("newItem:",props)
     await axios.post(`https://classic-world.onrender.com/cart/`,singleProduct)
-    .then((res)=>alert("Added to bag Successfully...."))
+    .then((res)=>{
+      alert("Added to bag Successfully....");
+      dispatch(fetchCartData());
+    })
+
     .catch((err)=>alert("Already Exists in Your Bag"))
 
   }
@@ -66,7 +77,7 @@ const SingleProductPage = () => {
     <div>
       <Navbar/>
       <div>
-      <Box mb={"4rem"} mt={120} >
+      <Box mb={"4rem"} mt={130} >
 
         {/* box-shadow: ; */}
         <Flex
@@ -77,10 +88,7 @@ const SingleProductPage = () => {
           <Box w={{ md: "100%" }} boxShadow={"rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px"}>
             <Image 
             src={poster}
-            position={"relative"}
-            bgSize={"cover"}
-            bgRepeat={"no-repeat"}
-              // h={"100%"}
+              borderRadius={20}
               m={"auto"}
               w={{ sm: "50%", md: "100%" ,lg:"50%"}}
               p={"0.5rem"}

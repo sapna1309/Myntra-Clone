@@ -22,8 +22,8 @@ import Payment from "../Pages/Payment";
 import Success from "../Pages/Success";
 
 
-const AllRoutes = ({ userName }) => {
-  console.log(userName);
+const AllRoutes = () => {
+ // console.log(userName);
 
   return (
     <div>

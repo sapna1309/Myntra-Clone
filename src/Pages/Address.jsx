@@ -53,6 +53,9 @@ import { ToastContainer, toast } from 'react-toastify';
     setToggle(!toggel)
    }
 
+   const TotalMRP = localStorage.getItem('Total MRP');
+   const DiscountPrice = localStorage.getItem('DiscountPrice');
+
     return (
       <Box>
         <PaymentNavbar/>
@@ -217,20 +220,20 @@ import { ToastContainer, toast } from 'react-toastify';
                 <FormLabel fontSize={"12px"} fontFamily={"1000"} >PRICE DEATILS (items)</FormLabel>
                 <HStack justifyContent={"space-between"} >
                    <Text fontSize={"14px"} >Total MRP</Text>
-                   <Text>₹3,498</Text>
+                   <Text>₹ {TotalMRP}</Text>
                 </HStack>
                 <HStack justifyContent={"space-between"} >
                    <Text fontSize={"14px"} >Discount on MRP</Text>
-                   <Text color={"green"} >-₹3,498</Text>
+                   <Text color={"green"} >₹ {Number(DiscountPrice)-Number(TotalMRP)}</Text>
                 </HStack>
                 <HStack justifyContent={"space-between"} >
                 <HStack><Text fontSize={"14px"}>Convenience Fee </Text><Text color={"#ff3f6c"}  fontSize={"13px"} fontWeight={"500"} >Know More</Text> </HStack>
-                   <HStack><Text fontSize={"14px"}>₹99 </Text><Text color={"green"}  fontSize={"13px"} fontWeight={"500"} >FREE</Text> </HStack>
+                   <HStack><Text fontSize={"14px"}textDecoration={'line-through'} >₹99 </Text><Text color={"green"}  fontSize={"13px"} fontWeight={"500"} >FREE</Text> </HStack>
                 </HStack>
                 <hr/>
                 <HStack justifyContent={"space-between"} >
                    <Text fontSize={"14px"} fontWeight={"500"} >Total Amount</Text>
-                   <Text fontSize={"14px"} fontWeight={"500"} >₹3,498</Text>
+                   <Text fontSize={"14px"} fontWeight={"500"} >₹ {TotalMRP}</Text>
                 </HStack>
 
             </Stack>
@@ -241,20 +244,20 @@ import { ToastContainer, toast } from 'react-toastify';
                 <FormLabel fontSize={"12px"} fontFamily={"1000"} >PRICE DEATILS (items)</FormLabel>
                 <HStack justifyContent={"space-between"} >
                    <Text fontSize={"14px"} >Total MRP</Text>
-                   <Text>₹3,498</Text>
+                   <Text>₹ {TotalMRP}</Text>
                 </HStack>
                 <HStack justifyContent={"space-between"} >
                    <Text fontSize={"14px"} >Discount on MRP</Text>
-                   <Text color={"green"} >-₹3,498</Text>
+                   <Text color={"green"} >₹ {Number(DiscountPrice)-Number(TotalMRP)}</Text>
                 </HStack>
                 <HStack justifyContent={"space-between"} >
                 <HStack><Text fontSize={"14px"}>Convenience Fee </Text><Text color={"#ff3f6c"}  fontSize={"13px"} fontWeight={"500"} >Know More</Text> </HStack>
-                   <HStack><Text fontSize={"14px"}>₹99 </Text><Text color={"green"}  fontSize={"13px"} fontWeight={"500"} >FREE</Text> </HStack>
+                   <HStack><Text fontSize={"14px"} textDecoration={'line-through'}>₹99 </Text><Text color={"green"}  fontSize={"13px"} fontWeight={"500"} >FREE</Text> </HStack>
                 </HStack>
                 <hr/>
                 <HStack justifyContent={"space-between"} >
                    <Text fontSize={"14px"} fontWeight={"500"} >Total Amount</Text>
-                   <Text fontSize={"14px"} fontWeight={"500"} >₹3,498</Text>
+                   <Text fontSize={"14px"} fontWeight={"500"} >₹ {TotalMRP}</Text>
                 </HStack>
                 <Link to="/payment" >
                 <Button bg={"#ff3f6c"} color={"#fff"}

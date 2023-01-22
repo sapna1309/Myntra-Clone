@@ -1,19 +1,17 @@
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, localStorageManager, Text } from "@chakra-ui/react";
 import axios from "axios";
 import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCartAPI } from "../Redux/Cart/Cart.api";
 import { fetchCartData } from "../Redux/Cart/Cart.action";
 import CartComponent from "./CartComponent";
 import LoadingPage from "./LoadingPage";
 import PageNotFound from "./PageNotFound";
-import Navbar from "../Components/Navbar";
 import PaymentNavbar from "../Components/PaymentNavbar";
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-  const { loading, error, cartData } = useSelector((store) => store.cart);
+  const { loading, error } = useSelector((store) => store.cart);
 
   const dispatch = useDispatch();
   const goToAddress = useNavigate()
@@ -41,7 +39,8 @@ const Cart = () => {
     });
     setSampleData(resultData);
   };
-
+  let resultcount;
+  let resultStriked;
   const handleChangeQty = (value, id) => {
     const resultData = sampleData?.map((item) => {
       return item?.id === id ? { ...item, qty: value } : item;
@@ -49,7 +48,7 @@ const Cart = () => {
     setSampleData(resultData);
   };
 
-  let resultcount = 0;
+  resultcount = 0;
   sampleData
     ?.filter((item) => item.isChecked === true)
     ?.map((item) => {
@@ -57,7 +56,7 @@ const Cart = () => {
         Number(resultcount) + Number(item.discounted_price) * Number(item.qty);
       return resultcount;
     });
-  let resultStriked = 0;
+  resultStriked = 0;
   sampleData
     ?.filter((item) => item.isChecked === true)
     ?.map((item) => {
@@ -119,7 +118,7 @@ const Cart = () => {
         
       >
         <Box width={{ sm: "70%", md: "60%", lg: "55%" }} >
-          <Box border={"1px solid #9e998f"}>
+          <Box border={"0px solid #9e998f"}>
             <Flex
               alignItems={"center"}
               justifyContent={"space-between"}
@@ -142,7 +141,7 @@ const Cart = () => {
               </Button>
             </Flex>
           </Box>
-          <Box p={"1rem"} border={"1px solid #9e998f"}>
+          <Box p={"1rem"} border={"0px solid #9e998f"}>
             <Flex
               p={{sm:"0"}}
               fontSize={"0.9rem"}
@@ -171,9 +170,10 @@ const Cart = () => {
               </Text>
             </Flex>
           </Box>
-          <Box>
-            {sampleData?.map((cart) => (
+          <Box >
+            {sampleData?.map((cart,i) => (
               <CartComponent
+              key={i}
                 cart={cart}
                 handleCheckData={handleCheckData}
                 handleChangeQty={handleChangeQty}
@@ -182,7 +182,7 @@ const Cart = () => {
           </Box>
         </Box>
         <Box
-          border={"1px solid gray"}
+          border={"0px solid gray"}
           width={{ base: "30%", sm: "40%", md: "45%", lg: "45%" }}
           p={"2rem"}
         >
@@ -192,14 +192,18 @@ const Cart = () => {
           <Box p={"1rem 0"} borderBottom={"1px solid gray"}>
             {Object.keys(placeOrderObj).map((item) => {
               return (
-                <Flex justifyContent={"space-between"}>
-                  <Text>{item}</Text>
+                <Flex key={item} justifyContent={"space-between"}>
+                  <Text key={item} >{item}</Text>
                   <Text>{placeOrderObj[item]}</Text>
                 </Flex>
               );
             })}
           </Box>
-          <Button _hover={{backgroundColor:"white",color:"pink.400",outline:"2px solid #e10765"}} w={"100%"} mt={"2rem"} color={"white"} backgroundColor={"pink.400"} onClick={()=>goToAddress("/address")}>PLACE ORDER</Button>
+          <Button _hover={{backgroundColor:"white",color:"pink.400",outline:"2px solid #e10765"}} w={"100%"} mt={"2rem"} color={"white"} backgroundColor={"pink.400"} onClick={()=>{
+            goToAddress("/address");
+            localStorage.setItem('Total MRP',resultcount);
+            localStorage.setItem('DiscountPrice',resultStriked);
+          }}>PLACE ORDER</Button>
         </Box>
 
         

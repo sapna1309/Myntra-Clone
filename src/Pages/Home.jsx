@@ -22,7 +22,7 @@ const Home = () => {
   useEffect(()=>{
     getImagedata();
   },[])
-  console.log("Data",data);
+  //console.log("Data",data);
   return (
     <Box width={'100%'} >
         {/* <Heading size={'lg'} >Welcome To Home Page</Heading> */}

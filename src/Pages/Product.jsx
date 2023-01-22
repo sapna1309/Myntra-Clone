@@ -116,7 +116,7 @@ const Product = () => {
       setBrand(e.target.value);
     }
   };
-  console.log("isChecked", checked);
+  //console.log("isChecked", checked);
 
   /*brand filter ends here */
 
@@ -154,15 +154,16 @@ const Product = () => {
           flexDirection={"row"}
           justifyContent={"space-between"}
         >
-          <Box  backgroundColor={"white"} textAlign={"left"} zIndex={"100"} w={"20%"} position={"sticky"}>
+          <Box border={'0px solid red'} backgroundColor={"white"} textAlign={"left"} zIndex={"100"} w={"20%"} position={"fixed"} top={29}  >
           <Text
             display={"inline-block"}
             fontSize={"1.2rem"}
             fontWeight={"bold"}
             color={"pink.400"}
+            mt={'5rem'}
           >
             {" "}
-            Myntra -
+            Mens -
           </Text>{" "}
           ({totalPages})
         </Box>
@@ -170,16 +171,16 @@ const Product = () => {
             display={{ sm: "none", lg: "inline-block" }}
             position={"fixed"}
             w={"20%"}
-            top={"5.5rem"}
+            top={"9rem"}
             zIndex={"100"}
             backgroundColor={"#FFF"}
           >
             <Flex
               justifyContent={"space-between"}
               alignItems={"baseline"}
-              p={"0 1rem"}
+              pl={'0.1rem'}
             >
-              <Text fontSize={"1.2rem"} fontWeight={700}>
+              <Text fontSize={"1.2rem"} fontWeight={700}  textAlign={'left'}>
                 Filters
               </Text>
               <Text
@@ -192,7 +193,7 @@ const Product = () => {
               </Text>
             </Flex>
 
-            <Box border={"1px solid gray"} overflowY={"scroll"} h={250}>
+            <Box border={"0px solid gray"}>
               <Heading
                 fontSize={"1rem"}
                 textAlign="left"
@@ -223,23 +224,24 @@ const Product = () => {
           {/* filters end */}
 
           <Box
-            border={"1px solid gray"}
+            border={"0px solid gray"}
             w={{ lg: "80%", sm: "100%", md: "100%" }}
-            ml={{ md: "", lg: "22%", sm: "" }}
-            position={"relative"}
+            ml={'22%'}
           >
             <div className={prodStyle.products}>
               <Flex
                 justifyContent={"space-between"}
                 borderBottom={"2px solid gray"}
-                position={"fixed"}
                 zIndex={14}
                 backgroundColor={"white"}
               >
                 <Box w={{ sm: "100%", md: "100%", lg: "40%" }} m={"0.5rem"}>
+                  <Text ml={2} textAlign={'left'}><b>Sort By :</b></Text>
                   <Select
-                    variant="flushed"
+                    variant="solid"
                     placeholder="All"
+                    p={2}
+                    bg={'gray.200'}
                     onChange={(e) => handleChange(e)}
                   >
                     <option value="rating">Rating </option>
@@ -294,7 +296,7 @@ const Product = () => {
                   md: "repeat(3,1fr)",
                 }}
                 gap={"0.9rem"}
-                mt={"10rem"}
+                mt={{lg:'0rem',sm:'10rem',md:'1rem'}}
               >
                 {checked ? (
                   <>

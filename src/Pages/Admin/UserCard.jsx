@@ -22,9 +22,9 @@ export default function UserCard({fname,lname,email,contact,isAuth,id,deleteUser
   <CardHeader>
     <Flex spacing='4'  >
       <Flex flex='1' gap='4' alignItems='center'flexWrap='wrap'>
-       {isAuth? <Avatar name={`${fname}+${lname}`} src='https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ' size={'lg'} >
+       {isAuth? <Avatar name={`${fname}+${lname}`} size={'lg'} >
         <AvatarBadge boxSize='1em' bg='green.500' />
-        </Avatar>: <Avatar name={`${fname}+${lname}`} src='https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ' size={'lg'} >
+        </Avatar>: <Avatar name={`${fname}+${lname}`}  size={'lg'} >
         <AvatarBadge boxSize='1em' bg='red.500' />
         </Avatar>}
         <Box textAlign={'left'}>

@@ -1,9 +1,10 @@
 import { Box, Flex, FormLabel, HStack, Stack , Text, Image, Heading, Input, VStack, Button, FormControl} from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import PaymentNavbar from '../Components/PaymentNavbar'
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
+//import { useRef } from 'react';
 
 // https://w7.pngwing.com/pngs/679/616/png-transparent-sales-discounts-and-allowances-computer-icons-dicount-miscellaneous-angle-text.png
 
@@ -17,7 +18,14 @@ function Payment() {
     month:"",
     cvv:"",
   })
+ 
+  const TotalMRP = localStorage.getItem('Total MRP');
+  const DiscountPrice = localStorage.getItem('DiscountPrice');
 
+  //const inputRef = useRef(null);
+  
+ const captcha = 1309
+//Math.floor(Math.random()*(9999-1000)+1000);
   const {cardno , cardName , month , cvv}=value
 
 
@@ -47,7 +55,7 @@ function Payment() {
       setToggle(!toggle)
   }
   const handleSubmit=()=>{
-    if( !code  ){
+    if( code!==captcha || code==="" ){
       
       toast.error("Please fill the capture first", {
         position: "top-center",
@@ -55,7 +63,7 @@ function Payment() {
       return
       
      }
-     
+     //inputRef.current.focus();
         navigate("/success")
       
     
@@ -220,12 +228,14 @@ function Payment() {
                     <FormControl>
                       <Stack spacing={4} >
                      <Text marginbottom={"30px"} fontWeight={"700"} >Pay On Delivery (Cash/UPI)</Text>
-                     <Box w={"30%"} textAlign="center" p={2} border={"1px solid"} borderRadius="5px" >
-                     1 3 4 6
+                     <Box w={"30%"} textAlign="center" p={2} border={"1px solid"} borderRadius="5px" >                     
+                      {captcha}
+                     {/* value={code} */}
+                     {/* ref={inputRef} */}
                      </Box>
 
-                     <Input w="60%" type={"text"} fontSize={"11px"} placeholder='Enter code Show in above image*' isRequired 
-                     onChange={(e)=>setCode(e.target.value)}
+                     <Input w="60%" type={"text"}value={code}  fontSize={"15px"} placeholder='Enter code Show in above image*' isRequired 
+                     onChange={(e)=>setCode(Number(e.target.value))}
                      />
                      <Text fontSize={"12px"}  color={"gray"} >You can pay via Cash or UPI enabled app at the time on delivery. Ask executive for these options</Text>
                      <Button background={"#ff3f6c"} color="#fff" 
@@ -300,20 +310,20 @@ function Payment() {
                 <FormLabel fontSize={"12px"} fontFamily={"1000"} >PRICE DEATILS (items)</FormLabel>
                 <HStack justifyContent={"space-between"} >
                    <Text fontSize={"14px"} >Total MRP</Text>
-                   <Text>₹3,498</Text>
+                   <Text>₹ {TotalMRP}</Text>
                 </HStack>
                 <HStack justifyContent={"space-between"} >
                    <Text fontSize={"14px"} >Discount on MRP</Text>
-                   <Text color={"green"} >-₹3,498</Text>
+                   <Text color={"green"} >₹ {Number(DiscountPrice)-Number(TotalMRP)}</Text>
                 </HStack>
                 <HStack justifyContent={"space-between"} >
                 <HStack><Text fontSize={"14px"}>Convenience Fee </Text><Text color={"#ff3f6c"}  fontSize={"13px"} fontWeight={"500"} >Know More</Text> </HStack>
-                   <HStack><Text fontSize={"14px"}>₹99 </Text><Text color={"green"}  fontSize={"13px"} fontWeight={"500"} >FREE</Text> </HStack>
+                   <HStack><Text fontSize={"14px"} textDecoration={'line-through'}>₹99 </Text><Text color={"green"}  fontSize={"13px"} fontWeight={"500"} >FREE</Text> </HStack>
                 </HStack>
                 <hr/>
                 <HStack justifyContent={"space-between"} >
                    <Text fontSize={"14px"} fontWeight={"500"} >Total Amount</Text>
-                   <Text fontSize={"14px"} fontWeight={"500"} >₹3,498</Text>
+                   <Text fontSize={"14px"} fontWeight={"500"} >₹ {TotalMRP}</Text>
                 </HStack>
 
             </Stack>

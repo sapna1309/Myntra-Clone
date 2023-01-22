@@ -79,7 +79,7 @@ export default function Register() {
         await updateProfile(user, {
           displayName: value.fname,
         });
-        navigate("/");
+        navigate("/login");
         // console.log(user)
         // console.log("res",res)
       })
