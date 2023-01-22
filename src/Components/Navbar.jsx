@@ -11,6 +11,8 @@
    import Home from "../Pages/Home";
    import Wishlist from '../Pages/Wishlist';
    import Address from "../Pages/Address";
+   import Cart from "../Pages/Cart";
+   import Product from "../Pages/Product";
 
 
 
@@ -52,52 +54,57 @@ import {
 } from '@chakra-ui/icons'
  import {NavLink, useNavigate} from "react-router-dom"
 import { useEffect,useState} from "react";
+import { useParams } from "react-router-dom";
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
   const [LoginUser, setLoginUser] = useState([]);
   const [verify , setVerify] = useState(false);
   const [verifya , setVerifya] = useState(false);
+  const [mensData , setmensData] = useState([]);
+  const [value , setValue] = useState('');
 
     const fetchData = async() => {
          let res= await fetch("https://classic-world.onrender.com/UsersList")
          let data=await res.json();
          
-
-         
          setVerify(true);
          setLoginUser(data);
     }
 
+    const fetchmensData = async() => {
+      let r= await fetch(`https://classic-world.onrender.com/MensData`)
+      let deta=await r.json();
+     setmensData(deta);
+ }
 
 
-    // const updateHandle=async(id)=>{
-    //   const payload={
-    //     id:id,
-    //     fname:
-    //   }
-    //    try{
-    //     let res= await fetch(`https://classic-world.onrender.com/UsersList${id}`,{
-    //       method:"PATCH",
-    //       Body:JSON.stringify({!isAuth}),
-    //       header:{
-    //         "Content-Type": "application/json"
-    //       },
-    //     })
-    //    }
-    //    catch(err){
-    //       console.log(err)
-    //    }
-    // }
+ const { id } = useParams();
+   console.log(id);
+   
 
     useEffect(() => {
           fetchData();
-
+          fetchmensData();
           
        },[])
 
+      //  useEffect(() => {
+      //   fetchmensData();
+      //  },[value])
+
+       const handleChange = (e) => {
+             setValue(e.target.value);
+            //  fetchmensData(e.target.value);
+            
+       }
+
+         console.log(value);
+
+         console.log(mensData);
+
   return (
-    <Box >
+    <Box w={"full"} border={'0px solid black'}>
       <Flex
         bg={useColorModeValue('white', 'gray.800')}
         color={useColorModeValue('gray.600', 'white')}
@@ -109,7 +116,7 @@ export default function Navbar() {
         borderBottom={1}
         borderStyle={'solid'}
         borderColor={useColorModeValue('gray.200', 'gray.900')}
-        alignItems={'center'}>
+        alignItems={'center'} border={'0px solid black'}>
         <Flex
           flex={{ base: 1, md: 'auto' }}
           ml={{ base: -2 }}
@@ -123,7 +130,7 @@ export default function Navbar() {
             aria-label={'Toggle Navigation'}
           />
         </Flex>
-        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} w={"full"}>
        
 
              <Box border={'0px solid black'} >
@@ -135,8 +142,8 @@ export default function Navbar() {
                   /></NavLink>
                 </Box>
 
-          <Flex display={{ base: 'none', md: 'flex' }} ml={0}>
-            <DesktopNav />
+          <Flex display={{ base: 'none', md: 'flex' }} ml={0} w={"full"} alignItems={"center"} justifyContent={"center"}>
+            <NavLink to="/Product"><DesktopNav /></NavLink>
           </Flex>
         </Flex>
 
@@ -146,9 +153,18 @@ export default function Navbar() {
       pointerEvents='none'
       children={<SearchIcon color='gray.300' />}
     />
-    <Input type='text' placeholder='Search for produts,brands and more' />
+    <Input type='text' placeholder='Search for produts,brands and more' value={value} onChange={handleChange} />
+    {value === 'mens'? 
+     <div style={{ overflowY: 'scroll', height: '200px' }} mt={"20px"}>
+              {mensData.map((el) => {
+                  return <div key={el.id}>
+                      <p>{el.title}</p>
+                  </div>
+              })}
+            </div> : <p></p>}
   </InputGroup>
             </Stack>
+           
 
         <Stack
           flex={{ base: 1, md: 0 }}
@@ -210,7 +226,7 @@ export default function Navbar() {
     <MenuDivider />
     <MenuGroup >
      <Flex direction={"column"} gap={"5px"} align={"flex-start"} padding={"10px"} fontWeight={"500"} fontSize={"13px"}>
-       <Button variant='outline' onClick={()=>setVerifya(true)}>Logout</Button>
+     <Button variant='outline'  onClick={()=>setVerifya(true)}>Logout</Button>
        
      </Flex>
     </MenuGroup>
@@ -230,9 +246,9 @@ export default function Navbar() {
           </Button></NavLink>
           </VStack>
 
-          <VStack>
+          <VStack spacing={"1"}>
           <BsHandbag />
-          <Button
+          <NavLink to="/Cart"><Button
             as={'a'}
             fontSize={'xs'}
             fontWeight={700}
@@ -240,7 +256,7 @@ export default function Navbar() {
              
             href={'#'}>
             Bag
-          </Button>
+          </Button></NavLink>
           </VStack>
         </Stack>
       </Flex>
