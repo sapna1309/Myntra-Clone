@@ -9,6 +9,8 @@
   import CWLOGO from '../assets/CWLOGO-1.png';
   import Login from "../Pages/Login";
    import Home from "../Pages/Home";
+   import Wishlist from '../Pages/Wishlist';
+   import Address from "../Pages/Address";
 
 
 
@@ -99,7 +101,7 @@ export default function Navbar() {
       <Flex
         bg={useColorModeValue('white', 'gray.800')}
         color={useColorModeValue('gray.600', 'white')}
-        minH={{sm:"4rem", md:"4rem" , lg:"60px"}}
+        minH={"60px"}
         zIndex={999}
         pos={"fixed"} top={0}
         py={{ base: 2, md:0 }}
@@ -164,12 +166,12 @@ export default function Navbar() {
   <MenuButton  >
     <Button as={'a'} fontSize={"xs"} fontWeight={"700"} variant={'link'}>Profile</Button>
   </MenuButton>
-  <MenuList>
+  <MenuList ml={"50%"} >
     <MenuGroup >
      
        <Flex direction={"column"} align={"flex-start"} padding={"10px"}>
       {verify && !verifya ? <Text fontWeight={"bold"} fontSize={"15px"}>Hello {LoginUser[LoginUser.length-1].fname}</Text> : <Text fontWeight={"bold"} fontSize={"15px"}>Welcome</Text>}
-      {verify && !verifya ? <Text fontWeight={"500"} fontSize={"13px"}> {LoginUser[LoginUser.length-1].email}</Text>  : <Text fontSize={"12px"} fontWeight={"500"}>To access account and manage orders</Text>}
+      {verify && !verifya ? <Text fontWeight={"500"} fontSize={"13px"}> {LoginUser[LoginUser.length-1].email}</Text>  : <Text fontSize={"12px"} fontWeight={"500"}>To access account and orders</Text>}
       {verifya ? <NavLink to="/Login"><Button  mt={"10px"} variant='outline' fontSize={"13px"} fontWeight={"bold"} color="#FF3F6C">LOGIN / SIGNUP</Button></NavLink> : <Button  isDisabled={true} mt={"10px"} variant='outline' fontSize={"13px"} fontWeight={"bold"} color="#FF3F6C">LOGIN / SIGNUP</Button>}
       </Flex>
        
@@ -179,7 +181,7 @@ export default function Navbar() {
     <MenuGroup >
      <Flex direction={"column"} gap={"5px"} align={"flex-start"} padding={"10px"} fontWeight={"500"} fontSize={"13px"}>
        <Link>Orders</Link>
-       <Link>Wishlist</Link>
+       <NavLink to="/Wishlist"><Link>Wishlist</Link></NavLink>
        <Link>Gift Cards</Link>
        <Link>Contact Us</Link>
          <Stack direction={'row'} align={'center'} spacing={1}>
@@ -202,7 +204,7 @@ export default function Navbar() {
        <Link>Coupons</Link>
        <Link>Saved Cards</Link>
        <Link>Saved VPA</Link>
-       <Link>Saved Addresses</Link>
+       <NavLink to="/Address"><Link>Addresses</Link></NavLink>
      </Flex>
     </MenuGroup>
     <MenuDivider />
@@ -216,16 +218,16 @@ export default function Navbar() {
 </Menu>
           </VStack>
          
-          <VStack>
+          <VStack spacing={"1"}>
           <BsSuitHeart/>
-          <Button
+          <NavLink to="/Wishlist"><Button
             as={'a'}
             fontSize={'xs'}
             fontWeight={700}
             variant={'link'}
             href={'#'}>
             Wishlist
-          </Button>
+          </Button></NavLink>
           </VStack>
 
           <VStack>

@@ -20,6 +20,7 @@
     FaYoutube,
    FaInstagram
   } from 'react-icons/fa';
+  import { NavLink } from 'react-router-dom';
   
   export default function Footer() {
     return (
