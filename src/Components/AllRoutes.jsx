@@ -16,6 +16,7 @@ import AdminProfilePage from "../Pages/Admin/AdminProfilePage";
 import Address from "../Pages/Address";
 
 import Wishlist from "../Pages/Wishlist";
+import Cart from "../Pages/Cart";
 
 import Payment from "../Pages/Payment";
 
@@ -29,6 +30,7 @@ const AllRoutes = ({ userName }) => {
         <Route path="/product" element={<Product />}></Route>
         <Route path="/product/:id" element={<SingleProductPage />}></Route>
         <Route path="/wishlist" element={<Wishlist />}></Route>
+        <Route path="/cart" element={<Cart />}></Route>
         <Route path="*" element={<PageNotFound />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>

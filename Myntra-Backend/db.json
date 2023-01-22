@@ -6597,70 +6597,80 @@
             "lname": "Kumari",
             "email": "k@gmail.com",
             "password": "12345KK",
-            "contact": "1234567891"
+            "contact": "1234567891",
+            "isAuth":true
         },
         {    "id": 2,
             "fname": "Kavita",
             "lname": "Saxena",
             "email": "kt@gmail.com",
             "password": "12345KS",
-            "contact": "1234567890"
+            "contact": "1234567890",
+            "isAuth":true
         },
         {    "id": 3,
         "fname": "Deepak",
         "lname": "Singh",
         "email": "d@gmail.com",
         "password": "12345DS",
-        "contact": "1234567892"
+        "contact": "1234567892",
+        "isAuth":true
        },
        {    "id": 4,
         "fname": "ADarsha",
         "lname": "Khatua",
         "email": "a@gmail.com",
         "password": "12345AK",
-        "contact": "1234567893"
+        "contact": "1234567893",
+        "isAuth":true
        },
        {    "id": 5,
         "fname": "Deepti",
         "lname": "Singh",
         "email": "d@gmail.com",
         "password": "12345DS",
-        "contact": "1234567895"
+        "contact": "1234567895",
+        "isAuth":true
        },
        {    "id": 6,
         "fname": "Akash",
         "lname": "Fulari",
         "email": "af@gmail.com",
         "password": "12345AF",
-        "contact": "1234567896"
+        "contact": "1234567896",
+        "isAuth":true
        },
        {    "id": 7,
         "fname": "Sankalp",
         "lname": "Tiwari",
         "email": "s@gmail.com",
         "password": "12345ST",
-        "contact": "12345678928"
+        "contact": "12345678928",
+        "isAuth":true
        },
        {    "id": 8,
         "fname": "Tanisha",
         "lname": "Singh",
         "email": "t@gmail.com",
         "password": "12345TS",
-        "contact": "1234567899"
+        "contact": "1234567899",
+        "isAuth":true
        },
        {    "id": 9,
         "fname": "Gautam",
         "lname": "Verma",
         "email": "gv@gmail.com",
         "password": "12345GV",
-        "contact": "1234567800"
+        "contact": "1234567800",
+        "isAuth":true
        },
        {    "id": 10,
         "fname": "Mayur",
         "lname": "Wagh",
         "email": "m@gmail.com",
         "password": "12345MW",
-        "contact": "1234567822"
+        "contact": "1234567822",
+        "isAuth":true
        }
     ],
     "AdminData":{"id":1,
