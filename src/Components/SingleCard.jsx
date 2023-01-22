@@ -13,9 +13,11 @@ import {
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { fetchCartData } from "../Redux/Cart/Cart.action";
 function SingleCard({ ...props }) {
-
-  const [wishlist ,setWishlist] = useState([])
+const dispatch = useDispatch();
+  //const [wishlist ,setWishlist] = useState([])
 
   const navigate = useNavigate();
   const {
@@ -34,7 +36,11 @@ function SingleCard({ ...props }) {
   const handleAddToWishlist = async () => {
          await axios
         .post(`https://classic-world.onrender.com/WishList/`, prod )
-        .then((res) => alert("Added to Wishlist Successfully...."))
+        .then((res) => {
+          alert("Added to Wishlist Successfully....");
+          dispatch(fetchCartData());
+        })
+
         .catch((err) => alert("Already Exists"));
     
   };
