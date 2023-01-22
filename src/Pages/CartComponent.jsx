@@ -1,27 +1,112 @@
-import { Box, Button, Checkbox, Flex, Text } from "@chakra-ui/react";
+import { CloseIcon } from "@chakra-ui/icons";
+import {
+  Box,
+  Checkbox,
+  Flex,
+  Image,
+  Select,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
+import axios from "axios";
 import React from "react";
 
-const CartComponent = ({ cart }) => {
-  return (
-    <Box m={"0.2rem"}>
+const CartComponent = ({ cart, handleCheckData, handleChangeQty }) => {
 
-      {/* CartComponent */}
+const removeFromCart=(id)=>{
+    axios.delete(`https://classic-world.onrender.com/cart/${id}`).then((res)=>{alert("Removed from Bag...")
+    window.location.reload()
+  })
+    .catch((err)=>console.log(err))
+}
+
+  return (
+    <Box>
       <Box border={"1px solid #9e998f"}>
-        <Flex alignItems={"center"} justifyContent={"space-between"} p={"1rem"}>
-          <Text color={"gray.700"} fontWeight={600} fontSize={"0.9rem"}>Check Delivery time & services</Text>
-          <Button fontSize={"0.8rem"} h={"2.3rem"} borderRadius={0} backgroundColor={"#fff"} border={"1px solid tomato"} outline={"tomato"} color={"tomato"} > ENTER PIN CODE</Button>
+        <Flex>
+          <Box
+            width={{ sm: "30%", md: "30%", lg: "30%" }}
+            position={"relative "}
+          >
+            <Image src={cart.images}></Image>
+            <Checkbox
+              top={1}
+              left={1}
+              isChecked={cart.isChecked}
+              backgroundColor={"blackAlpha.300"}
+              position={"absolute"}
+              onChange={() => handleCheckData(cart.id)}
+            ></Checkbox>
+          </Box>
+          <Stack w={"100%"}>
+            <Box
+              pl={"0.5rem"}
+              textAlign={"left"}
+              width={{ sm: "100%", md: "100%", lg: "100%" }}
+            >
+              <Text fontSize={{ md: "0.8rem" }} fontWeight={"700"}>
+                {cart.title}
+              </Text>
+              <Text fontSize={{ md: "0.8rem" }}>
+                <Text display={"inline-block"} color={"gray.400"}>
+                  Sold by:
+                </Text>
+                {cart.brand}
+              </Text>
+              <Box>
+                <Flex alignItems={"center"} gap={"1rem"}>
+                  <Text
+                    fontSize={{ sm: "0.8rem", md: "1rem" }}
+                    fontWeight={700}
+                  >
+                    Qty:
+                  </Text>
+                  <Select
+                    fontSize={"0.7rem"}
+                    value={cart.qty}
+                    w={{ md: "25%", lg: "35%", sm: "25%" }}
+                    size={"xs"}
+                    onChange={(e) => handleChangeQty(e.target.value, cart.id)}
+                  >
+                    {[1, 2, 3, 4].map((item, i) => (
+                      <option key={i} value={item}>
+                        {item}
+                      </option>
+                    ))}
+                  </Select>
+                </Flex>
+              </Box>
+
+              <Flex>
+                <Box
+                  display={"flex"}
+                  justifyContent={"space-between"}
+                  alignItems={"baseline"}
+                  gap={"0.5rem"}
+                >
+                  <Text fontSize={"0.9rem"} fontWeight={"600"}>
+                    Rs.{cart.discounted_price * cart.qty}
+                  </Text>
+                  <Text
+                    fontSize={"0.7rem"}
+                    alignItems={"baseline"}
+                    textDecoration={"line-through"}
+                  >
+                    Rs.{cart.strike_price * cart.qty}
+                  </Text>
+                  <Text fontSize={"0.7rem"} color="pink.300">
+                    {cart.discount}
+                  </Text>
+                </Box>
+              </Flex>
+            </Box>
+          </Stack>
+        <Box position={"relative"}>
+        <CloseIcon position={"absolute"} top={2} right={3} onClick={()=>removeFromCart(cart.id)}/>
+      </Box>
         </Flex>
       </Box>
-      <Box>
-        <Flex p={"1rem"}>
-         <Text>REMOVE</Text>
-         <Text>|</Text>
-         <Text>MOVE TO WISHLIST</Text>
-         </Flex>
-      </Box>
-       <Flex>
-
-       </Flex>
+      
     </Box>
   );
 };

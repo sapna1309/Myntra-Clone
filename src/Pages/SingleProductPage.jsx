@@ -80,16 +80,16 @@ const SingleProductPage = () => {
             position={"relative"}
             bgSize={"cover"}
             bgRepeat={"no-repeat"}
-              h={"100%"}
+              // h={"100%"}
               m={"auto"}
-              w={{ sm: "50%", md: "70%" }}
+              w={{ sm: "50%", md: "100%" ,lg:"50%"}}
               p={"0.5rem"}
               
             /> 
             
           </Box>
 
-          <Box  w={"100%"}  p={"0 2rem"} boxShadow={"rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px"}>
+          <Box  w={{md:"60%"}}  p={"0 2rem"} boxShadow={"rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px"}>
             <Text
               pt={"1rem"}
               textAlign={"left"}
