@@ -27,7 +27,10 @@ import {BsFillBellFill} from 'react-icons/bs'
 import {HiFolderAdd} from 'react-icons/hi'
 import {ImMan,ImWoman} from 'react-icons/im';
 import {FaChild,FaUsers} from 'react-icons/fa'
-import {RiAccountPinCircleFill} from 'react-icons/ri'
+import {RiAccountPinCircleFill,RiLogoutCircleFill} from 'react-icons/ri'
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getAdminData } from '../Redux/Admin/Admin.action';
 const LinkItems= [
   { name: 'Home', icon: AiFillHome, path:'/admin-dashboard'},
   { name: 'Add Product', icon: HiFolderAdd, path:'/add-products' },
@@ -36,12 +39,18 @@ const LinkItems= [
   { name: 'Kids', icon: FaChild, path:'/admin-kids' },
   { name: 'Users', icon: FaUsers, path:'/admin-users' },
   { name: 'Account', icon: RiAccountPinCircleFill, path:'/admin-profile' },
+  { name: 'Logout', icon: RiLogoutCircleFill, path:'/' }
 ];
 //RiLogoutCircleFill
 export default function AdminNavbar({
   children,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {adminData} = useSelector((store)=>store.adminManager);
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(getAdminData());
+  },[])
   return (
   <Box border={'0px solid black'} pos={'fixed'} top={0} right={0} left={0} zIndex={999}>
       <SidebarContent
@@ -62,7 +71,7 @@ export default function AdminNavbar({
         </DrawerContent>
       </Drawer>
       {/* mobilenav */}
-      <MobileNav onOpen={onOpen} />
+      <MobileNav onOpen={onOpen} name={adminData.name} />
       <Box ml={{ base: 0, md: 60 }} p="4">
         {children}
       </Box>
@@ -125,7 +134,7 @@ const NavItem = ({ icon, children, item,...rest }) => {
     </NavLink>
   );
 };
-const MobileNav = ({ onOpen, ...rest }) => {
+const MobileNav = ({ onOpen,name, ...rest }) => {
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -171,7 +180,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   alignItems="flex-start"
                   spacing="1px"
                   >
-                  <Text fontSize={'sm'} fontWeight={500} >Sapna Sharma</Text>
+                  <Text fontSize={'sm'} fontWeight={500} fontFamily={'sans-serif'}>{name}</Text>
                   <Text fontSize={'xs'} fontWeight={500} color="gray.600">
                     Admin
                   </Text>

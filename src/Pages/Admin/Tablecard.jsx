@@ -9,7 +9,7 @@ const Tablecard = ({
   discounted_price,
   strike_price,
   handleDelete,
-  handleUpdate,
+  handleOpen,
 }) => {
   return (
     <Tr key={id}>
@@ -34,7 +34,7 @@ const Tablecard = ({
           bg={"#72749B"}
           color={"white"}
           _hover={{ color: "black", backgroundColor: "gray.200" }}
-          onClick={() => handleUpdate(id)}
+          onClick={() => handleOpen(id)}
         >
           <EditIcon />
         </Button>
