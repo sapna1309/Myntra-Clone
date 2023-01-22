@@ -99,7 +99,7 @@ export default function Navbar() {
       <Flex
         bg={useColorModeValue('white', 'gray.800')}
         color={useColorModeValue('gray.600', 'white')}
-        minH={{sm:"2rem", md:"2rem" , lg:"60px"}}
+        minH={{sm:"4rem", md:"4rem" , lg:"60px"}}
         zIndex={999}
         pos={"fixed"} top={0}
         py={{ base: 2, md:0 }}
