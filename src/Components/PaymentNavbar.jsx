@@ -1,10 +1,10 @@
-import { Flex, Image , Box, HStack , Text } from '@chakra-ui/react'
+import { Flex, Image , Box, HStack  } from '@chakra-ui/react'
 import React from 'react'
 import {Link, NavLink } from 'react-router-dom';
 import CWLOGO from '../assets/CWLOGO-1.png';
 
 const links=[
-  {path:"/bag" , text:"Bag"},
+  {path:"/cart" , text:"Bag"},
   {path:"/address" , text:"Address"},
   {path:"/payment" , text:"Payment"}
 ]
@@ -26,7 +26,13 @@ const activeStyle={
 }
   return (
     <div>
-      <Flex justifyContent={"space-between"} border="1px solid lightgray" >
+      <Flex justifyContent={"space-between"} border="1px solid lightgray" w="full" marginBottom={6} 
+      position="fixed"
+      top={0}
+      zIndex="999"
+      background={"#fff"}
+     
+       >
         <Box>
           <Link to="/" >
           <Image src={CWLOGO} alt="logo" w={["50px" , "60px" , "70px"]}  />

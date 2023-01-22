@@ -21,6 +21,8 @@ import GoogleButton from 'react-google-button';
 import { createUserWithEmailAndPassword , updateProfile, signInWithPopup} from 'firebase/auth';
 import { auth, provider } from '../Components/firebase';
 import Navbar from '../Components/Navbar';
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 // https://classic-world.onrender.com/MensData
 
@@ -41,7 +43,7 @@ export default function Register() {
   const [googleValue, setGoogleValue]=useState("")
   const [submitbutton , setSubmitbutton]=useState(false)
   const navigate=useNavigate()
-  const[error, setError]=useState("")
+  // const[error, setError]=useState("")
 
   const submitPost = async () => {
     
@@ -67,12 +69,14 @@ export default function Register() {
 
   const handleSubmit=()=>{
     
-    if(!value.fname || !value.email || !value.password ){
-          setError("fill all fields")
+    if(!value.fname || !value.email || !value.password ||!value.contact ){
+      toast.error(`Please fill the field first`, {
+        position: "top-center",
+      });
           return 
     }
    
-    setError("")
+    
     setSubmitbutton(true)
     createUserWithEmailAndPassword(auth,value.email,value.password)
     .then(async(res)=>{
@@ -91,7 +95,9 @@ export default function Register() {
     })
     .catch((err)=>{
       setSubmitbutton(false)
-      setError(err.message)
+      toast.error(`${err.message}`, {
+        position: "top-center",
+      });
       // console.log("error-", err.message)
     })
 
@@ -207,7 +213,7 @@ export default function Register() {
                />
             </FormControl>
             <Stack spacing={10} pt={2}>
-              <Text color={"red"} align={"left"}>{error}</Text>
+              {/* <Text color={"red"} align={"left"}>{error}</Text> */}
               <Button
                disabled={submitbutton}
                 onClick={handleSubmit}
@@ -235,6 +241,8 @@ export default function Register() {
         </Box>
       </Stack>
     </Flex>
+    
+    <ToastContainer />
     </Box>
   );
 }

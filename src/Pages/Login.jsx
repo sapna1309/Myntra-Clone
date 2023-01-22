@@ -22,6 +22,8 @@ import {
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile,signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../Components/firebase';
 import Navbar from '../Components/Navbar';
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
   
   export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
@@ -57,7 +59,9 @@ import Navbar from '../Components/Navbar';
     })
     .catch((err)=>{
       setSubmitbutton(false)
-      setError(err.message)
+     toast.error(`${err.message}`, {
+        position: "top-center",
+      });
       console.log("error-", err.message)
     })
 
@@ -155,6 +159,7 @@ import Navbar from '../Components/Navbar';
           </Box>
         </Stack>
       </Flex>
+      <ToastContainer />
       </Box>
     );
   }
