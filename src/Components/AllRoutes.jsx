@@ -19,6 +19,8 @@ import Wishlist from "../Pages/Wishlist";
 import Cart from "../Pages/Cart";
 
 import Payment from "../Pages/Payment";
+import Success from "../Pages/Success";
+
 
 const AllRoutes = ({ userName }) => {
   console.log(userName);
@@ -43,6 +45,7 @@ const AllRoutes = ({ userName }) => {
         <Route path='/admin-profile' element={<AdminProfilePage/>} ></Route>
         <Route path="/address" element={<Address/>} ></Route>
         <Route path="/payment" element={<Payment/>} ></Route>
+        <Route path="/success" element={<Success/>} ></Route>
       </Routes>
     </div>
   );
