@@ -25,7 +25,9 @@ export default function EditName({handleNameSubmit, name, setName }) {
   const handleAddAdmin = () => {
     handleNameSubmit();
     setHideName(false);
+    dispatch(getAdminData());
     setName("");
+    
   };
 
   function EditableControls() {

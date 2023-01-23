@@ -46,7 +46,7 @@ const KidsPage = () => {
   const handleUpdate=()=> {
     dispatch(updateKidsData(id, price, discount, StrikePrice)).then(()=>{
        dispatch(getKidsData());
-      onClose();
+       onClose();
     })
      
  };

@@ -56,8 +56,9 @@ const navigate=useNavigate()
 
 const handleSubmit=()=>{
   if(adminData.email===value.email && adminData.password===value.password){
-    gotoAdmin('/admin-dashboard');
+   return gotoAdmin('/admin-dashboard');
   }
+
   else if( !value.email || !value.password ){
     toast.error(`please fill all the field `, {
       position: "top-center",

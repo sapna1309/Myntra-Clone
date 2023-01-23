@@ -3,17 +3,22 @@ import { Box, Button, Flex, Image, Stack, Text } from "@chakra-ui/react";
 import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchCartData } from "../Redux/Cart/Cart.action";
 
 const WishlistCard = ({ prod }) => {
 
-  console.log(prod);
+  //console.log(prod);
   const { id,brand, discount, discounted_price, images, strike_price } = prod;
-
+ const dispatch=useDispatch();
   const addToBag = async () => {
     // console.log("newItem:",props)
     await axios
       .post(`https://classic-world.onrender.com/cart/`, prod)
-      .then((res) => alert("Added to bag Successfully...."))
+      .then((res) => {
+        alert("Added to bag Successfully....");
+        dispatch(fetchCartData()) 
+      })
       .catch((err) => alert("Already Exists in Your Bag"));
   };
 
@@ -24,7 +29,7 @@ const WishlistCard = ({ prod }) => {
  
       await axios.delete(`https://classic-world.onrender.com/wishlist/${id}`)
       .then((res)=>{
-          window.location.reload()   
+        window.location.reload(); 
         alert("Items has been removed...")
     })
       .catch((err)=>console.log(err))

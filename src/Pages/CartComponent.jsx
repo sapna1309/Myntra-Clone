@@ -15,7 +15,7 @@ const CartComponent = ({ cart, handleCheckData, handleChangeQty }) => {
 
 const removeFromCart=(id)=>{
     axios.delete(`https://classic-world.onrender.com/cart/${id}`).then((res)=>{alert("Removed from Bag...")
-    window.location.reload()
+    window.location.reload();
   })
     .catch((err)=>console.log(err))
 }

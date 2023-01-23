@@ -12,7 +12,7 @@ const Wishlist = () => {
 
     const {loading , error ,wishlistData} =useSelector(store=>store.wishlist)
     const dispatch = useDispatch()
-console.log("wishlist:", wishlistData)
+//console.log("wishlist:", wishlistData)
  
 useEffect(()=>{
     dispatch(fetchWishlistData())
