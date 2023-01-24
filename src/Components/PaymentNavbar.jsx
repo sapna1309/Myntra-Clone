@@ -31,11 +31,11 @@ const activeStyle={
       top={0}
       zIndex="999"
       background={"#fff"}
-     
+     alignItems={'center'}
        >
         <Box>
           <Link to="/" >
-          <Image src={CWLOGO} alt="logo" w={["50px" , "60px" , "70px"]}  />
+          <Image src={CWLOGO} alt="logo" w={["50px" , "60px" , "70px"]} pl={2} />
           </Link>
         </Box>
         <HStack spacing={[2 , 3, 4]} >

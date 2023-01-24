@@ -21,12 +21,12 @@ import {Link, useNavigate} from "react-router-dom"
 import GoogleButton from 'react-google-button';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile,signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../Components/firebase';
-import Navbar from '../Components/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getAdminData } from '../Redux/Admin/Admin.action';
+import FinalNavbar from '../Components/FinalNavbar';
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -70,7 +70,9 @@ const handleSubmit=()=>{
   setSubmitbutton(true)
   signInWithEmailAndPassword(auth,value.email,value.password)
   .then(async(res)=>{
-    setSubmitbutton(false)
+    setSubmitbutton(false);
+    //console.log('setLogin',islogin);
+    localStorage.setItem('USER',JSON.stringify(value));
     navigate("/")
     //console.log(res)
   })
@@ -98,7 +100,7 @@ const GoodleSignin=()=>{
 
   return (
     <Box>
-      <Navbar/>
+     <FinalNavbar/>
     <Flex
       minH={'100vh'}
       align={'center'}

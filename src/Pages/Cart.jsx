@@ -1,14 +1,16 @@
-import { Box, Button, Flex, localStorageManager, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import axios from "axios";
 import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCartData } from "../Redux/Cart/Cart.action";
+import { deleteCartData, fetchCartData } from "../Redux/Cart/Cart.action";
 import CartComponent from "./CartComponent";
 import LoadingPage from "./LoadingPage";
 import PageNotFound from "./PageNotFound";
 import PaymentNavbar from "../Components/PaymentNavbar";
 import { useNavigate } from "react-router-dom";
+import { deleteCartAPI } from "../Redux/Cart/Cart.api";
+import { postCheckoutData } from "../Redux/Checkout/Checkout.action";
 
 const Cart = () => {
   const { loading, error } = useSelector((store) => store.cart);
@@ -16,6 +18,8 @@ const Cart = () => {
   const dispatch = useDispatch();
   const goToAddress = useNavigate()
   const [sampleData, setSampleData] = useState([]);
+
+  
 
   const fetchCartAPI = async () => {
     let res = await axios.get(`https://classic-world.onrender.com/cart`);
@@ -33,11 +37,12 @@ const Cart = () => {
     fetchCartAPI();
   }, [dispatch]);
 
-  const handleCheckData = (id) => {
+  const handleCheckData = (id,cart) => {
     const resultData = sampleData?.map((item) => {
       return item?.id === id ? { ...item, isChecked: !item?.isChecked } : item;
     });
     setSampleData(resultData);
+    dispatch(postCheckoutData(cart));
   };
   let resultcount;
   let resultStriked;
@@ -47,6 +52,12 @@ const Cart = () => {
     });
     setSampleData(resultData);
   };
+
+  const removeFromCart=async(id)=>{
+    await deleteCartAPI(id)
+    fetchCartAPI()
+     
+   }
 
   resultcount = 0;
   sampleData
@@ -65,19 +76,19 @@ const Cart = () => {
       return resultStriked;
     });
 
-  console.log("resultStriked", resultStriked);
+  //console.log("resultStriked", resultStriked);
 
   const resultTotalItem = sampleData?.filter((item)=>(
     item.isChecked === true
   ))
-  console.log("resultTotalItem",resultTotalItem)
+ // console.log("resultTotalItem",resultTotalItem)
 
   const placeOrderObj = {
     "Total MRP": resultcount,
     "Discount on MRP": resultStriked,
   };
 
-  console.log(placeOrderObj);
+ // console.log(placeOrderObj);
 
    
 
@@ -108,28 +119,34 @@ const Cart = () => {
     <PaymentNavbar/>
       </Box>
 
-    <Box m={{sm:"8rem 1rem", md: "3rem 1rem", lg: "3rem 5rem" }}>
+    <Box m={"auto"} mt={{base:'4rem',sm:"4rem",md:'6rem',lg:'6rem' }}
+    //m={{sm:"8rem 1rem", md: "3rem 1rem", lg: "3rem 5rem" }}
+    width={{base:"90%",sm:"90%",md:"70%",lg:"70%"}}
+    >
       
       <Flex
-        p={{ md: "4rem 5rem", sm: "4rem 0rem", base: "4rem 0.5rem" }}
-        alignItems={"-moz-initial"}
+       // p={{ md: "4rem 5rem", sm: "4rem 0rem", base: "4rem 0.5rem" }}
+        alignItems={"flex-start"}
+        width={"100%"}
         justifyContent={"space-between"}
-        flexDirection={{ base: "row", sm: "row", md: "row", lg: "row" }}
-        
+        flexDirection={{ base: "column", sm: "column", md: "row", lg: "row" }}
+        m={"auto"}
+        gap={6}
       >
-        <Box width={{ sm: "70%", md: "60%", lg: "55%" }} >
+        <Box width={{base:"100%", sm: "100%", md: "60%", lg: "55%" }} margin={"auto"} mt={0} >
           <Box border={"0px solid #9e998f"}>
             <Flex
-              alignItems={"center"}
+              alignItems={"flex-start"}
               justifyContent={"space-between"}
-              p={"1rem"}
+              gap={2}
+              textAlign={'left'}
             >
-              <Text color={"gray.700"} fontWeight={600} fontSize={"0.9rem"}>
+              <Text color={"gray.700"} fontWeight={600} noOfLines={{base:1,sm:1}} fontSize={"0.9rem"}>
                 Check Delivery time & services
               </Text>
               <Button
-                fontSize={"0.8rem"}
-                h={"2.3rem"}
+                fontSize={{base:"0.6rem",sm:'0.7rem',md:"0.8rem",lg:"0.8rem"}}
+                //h={"2.3rem"}
                 borderRadius={0}
                 backgroundColor={"#fff"}
                 border={"1px solid tomato"}
@@ -141,7 +158,7 @@ const Cart = () => {
               </Button>
             </Flex>
           </Box>
-          <Box p={"1rem"} border={"0px solid #9e998f"}>
+          <Box mb={3} border={"0px solid #9e998f"}>
             <Flex
               p={{sm:"0"}}
               fontSize={"0.9rem"}
@@ -155,36 +172,26 @@ const Cart = () => {
               >
                 {`(${checkCount.length}/${sampleData.length}) ITEMS SELECTED`}
               </Text>
-              <Text  _hover={{ color: "tomato", cursor: "pointer" }}
-                color={"gray.700"}
-                fontWeight={600}
-                fontSize={"0.8rem"}>REMOVE</Text>
-              <Text>{" | "} </Text>
-              <Text
-                _hover={{ color: "tomato", cursor: "pointer" }}
-                color={"gray.700"}
-                fontWeight={600}
-                fontSize={"0.8rem"}
-              >
-                MOVE TO WISHLIST
-              </Text>
             </Flex>
           </Box>
-          <Box >
+          <Box m={"auto"}  >
             {sampleData?.map((cart,i) => (
               <CartComponent
               key={i}
                 cart={cart}
                 handleCheckData={handleCheckData}
                 handleChangeQty={handleChangeQty}
+                removeFromCart={removeFromCart}
               />
             ))}
           </Box>
         </Box>
         <Box
           border={"0px solid gray"}
-          width={{ base: "30%", sm: "40%", md: "45%", lg: "45%" }}
-          p={"2rem"}
+          width={{ base: "100%", sm: "100%", md: "50%", lg: "45%" }}
+         //margin={"auto"}
+          p={3}
+          boxShadow={'md'}
         >
           <Box textAlign={"left"} borderBottom={"1px solid gray"} >
             <Text >PRICE DETAILS ({resultTotalItem.length}{" "}item)</Text>

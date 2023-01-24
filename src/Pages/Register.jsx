@@ -24,7 +24,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth, provider } from "../Components/firebase";
-import Navbar from "../Components/Navbar";
+import FinalNavbar from "../Components/FinalNavbar";
 
 // https://classic-world.onrender.com/MensData
 
@@ -106,9 +106,9 @@ export default function Register() {
 
   return (
     <Box>
-      <Navbar />
+    <FinalNavbar/>
       <Flex
-        mt={20}
+        mt={10}
         minH={"100vh"}
         align={"center"}
         justify={"center"}

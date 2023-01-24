@@ -5,12 +5,18 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchCartData } from "../Redux/Cart/Cart.action";
+import { fetchWishlistData, removeProdData } from "../Redux/Wishlist/Wishlist.action";
 
 const WishlistCard = ({ prod }) => {
 
   //console.log(prod);
+
   const { id,brand, discount, discounted_price, images, strike_price } = prod;
  const dispatch=useDispatch();
+useEffect(()=>{
+  dispatch(fetchWishlistData());
+},[])
+
   const addToBag = async () => {
     // console.log("newItem:",props)
     await axios
@@ -18,28 +24,20 @@ const WishlistCard = ({ prod }) => {
       .then((res) => {
         alert("Added to bag Successfully....");
         dispatch(fetchCartData()) 
+        dispatch(removeProdData(id));
       })
       .catch((err) => alert("Already Exists in Your Bag"));
   };
 
   
   
-  const removeFromWishlist= async(id)=>{
-      console.log(id)
- 
-      await axios.delete(`https://classic-world.onrender.com/wishlist/${id}`)
-      .then((res)=>{
-        window.location.reload(); 
-        alert("Items has been removed...")
-    })
-      .catch((err)=>console.log(err))
- 
-  }
- 
+  const removeFromWishlist=()=>{
+    dispatch(removeProdData(id))
+}
 
   return (
     
-    <Box w={"230px"} boxShadow={"rgba(0, 0, 0, 0.16) 0px 1px 4px"} m={"1rem"} position="relative">
+    <Box boxShadow={"rgba(0, 0, 0, 0.16) 0px 1px 4px"} m={"1rem"} position="relative">
       <Stack spacing={"0.5rem"}>
         tilte
         <Image src={images} />
@@ -89,7 +87,7 @@ const WishlistCard = ({ prod }) => {
         color={"white"}
         backgroundColor={"blackAlpha.600"}
         p={"0.5rem"}
-        onClick={()=>removeFromWishlist(id)}
+        onClick={removeFromWishlist}
       >
         <CloseIcon />
       </Box>

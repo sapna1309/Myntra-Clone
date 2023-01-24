@@ -8,6 +8,7 @@ import {
   Grid,
   Heading,
   Select,
+  Stack,
   Text,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,9 +22,11 @@ import {
 import LoadingPage from "./LoadingPage";
 import PageNotFound from "./PageNotFound";
 import Pagination from "../Components/Pagination";
-import Navbar from "../Components/Navbar";
-import Footer from "../Components/Footer";
 import { useCallback } from "react";
+import FinalNavbar from "../Components/FinalNavbar";
+import SampleBrand from "./SampleBrand";
+import FinalFooter from "../Components/FinalFooter";
+import Footer from "../Components/Footer";
 
 let brands = [
   "HRX by Hrithik Roshan ",
@@ -67,7 +70,7 @@ const Product = () => {
 
   const dispatch = useDispatch();
 
-  console.log(products, currentPage);
+  //console.log(products, currentPage);
 
   useEffect(() => {
     // if (products.length === 0) {
@@ -76,7 +79,7 @@ const Product = () => {
     // }
   }, [dispatch, currentPage]);
 
-  console.log(brands);
+  //console.log(brands);
 
   // pagination starts here
 
@@ -91,7 +94,7 @@ const Product = () => {
 
   // sorting filter start
   useEffect(() => {
-    console.log(sValue);
+    //console.log(sValue);
     dispatch(getMensProductsSorted(sValue, currentPage));
   }, [dispatch, sValue, currentPage]);
 
@@ -143,10 +146,10 @@ const Product = () => {
 
   return (
     <div>
-      <Navbar />
+      <FinalNavbar />
       <Box
         className={prodStyle.product_container}
-        mt={{ sm: "10rem",md:"3.9rem" ,lg:"7.2rem"}}
+        mt={{ base:'5rem',sm: "5rem", md: "3.9rem", lg: "7.2rem" }}
       >
         <Flex
           position={"relative"}
@@ -154,21 +157,35 @@ const Product = () => {
           flexDirection={"row"}
           justifyContent={"space-between"}
         >
-          <Box border={'0px solid red'} backgroundColor={"white"} textAlign={"left"} zIndex={"100"} w={"20%"} position={"fixed"} top={29}  >
-          <Text
-            display={"inline-block"}
-            fontSize={"1.2rem"}
-            fontWeight={"bold"}
-            color={"pink.400"}
-            mt={'5rem'}
-          >
-            {" "}
-            Mens -
-          </Text>{" "}
-          ({totalPages})
-        </Box>
           <Box
-            display={{ sm: "none", lg: "inline-block" }}
+            border={"0px solid red"}
+            backgroundColor={"white"}
+            textAlign={"left"}
+            zIndex={"100"}
+            w={"20%"}
+            position={"fixed"}
+            top={29}
+            display={{
+              base: "none",
+              sm: "none",
+              md: "none",
+              lg: "inline-block",
+            }}
+          >
+            <Text
+              display={"inline-block"}
+              fontSize={"1.2rem"}
+              fontWeight={"bold"}
+              color={"pink.400"}
+              mt={"5rem"}
+            >
+              {" "}
+              Mens -
+            </Text>{" "}
+            ({totalPages})
+          </Box>
+          <Box
+            display={{ sm: "none",base:'none',md:'none', lg: "inline-block" }}
             position={"fixed"}
             w={"20%"}
             top={"9rem"}
@@ -178,9 +195,9 @@ const Product = () => {
             <Flex
               justifyContent={"space-between"}
               alignItems={"baseline"}
-              pl={'0.1rem'}
+              pl={"0.1rem"}
             >
-              <Text fontSize={"1.2rem"} fontWeight={700}  textAlign={'left'}>
+              <Text fontSize={"1.2rem"} fontWeight={700} textAlign={"left"}>
                 Filters
               </Text>
               <Text
@@ -225,8 +242,8 @@ const Product = () => {
 
           <Box
             border={"0px solid gray"}
-            w={{ lg: "80%", sm: "100%", md: "100%" }}
-            ml={'22%'}
+            w={{ lg: "80%", sm: "100%", md: "100%",base:'100%' }}
+            ml={{base:0,sm:0,md:0,lg:"22%"}}
           >
             <div className={prodStyle.products}>
               <Flex
@@ -235,13 +252,31 @@ const Product = () => {
                 zIndex={14}
                 backgroundColor={"white"}
               >
-                <Box w={{ sm: "100%", md: "100%", lg: "40%" }} m={"0.5rem"}>
-                  <Text ml={2} textAlign={'left'}><b>Sort By :</b></Text>
+                <Box
+                  w={{ base:'100%',sm: "100%", md: "100%", lg: "100%" }}
+                  m={"0.5rem"}
+                  display={'flex'}
+                  flexDirection={{
+                    base: "column",
+                    sm: "column",
+                    md: "row",
+                    lg: "row",
+                  }}
+                  px={2}
+                  alignItems={'center'}
+                  justifyContent={'space-between'}
+                  border={"0px solid gray"}
+                  boxShadow={'sm'}
+                >
+                  <Box width={'100%'} border={'0px solid red'} >
+                  <Text ml={2} textAlign={"left"}>
+                    <b>Sort By :</b>
+                  </Text>
                   <Select
                     variant="solid"
                     placeholder="All"
                     p={2}
-                    bg={'gray.200'}
+                    bg={"gray.200"}
                     onChange={(e) => handleChange(e)}
                   >
                     <option value="rating">Rating </option>
@@ -249,54 +284,58 @@ const Product = () => {
                     <option value="PriceLTH">Price:Low To High</option>
                     <option value="PriceHTL">Price:High To Low</option>
                   </Select>
-                </Box>
-                <Box width={"100%"} textAlign={"right"}>
+                  </Box>
+                  {/* filters */}
+                  <Box border={'0px solid black'} width={'100%'} >
                   <Text
-                    display={{ lg: "none" }}
+                    ml={2}
                     textAlign={"left"}
-                    borderBottom={"1px solid gray"}
-                    p={"0.6rem 0"}
-                    pl={"1rem"}
-                    fontSize={"1.1rem"}
-                    backgroundColor={"white"}
-                    position={"sticky"}
+                    display={{
+                      base: "flex",
+                      sm: "flex",
+                      md: "flex",
+                      lg: "none",
+                    }}
                   >
-                    Brands
+                    <b>Filters :</b>
                   </Text>
-                  <Flex
-                    overflowY={"scroll"}
-                    height={"100px"}
-                    display={{ lg: "none" }}
-                    mt={"1rem"}
-                    flexDirection={"column"}
-                    textAlign={"left"}
+                  <Stack
+                    display={{
+                      base: "flex",
+                      sm: "flex",
+                      md: "flex",
+                      lg: "none",
+                    }}
                   >
-                    {brands?.map((brand, i) => (
-                      <Checkbox
-                        textAlign={"left"}
-                        fontSize={"0.7rem"}
-                        key={i}
-                        pl={"1rem"}
-                        value={brand}
-                        // isChecked
-                        onChange={(e) => handleCheck(e)}
-                      >
-                        {brand}
-                      </Checkbox>
-                    ))}
-                  </Flex>
+                    <SampleBrand brands={brands} handleCheck={handleCheck} />
+                  </Stack>
+                  </Box>
+                  <Box border={'0px solid green'} width={'100%'} display={{base:'inline-block',sm:'inline-block',md:'inline-block',lg:'none'}} justifyContent={'flex-end'}  textAlign={{base:'center',sm:'center',md:'right'}} >
+                    <Text
+                      display={"inline-block"}
+                      fontSize={"1.2rem"}
+                      fontWeight={"bold"}
+                      color={"pink.400"}
+                     
+                    >
+                      {" "}
+                      Mens -
+                    </Text>{" "}
+                    ({totalPages})
+                  </Box>
                 </Box>
               </Flex>
 
               <Grid
                 gridTemplateColumns={{
-                  base: "repeat (2,1fr)",
+                  base: "repeat (1,1fr)",
                   lg: "repeat(4 ,1fr) ",
                   sm: "repeat(2,1fr)",
                   md: "repeat(3,1fr)",
                 }}
-                gap={"0.9rem"}
-                mt={{lg:'0rem',sm:'10rem',md:'1rem'}}
+               gap={"0.9rem"}
+                m={'auto'}
+                mt={{ lg: "0rem", sm: "1rem", md: "1rem" }}
               >
                 {checked ? (
                   <>
@@ -323,12 +362,14 @@ const Product = () => {
                 totalPages={totalPages}
               />
             </Box>
+            <FinalFooter/>
           </Box>
         </Flex>
 
         {/* </div> */}
+       
       </Box>
-      <Footer />
+      {/* <Footer/> */}
     </div>
   );
 };

@@ -33,6 +33,13 @@ export const cartReducer = (state = initialState ,{type,payload})=>{
                 error:true
             }
         }
+        case types.DELETE_CART_PRODUCT:{
+            return{
+                ...state,
+                loading:false,
+                error:false,
+            }
+        }
         default:{
             return state
         }

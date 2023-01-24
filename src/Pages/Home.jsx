@@ -3,10 +3,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import HomePageHeader from '../assets/HomePageHeader.png';
 import { useEffect } from 'react';
-import Navbar from '../Components/Navbar';
-import Footer from '../Components/Footer';
-
-
+import FinalNavbar from '../Components/FinalNavbar';
+//import Footer from '../Components/Footer';
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -25,11 +23,12 @@ const Home = () => {
   //console.log("Data",data);
   return (
     <Box width={'100%'} >
-        {/* <Heading size={'lg'} >Welcome To Home Page</Heading> */}
-        <Navbar/>
+        {/* <Navbar/> */}
+        <FinalNavbar/>
         <Center>
         <Image src={HomePageHeader}
-          alt='home-page-header' width={"95%"} mt={100} />
+          alt='home-page-header' width={"95%"} mt={'60px'} 
+          />
            </Center>
           <Image src='https://assets.myntassets.com/f_webp,w_980,c_limit,fl_progressive,dpr_2.0/assets/images/2023/1/12/3d8b5917-e115-425b-8c93-2c2e427f9d4f1673517461716-OMG-Deal--2-.jpg' alt='omgDeals' />
           <Grid gridTemplateColumns={"repeat(10,1fr)"} >
@@ -62,7 +61,7 @@ const Home = () => {
               <Image key={i} src={el.image} />
             ))}
           </Grid>
-          <Footer/>
+          {/* <Footer/> */}
     </Box>
   )
 }

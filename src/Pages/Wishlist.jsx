@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, Grid, Text } from '@chakra-ui/react'
 import React from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -6,7 +6,8 @@ import { fetchWishlistData } from '../Redux/Wishlist/Wishlist.action'
 import LoadingPage from './LoadingPage'
 import PageNotFound from './PageNotFound'
 import WishlistCard from '../Components/WishlistCard'
-import Navbar from '../Components/Navbar'
+import FinalNavbar from '../Components/FinalNavbar'
+import FinalFooter from '../Components/FinalFooter'
 
 const Wishlist = () => {
 
@@ -26,20 +27,20 @@ if(error){
 }
   return (
     <div>
-        <Navbar/>
-        <Box p={"5rem 3rem 0 3rem"} textAlign={"left"} mt={'3rem'} color={"gray.600"} fontSize={"1.2rem"}><Text fontWeight={600} color={"pink.500"} display={"inline-block"} ml={'2.5rem'}>My WishList :</Text> {wishlistData.length} items</Box>
-        <Box p={"3rem 5rem"}>
+      <FinalNavbar/>
+        <Box textAlign={"left"} px={4} mt={'5rem'} color={"gray.600"} fontSize={"1.2rem"}><Text fontWeight={600} color={"pink.500"} display={"inline-block"}>My WishList : <span style={{color:'gray'}} >{wishlistData.length} Items</span></Text></Box>
+        <Box>
             
-            <Flex flexWrap={"wrap"} m={"auto"}>
+            <Grid gridTemplateColumns={{base:"repeat(1,1fr)",sm:"repeat(2,1fr)",md:"repeat(3,1fr)",lg:"repeat(5,1fr)"}} justifyContent={'center'} >
                 {
                     wishlistData?.map((wish)=>(
                         <WishlistCard key={wish} prod={wish}/>
                     ))
                 }
 
-            </Flex>
+            </Grid>
         </Box>
-        
+      <FinalFooter/>  
     </div>
   )
 }

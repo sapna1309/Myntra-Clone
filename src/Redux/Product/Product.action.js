@@ -31,7 +31,7 @@ export const getMainData = (page) => async (dispatch) => {
 }
 export const getFilterdProducts = (val) => async (dispatch) => {
 
-   console.log("val:", val)
+   //console.log("val:", val)
    //   dispatch({type:types.GET_PRODUCTS_LOADING})
 
    try {
@@ -52,7 +52,7 @@ export const getMensProductsSorted = (val, page) => async (dispatch) => {
    try {
       let data = await getProductsSorting(val, page)
 
-      console.log("data:", data)
+      //console.log("data:", data)
       dispatch({
          type: types.GET_PRODUCTS_SUCCESS,
          payload: data

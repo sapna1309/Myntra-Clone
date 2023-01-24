@@ -1,108 +1,75 @@
-import { CgProfile } from "react-icons/cg";
-import { BsHandbag } from "react-icons/bs";
-import { BsSuitHeart } from "react-icons/bs";
-import { SearchIcon } from "@chakra-ui/icons";
-import CWLOGO from "../assets/CWLOGO-1.png";
-import { auth } from "./firebase";
 import {
   Box,
   Flex,
   Text,
   IconButton,
   Button,
-  InputGroup,
-  Input,
-  InputLeftElement,
-  Image,
-  VStack,
   Stack,
   Collapse,
   Icon,
+  Image,
   Link,
   Popover,
   PopoverTrigger,
   PopoverContent,
   useColorModeValue,
-  Tag,
-  Menu,
-  MenuList,
-  MenuGroup,
-  MenuDivider,
-  MenuButton,
-  HStack,
   useDisclosure,
+  InputGroup,
+  InputLeftElement,
+  Input,
+  HStack,
+  PopoverArrow,
+  PopoverBody,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
   CloseIcon,
   ChevronDownIcon,
   ChevronRightIcon,
+  SearchIcon,
 } from "@chakra-ui/icons";
+import CWLOGO from "../assets/CWLOGO-1.png";
+import ProfileSection from "./ProfileSection";
 import { NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { HiOutlineHeart } from "react-icons/hi";
+import { RiHandbagLine } from "react-icons/ri";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCartData } from "../Redux/Cart/Cart.action";
 
-export default function Navbar() {
-  const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
+
+export default function FinalNavbar() {
   const { isOpen, onToggle } = useDisclosure();
   const { cartData } = useSelector((store) => store.cart);
   const dispatch = useDispatch();
-  const [lgUser, setLgUser] = useState({});
 
-  useEffect(() => {
+
+  useEffect(()=>{
     dispatch(fetchCartData());
-  }, []);
-
-  let User = JSON.parse(localStorage.getItem("USER")) || {};
-  let booleanValue = Boolean(User.isAuth);
-
-  //console.log(User);
-
-  useEffect(() => {
-    auth.onAuthStateChanged((user, email) => {
-      if (user) {
-        setUserName(user.displayName);
-        setUserEmail(user.email);
-        // console.log(user.displayName)
-      } else {
-        setUserName("");
-        setUserEmail("");
-      }
-    });
-  }, []);
-  const handleLogout = () => {
-    setLgUser({ ...User, isAuth: false });
-    booleanValue = Boolean(lgUser.isAuth);
-    localStorage.setItem("USER", JSON.stringify(lgUser));
-  };
+  },[])
   return (
-    <Box w={"100%"} border={"1px solid black"}>
+    <Box>
       <Flex
-        w={"100%"}
         bg={useColorModeValue("white", "gray.800")}
         color={useColorModeValue("gray.600", "white")}
         minH={"60px"}
-        zIndex={999}
-        pos={"fixed"}
-        top={0}
-        columnGap={10}
-        justifyContent={'space-evenly'}
+        width={"full"}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
+        zIndex={999}
+        pos={"fixed"}
+        top={0}
+        columnGap={{base:0,sm:0,md:5,lg:8}}
         borderStyle={"solid"}
         borderColor={useColorModeValue("gray.200", "gray.900")}
-        alignItems={"center"}
-        border={"4px solid green"}
+        align={"center"}
       >
         <Flex
           flex={{ base: 1, md: "auto" }}
           ml={{ base: -2 }}
-          display={{ base: "flex", md: "none" }}
-          border={'1px solid green'}
-          
+          display={{ base: "flex", md: "flex",lg:"none" }}
         >
           <IconButton
             onClick={onToggle}
@@ -113,215 +80,181 @@ export default function Navbar() {
             aria-label={"Toggle Navigation"}
           />
         </Flex>
-        <Flex
-          flex={{ base: 1 }}
-          justify={{ base: "center", md: "start" ,lg:'start'}}
-          w={"50%"}
-          border={'1px solid grey'}
-        >
-          <NavLink to="/">
-            <Box width={'25%'}  border={"1px solid black"} >
-              <Image
-                src={CWLOGO}
-               w={'100%'}
-              />
-            </Box>
-          </NavLink>
-          
-          <Flex display={{ base: "none", md: "flex" }} border={'1px solid black'}w={'75%'} alignItems={"center"}>
-            <NavLink to="/Product">
-              <DesktopNav />
-            </NavLink>
+        <Flex flex={{ base: 1 }} justify={{ base: "center", sm:'center',  md: "start" }}>
+          <Image
+            src={CWLOGO}
+            w={{ base: "40%", sm: "40%", md: "20%", lg: "10%" }}
+            mr={{sm:60, base:50,lg:0,md:0}}
+          />
+
+          <Flex
+            display={{ base: "none", md: "none",lg:"flex" }}
+            ml={10}
+            alignItems={"center"}
+          >
+            <DesktopNav />
           </Flex>
         </Flex>
 
-        <Stack
-          w={{ base: "none", sm: "none", md: "none", lg: "30%" }}
-          //mr={"5%"}
-          border={'1px solid blue'}
-        >
+        <Stack alignItems={'center'} >
           <InputGroup
             display={{ base: "none", sm: "none", md: "none", lg: "block" }}
-            w={'100%'}
           >
             <InputLeftElement
               pointerEvents="none"
-              children={<SearchIcon color="gray.300" />}
+              children={<SearchIcon color="gray.500" />}
             />
             <Input
               type="text"
-              placeholder="Search for produts,brands and more"
+              placeholder="Search..."
+              borderBottom={"1px solid #BB1679"}
             />
           </InputGroup>
+         
+           <IconButton display={{base:'flex',sm:'flex',md:'flex',lg:'none'}}
+                aria-label="Searchicon" 
+                icon={ <SearchIcon color="gray.500" 
+                mr={{base:-4,sm:-4,md:3,lg:0}} />}
+                variant="ghost"
+                w="fit-content"
+                _hover={{ bg: "white" }}
+              />
         </Stack>
 
         <Stack
+            display={{base:'none',md:'flex',lg:'flex'}}
           flex={{ base: 1, md: 0 }}
           justify={"flex-end"}
           direction={"row"}
-          spacing={6}
-          // mr={"2%"}
-          width={'15%'}
-          border={'1px solid red'}
+          spacing={0}
         >
-          <VStack spacing={1}>
-            <CgProfile />
-
-            <Menu>
-              <MenuButton>
-                <Button
-                  as={"a"}
-                  fontSize={"xs"}
-                  fontWeight={"700"}
-                  variant={"link"}
-                >
-                  Profile
-                </Button>
-              </MenuButton>
-              <MenuList ml={"50%"}>
-                <MenuGroup>
-                  <Flex
-                    direction={"column"}
-                    align={"flex-start"}
-                    padding={"10px"}
-                  >
-                    <Text fontWeight={"bold"} fontSize={"15px"}>
-                      {booleanValue ? userName : "Welcome"}
-                      {/* {userName} */}
-                    </Text>
-
-                    <Text fontSize={"12px"} fontWeight={"500"}>
-                      {Boolean(booleanValue)
-                        ? userEmail
-                        : " To access account and orders"}
-                      {/* {userEmail} */}
-                    </Text>
-
-                    <Button
-                      mt={"10px"}
-                      variant="outline"
-                      fontSize={"13px"}
-                      fontWeight={"bold"}
-                      color="#FF3F6C"
-                      isDisabled={booleanValue}
-                    >
-                      <NavLink to="/Login">LOGIN </NavLink>/{" "}
-                      <NavLink to="/Register">SIGNUP</NavLink>
-                    </Button>
-                  </Flex>
-                </MenuGroup>
-                <MenuDivider />
-                <MenuGroup>
-                  <Flex
-                    direction={"column"}
-                    gap={"5px"}
-                    align={"flex-start"}
-                    padding={"10px"}
-                    fontWeight={"500"}
-                    fontSize={"13px"}
-                  >
-                    <NavLink to="/Wishlist">
-                      <Link>Orders</Link>
-                      <Link>Wishlist</Link>
-                    </NavLink>
-                    <Link>Gift Cards</Link>
-                    <Link>Contact Us</Link>
-                    <Stack direction={"row"} align={"center"} spacing={1}>
-                      <Link>Myntra Insider</Link>
-                      <Tag
-                        size={"sm"}
-                        bg={useColorModeValue("pink.400", "green.800")}
-                        ml={2}
-                        color={"white"}
-                      >
-                        New
-                      </Tag>
-                    </Stack>
-                  </Flex>
-                </MenuGroup>
-                <MenuDivider />
-                <MenuGroup>
-                  <Flex
-                    direction={"column"}
-                    gap={"5px"}
-                    align={"flex-start"}
-                    padding={"10px"}
-                    fontWeight={"500"}
-                    fontSize={"13px"}
-                  >
-                    <Link>Myntra Credit</Link>
-                    <Link>Coupons</Link>
-                    <Link>Saved Cards</Link>
-                    <Link>Saved VPA</Link>
-                    <NavLink to="/Address">
-                      <Link>Addresses</Link>
-                    </NavLink>
-                  </Flex>
-                </MenuGroup>
-                <MenuDivider />
-                <MenuGroup>
-                  <Flex
-                    direction={"column"}
-                    gap={"5px"}
-                    align={"flex-start"}
-                    padding={"10px"}
-                    fontWeight={"500"}
-                    fontSize={"13px"}
-                  >
-                    <Button
-                      variant="outline"
-                      //isDisabled={!booleanValue}
-                      onClick={handleLogout}
-                    >
-                      Logout
-                    </Button>
-                  </Flex>
-                </MenuGroup>
-              </MenuList>
-            </Menu>
-          </VStack>
-          <NavLink to="/Wishlist">
-            <VStack spacing={2}>
-              <BsSuitHeart />
-              <Button
-                as={"a"}
-                fontSize={"xs"}
-                fontWeight={700}
-                variant={"link"}
-                href={"#"}
-              >
-                Wishlist
-              </Button>
-            </VStack>
+          <ProfileSection />
+          <NavLink to="/wishlist">
+            <Button
+              display={"flex"}
+              flexDirection={"column"}
+              fontSize={"xs"}
+              bg={"none"}
+              _hover={{ bg: "white",color:'#BB1679',fontWeight:'bold' }}
+            >
+              <IconButton
+                aria-label="Wishlist"
+                icon={<HiOutlineHeart />}
+                variant="ghost"
+                w="fit-content"
+                _hover={{ bg: "white" }}
+              />
+              <Text>Wishlist</Text>
+            </Button>
           </NavLink>
-          <NavLink to="/Cart">
-            <HStack spacing={-1} alignItems={"flex-start"}>
-              <VStack spacing={2}>
-                <BsHandbag />
-                <Button
-                  as={"a"}
-                  fontSize={"xs"}
-                  fontWeight={700}
-                  variant={"link"}
-                  href={"#"}
-                >
-                  Bag
-                </Button>
-              </VStack>
-              <Text
-                bg={"pink.500"}
+          <HStack spacing={-8} alignItems={'flex-start'} justifyContent={'center'} >
+          <NavLink to="/cart">
+            <Button
+              display={"flex"}
+              flexDirection={"column"}
+              fontSize={"xs"}
+              bg={"none"}
+              _hover={{ bg: "white",color:'#BB1679',fontWeight:'bold' }}
+            >
+              <IconButton
+                aria-label="Wishlist"
+                icon={<RiHandbagLine />}
+                variant="ghost"
+                w="fit-content"
+                _hover={{ bg: "white" }}
+              />
+              <Text>Bag</Text>
+            </Button>
+           
+          </NavLink>
+          <Text
+                bg={"#BB1679"}
                 color={"white"}
-                paddingX={2}
+                paddingX={1.5}
                 borderRadius={"50%"}
+                fontSize={'xs'}
+                // _hover={{bg:'#BB1679',color:'black'}}
               >
                 {cartData.length}
               </Text>
-            </HStack>
-          </NavLink>
+          </HStack>
         </Stack>
-      </Flex>
 
-      <Collapse in={isOpen} animateOpacity>
+           {/* RightMenuThreeDot */}
+      <Flex justifyContent="center" mt={0} display={{base:'flex',md:'none',lg:'none'}} >
+        <Popover placement="bottom" isLazy>
+          <PopoverTrigger>
+            <Button bg={'white'} _hover={{bg:'pink.100',color:'#BB1679'}} >
+            <IconButton
+              aria-label="Right menu"
+              icon={<BsThreeDotsVertical />}
+              variant="solid"
+              w="fit-content"
+              bg={'white'}
+              fontWeight={'bold'}
+            />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent w="fit-content" _focus={{ boxShadow: 'md' }}>
+            <PopoverArrow />
+            <PopoverBody>
+              <Stack>
+                <ProfileSection/>
+                <NavLink to="/wishlist">
+            <Button
+              display={"flex"}
+              flexDirection={"column"}
+              fontSize={"xs"}
+              bg={"none"}
+              _hover={{ bg: "white",color:'#BB1679',fontWeight:'bold' }}
+            >
+              <IconButton
+                aria-label="Wishlist"
+                icon={<HiOutlineHeart />}
+                variant="ghost"
+                w="fit-content"
+                _hover={{ bg: "white" }}
+              />
+              <Text>Wishlist</Text>
+            </Button>
+          </NavLink>
+          <HStack spacing={-8} alignItems={'flex-start'} justifyContent={'start'} >
+          <NavLink to="/cart">
+            <Button
+              display={"flex"}
+              flexDirection={"column"}
+              fontSize={"xs"}
+              bg={"none"}
+              _hover={{ bg: "white",color:'#BB1679',fontWeight:'bold' }}
+            >
+              <IconButton
+                aria-label="Wishlist"
+                icon={<RiHandbagLine />}
+                variant="ghost"
+                w="fit-content"
+                _hover={{ bg: "white" }}
+              />
+              <Text>Bag</Text>
+            </Button>
+           
+          </NavLink>
+          <Text
+                bg={"#BB1679"}
+                color={"white"}
+                paddingX={1.5}
+                borderRadius={"50%"}
+                fontSize={'xs'}
+              >
+                {cartData.length}
+              </Text>
+          </HStack>
+              </Stack>
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
+      </Flex>
+      </Flex>
+        <Collapse in={isOpen} animateOpacity  >
         <MobileNav />
       </Collapse>
     </Box>
@@ -329,52 +262,46 @@ export default function Navbar() {
 }
 
 const DesktopNav = () => {
-  const linkColor = useColorModeValue("grey.600", "gray.200");
-  const linkHoverColor = useColorModeValue("pink.800", "white");
+  const linkColor = useColorModeValue("gray.600", "gray.200");
+  const linkHoverColor = useColorModeValue("gray.800", "white");
   const popoverContentBgColor = useColorModeValue("white", "gray.800");
 
   return (
-    <Stack
-      direction={"row"}
-      spacing={4}
-      w={"100%"}
-      alignItems={"center"}
-      border={"1px solid red"}
-      display={'flex'}
-      justifyContent={'space-between'}
-    >
+    <Stack direction={"row"} spacing={4}>
       {NAV_ITEMS.map((navItem) => (
-        <Box key={navItem.label} border={"1px solid blue"}>
+        <Box key={navItem.label}>
           <Popover trigger={"hover"} placement={"bottom-start"}>
             <PopoverTrigger>
               <Link
                 p={2}
                 href={navItem.href ?? "#"}
-                fontSize={"sm"}
+                fontSize={{md:'xs',lg:"sm"}}
                 fontWeight={500}
                 color={linkColor}
                 _hover={{
                   textDecoration: "none",
                   color: linkHoverColor,
-                  borderBottom: "3px solid red",
+                  borderBottom: "3px solid #BB1679",
                 }}
               >
+                <NavLink to='/product' >
                 {navItem.label}
+                </NavLink>
               </Link>
             </PopoverTrigger>
 
             {navItem.children && (
               <PopoverContent
                 border={0}
-                boxShadow={"lg"}
+                boxShadow={"xl"}
                 bg={popoverContentBgColor}
                 p={4}
-                rounded={"xl"}
-                minW={"4xl"}
+                rounded={"md"}
+                w={"auto"}
               >
                 <Flex
                   direction={"row"}
-                  width={"full"}
+                  width={"auto"}
                   gap={"20px"}
                   justifyContent={"space-between"}
                 >
@@ -404,31 +331,31 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
       <Stack
         direction={"column"}
         align={"flex-start"}
-        spacing={0}
         border={"0px solid pink"}
+        spacing={1}
       >
-        <Flex direction={"column"} align={"flex-start"}>
+        <Flex
+          border={"0px solid black"}
+          direction={"column"}
+          align={"flex-start"}
+        >
           <Text
             transition={"all .3s ease"}
-            _groupHover={{ color: "pink.400" }}
-            fontWeight={700}
-            fontSize={"xs"}
-            color={"#D53F8C"}
+            _groupHover={{ color: "pink.700" }}
+            fontWeight={500}
           >
             {label}
           </Text>
+          <Flex direction={"column"} align={"flex-start"} gap={"5px"}>
+            {subLabel.map((el, i) => (
+              <Text fontSize={"sm"} key={i}>
+                {el}
+              </Text>
+            ))}
+          </Flex>
         </Flex>
-        <Flex direction={"column"} align={"flex-start"} gap={"5px"}>
-          {subLabel.map((el, i) => (
-            <Text fontSize={"sm"} key={i}>
-              {el}
-            </Text>
-          ))}
-        </Flex>
-
         <Flex
           transition={"all .3s ease"}
-          direction={"column"}
           transform={"translateX(-10px)"}
           opacity={0}
           _groupHover={{ opacity: "100%", transform: "translateX(0)" }}
@@ -447,8 +374,8 @@ const MobileNav = () => {
   return (
     <Stack
       bg={useColorModeValue("white", "gray.800")}
-      p={4}
-      display={{ md: "none" }}
+      paddingX={5}
+      display={{ lg: "none" }}
     >
       {NAV_ITEMS.map((navItem) => (
         <MobileNavItem key={navItem.label} {...navItem} />
@@ -461,36 +388,41 @@ const MobileNavItem = ({ label, children, href }) => {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Stack spacing={4} onClick={children && onToggle}>
+    <Stack spacing={4} onClick={children && onToggle}  mt={{base:'4rem',sm:'5rem',md:20,lg:20}}>
       <Flex
-        py={2}
+        py={1}
         as={Link}
         href={href ?? "#"}
         justify={"space-between"}
         align={"center"}
+        zIndex={9999}
         _hover={{
           textDecoration: "none",
+  
         }}
       >
         <Text
           fontWeight={600}
           color={useColorModeValue("gray.600", "gray.200")}
+          fontSize={{base:12,sm:13,md:18,lg:18}}
         >
+          <NavLink  to="/product">
           {label}
+          </NavLink>
         </Text>
         {children && (
           <Icon
             as={ChevronDownIcon}
             transition={"all .25s ease-in-out"}
             transform={isOpen ? "rotate(180deg)" : ""}
-            w={6}
+            w={{base:3,sm:4,md:6,lg:6}}
             h={6}
           />
         )}
       </Flex>
 
       <Collapse in={isOpen} animateOpacity style={{ marginTop: "0!important" }}>
-        <VStack
+        <Stack
           mt={2}
           pl={4}
           borderLeft={1}
@@ -504,7 +436,7 @@ const MobileNavItem = ({ label, children, href }) => {
                 {child.label}
               </Link>
             ))}
-        </VStack>
+        </Stack>
       </Collapse>
     </Stack>
   );

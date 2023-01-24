@@ -1,3 +1,4 @@
+
 import * as types from "./Wishlist.type"
 
 let initialState ={
@@ -23,6 +24,14 @@ export const wishlistReducer = (state = initialState ,{type,payload})=>{
                 loading:false,
                 error:false,
                 wishlistData:payload
+            }
+        }
+
+        case types.DELETE_PRODUCT_SUCCESS:{
+            return {
+                ...state,
+                loading:false,
+                error:false,
             }
         }
 

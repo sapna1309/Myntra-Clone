@@ -41,7 +41,7 @@ export const mensProductReducer = (state =initialState , {type , payload})=>{
             let filteredBrand =state.products.filter((prod)=>(
                  (prod.brand === payload)
                  ))
-                 console.log("payload",payload)
+                 //console.log("payload",payload)
             return {
                ...state,
                loading:false,
