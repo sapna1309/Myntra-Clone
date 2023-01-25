@@ -55,11 +55,12 @@
 
 ## Glimpses of Myntra - Clone 🙈 :
 
+https://user-images.githubusercontent.com/110045725/214586632-c1f2891d-ec30-4481-9c67-2fc66dd71e36.png
 
 <table>
   <tr>
 
-    <td><img src="https://user-images.githubusercontent.com/110045725/214584908-42299735-574e-4ff2-985f-776ead5782e6.png
+    <td><img src="https://user-images.githubusercontent.com/110045725/214586632-c1f2891d-ec30-4481-9c67-2fc66dd71e36.png
 " alt="home" /></td>
     <td><img src="https://user-images.githubusercontent.com/98648448/187081184-118ed4ce-7beb-4817-a895-0ef5e0849a2f.jpg" alt="signup" /></td>
   </tr>
