@@ -118,7 +118,7 @@ export default function FinalFooter() {
           </Stack>
 
           <Stack align={"flex-start"}>
-            <ListHeader>Install App</ListHeader>
+            <Text fontWeight={'bold'} fontSize={15} noOfLines={1}>EXPERIENCE MYNTRA APP ON MOBILE</Text>
 
             <Image
               src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
@@ -133,7 +133,7 @@ export default function FinalFooter() {
           </Stack>
 
           <Stack align={"flex-start"}>
-            <ListHeader>Accurance</ListHeader>
+            <Text fontWeight={'bold'} fontSize={15} noOfLines={1}>Accurance</Text>
             <HStack>
               <Image
                 src="https://previews.123rf.com/images/arcady31/arcady311304/arcady31130400034/19245976-original-stamp.jpg"
@@ -165,7 +165,6 @@ export default function FinalFooter() {
           justify={{ md: "space-between" }}
           align={{ md: "center" }}
         >
-          <Text>© 2022 Chakra Templates. All rights reserved</Text>
           <Stack direction={"row"} spacing={6}>
             <SocialButton label={"Twitter"}>
               <FaTwitter />
