@@ -32,6 +32,7 @@ const activeStyle={
       zIndex="999"
       background={"#fff"}
      alignItems={'center'}
+     width={'full'}
        >
         <Box>
           <Link to="/" >
