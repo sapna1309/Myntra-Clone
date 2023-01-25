@@ -89,12 +89,12 @@ This project was built using React v 17.0.2, Redux v 4.1.1, Chakra UI, CSS, Java
 ### Setup
 
 
-The project repository can be found in [GitHub link](https://github.com/J-Prajwal/clockifyClone-fixedThread) or just clone the project using this command. 
+The project repository can be found in [GitHub link](https://github.com/sapna1309/illegal-quiver-3898.git) or just clone the project using this command. 
 
 
 ```
 Using HTTPS
-# git clone  https://github.com/J-Prajwal/clockifyClone-fixedThread](https://github.com/sapna1309/illegal-quiver-3898.git
+# git clone  https://github.com/sapna1309/illegal-quiver-3898.git
 ```
 
 ## Install
