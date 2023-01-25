@@ -26,8 +26,6 @@ import {
 import { auth, provider } from "../Components/firebase";
 import FinalNavbar from "../Components/FinalNavbar";
 
-// https://classic-world.onrender.com/MensData
-
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [value, setValue] = useState({
@@ -81,7 +79,7 @@ export default function Register() {
         });
         navigate("/login");
         // console.log(user)
-        // console.log("res",res)
+      //console.log("res",res.user)
       })
       .catch((err) => {
         setSubmitbutton(false);
@@ -92,10 +90,37 @@ export default function Register() {
     submitPost();
   };
 
-  const GoodleSignin = () => {
+  const GoodleSignin = async() => {
     signInWithPopup(auth, provider).then((data) => {
       setGoogleValue(data.user.email);
+      //console.log(data.user);
       localStorage.setItem("email", data.user.email);
+      
+      const user={
+        email: data.user.email,
+        name: data.user.displayName,
+        password:data.user.email,
+        logindetails:data.user.metadata,
+        image:data.user.photoURL,
+        contact:data.user.phoneNumber,
+        isAuth:true
+      }
+      fetch("https://classic-world.onrender.com/UsersList", {
+      method: "POST",
+      body: JSON.stringify(user),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+       // console.log(res);
+       localStorage.setItem('USER',JSON.stringify(user));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      
       navigate("/");
     });
   };

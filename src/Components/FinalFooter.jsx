@@ -10,7 +10,8 @@ import {
   chakra,
   useColorModeValue,
   Image,
-  HStack
+  HStack,
+  Grid
 } from '@chakra-ui/react';
 import { FaTwitter, FaYoutube, FaInstagram } from 'react-icons/fa';
 
@@ -55,7 +56,7 @@ export default function FinalFooter() {
       bg={useColorModeValue('gray.50', 'gray.900')}
       color={useColorModeValue('gray.700', 'gray.200')}>
       <Container as={Stack} maxW={'6xl'} py={10}>
-        <SimpleGrid columns={{ base: 1, sm: 2, md: 3,lg:4 }} spacing={8}>
+        <Grid gridTemplateColumns={{ base:"repeat(1,1fr)", sm: "repeat(2,1fr)", md: "repeat(3,1fr)",lg:"repeat(4,1fr)"}} gap={5} >
           <Stack align={'flex-start'}>
             <ListHeader>ONLINE SHOPPING</ListHeader>
             <Link href={"#"}>Men</Link>
@@ -63,7 +64,7 @@ export default function FinalFooter() {
               <Link href={"#"}>Kids</Link>
               <Link href={"#"}>Beauty</Link>
               <Link href={"#"}>Gift card</Link>
-              <Link>Myntra Insider</Link>
+              <Link>Classic World Insider</Link>
             <Link href={'#'}>About Us</Link>
             <Link href={'#'}>Blog</Link>
             <Link href={'#'}>Careers</Link>
@@ -128,7 +129,7 @@ export default function FinalFooter() {
              width={['35%','35%','45%','60%']}  />
            </HStack>
           </Stack>
-        </SimpleGrid>
+        </Grid>
       </Container>
 
       <Box

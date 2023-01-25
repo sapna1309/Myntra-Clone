@@ -86,10 +86,35 @@ const handleSubmit=()=>{
 
 }
 
-const GoodleSignin=()=>{
+const GoodleSignin=async()=>{
   signInWithPopup(auth,provider).then((data)=>{
          setGoogleValue(data.user.email)
+         //console.log(data.user);
          localStorage.setItem("email",data.user.email)
+         const user={
+          email: data.user.email,
+          name: data.user.displayName,
+          password:data.user.email,
+          logindetails:data.user.metadata,
+          image:data.user.photoURL,
+          contact:data.user.phoneNumber,
+          isAuth:true
+        }
+        fetch("https://classic-world.onrender.com/UsersList", {
+        method: "POST",
+        body: JSON.stringify(user),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+         // console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+         localStorage.setItem('USER',JSON.stringify(user));
          navigate("/")
 
 

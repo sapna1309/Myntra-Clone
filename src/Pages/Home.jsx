@@ -28,7 +28,7 @@ const Home = () => {
         <FinalNavbar/>
         <Center>
         <Image src={HomePageHeader}
-          alt='home-page-header' width={"95%"} mt={'60px'} 
+          alt='home-page-header' width={['100%','100%',"95%","95%"]} mt={'60px'} 
           />
            </Center>
            <Box>

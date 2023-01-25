@@ -36,7 +36,7 @@ export default function ProfileSection() {
 
   let User = JSON.parse(localStorage.getItem("USER")) || {};
   let booleanValue = Boolean(User.isAuth);
-  const [isLogin,setIsLogin]=useState(User?true:false);
+  //const [isLogin,setIsLogin]=useState(User?true:false);
 
   //console.log(User);
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function ProfileSection() {
       if (user) {
         setUserName(user.displayName);
         setUserEmail(user.email);
-        // console.log(user.displayName)
+       //console.log(user.displayName)
       } else {
         setUserName("");
         setUserEmail("");
@@ -158,7 +158,7 @@ export default function ProfileSection() {
                 colorScheme="pink"
                 fontSize="sm"
               >
-                Myntra Insider
+                Classic World Insider
                 <Tag
                   size={"sm"}
                   bg={useColorModeValue("pink.500", "green.800")}
@@ -177,7 +177,7 @@ export default function ProfileSection() {
                 colorScheme="pink"
                 fontSize="sm"
               >
-                Myntra Credit
+                Classic World Credit
               </Button>
               <Button
                 w="auto"
