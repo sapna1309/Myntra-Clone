@@ -58,8 +58,9 @@
 
 <table>
   <tr>
-      
-    <td><img src="https://user-images.githubusercontent.com/110045725/214583935-4d9ca631-8b1a-45a9-9708-6417ae1fcd4f.png" alt="home" /></td>
+
+    <td><img src="https://user-images.githubusercontent.com/110045725/214584908-42299735-574e-4ff2-985f-776ead5782e6.png
+" alt="home" /></td>
     <td><img src="https://user-images.githubusercontent.com/98648448/187081184-118ed4ce-7beb-4817-a895-0ef5e0849a2f.jpg" alt="signup" /></td>
   </tr>
   <tr>
