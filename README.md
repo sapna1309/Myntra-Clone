@@ -22,9 +22,6 @@
   
 <h4 align='center' > Myntra is one of the largest fashion e-commerce stores in India that deals with a wide range of fashion and lifestyle products for men, women, and kids. </h4>
   
-<!--    ## Screens ( All screens are responsive small medium & large) -->
- 
-<!-- ![Rainbow Gradient Pink and Purple Zoom Virtual Background](https://user-images.githubusercontent.com/98648448/187078503-b8b32ed9-0ba0-4c32-b271-a3dbb51484fe.jpg) -->
 <img src="https://user-images.githubusercontent.com/110045725/214537767-9b50c791-e987-477f-97c4-072777a2b59f.png"  alt="mockup layout" height="470px" width="100%" />
 
 
@@ -55,26 +52,22 @@
 
 ## Glimpses of Myntra - Clone 🙈 :
 
-https://user-images.githubusercontent.com/110045725/214586632-c1f2891d-ec30-4481-9c67-2fc66dd71e36.png
 
 <table>
   <tr>
-
-    <td><img src="https://user-images.githubusercontent.com/110045725/214586632-c1f2891d-ec30-4481-9c67-2fc66dd71e36.png
-" alt="home" /></td>
-    <td><img src="https://user-images.githubusercontent.com/98648448/187081184-118ed4ce-7beb-4817-a895-0ef5e0849a2f.jpg" alt="signup" /></td>
+      <td><img src="https://user-images.githubusercontent.com/110045725/214591283-2eb37531-08f9-423a-a3aa-e30bfc4e2dd8.jpg" alt="admin-product" /></td>
+          <td><img  src="https://user-images.githubusercontent.com/110045725/214589218-d282a9f8-2ef8-443a-8ad7-c465e690d819.jpg" alt="wishlistcart" /></td>
   </tr>
   <tr>
-    <td><img src="https://user-images.githubusercontent.com/98648448/187081278-9567df85-a920-4eac-8829-de16e51635a8.jpg" alt="products" /></td>
-    <td><img src="https://user-images.githubusercontent.com/98648448/187081431-97751f0d-ccc6-4a71-ad20-9ed33b3aeedf.jpg" alt="product-details" /></td>
-  </tr>
-  <tr>
-    <td><img src="https://user-images.githubusercontent.com/98648448/187081539-0ff2c725-94ff-4957-9537-4093009f2e10.jpg" alt="wishlist" /></td>
-    <td><img src="https://user-images.githubusercontent.com/98648448/187081705-d4f9a36b-055c-4833-8816-4e856162c8d3.jpg" alt="cart" /></td>
+    <td><img src="https://user-images.githubusercontent.com/110045725/214590470-dac1ad0a-015b-4d6c-870e-f03cab79d06c.jpg" alt="admin-dashboard" /></td>
+          <td><img src="https://user-images.githubusercontent.com/110045725/214590962-50611280-adb8-4d74-8373-4be8b1bd4b66.jpg" alt="admin-product" /></td>
   </tr>
 </table>
 
+![f-scr-prodduct-page](https://user-images.githubusercontent.com/110045725/214594169-fdf76473-18d6-41b3-9de6-a879e09523f2.jpg)
+
 <br />
+
 
 <!-- ## Demo
 
