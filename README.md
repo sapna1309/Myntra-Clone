@@ -157,10 +157,9 @@ If you want to contact us, you can reach us through below handles.
 
 <h3>Akash Fulari - Team Member</h3>
 
-[![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/arfeen-mushtaque-7a5988225/)
+[![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/akash-fulari-b57848190/)
 [![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/akashfulari18)
 
-© 2023 Team Fixed-Thread
 
 
 
