@@ -22,9 +22,10 @@
   
 <h4 align='center' > Myntra is one of the largest fashion e-commerce stores in India that deals with a wide range of fashion and lifestyle products for men, women, and kids. </h4>
   
-   ## Screens ( All screens are responsive small medium & large)
+<!--    ## Screens ( All screens are responsive small medium & large) -->
  
-![Rainbow Gradient Pink and Purple Zoom Virtual Background](https://user-images.githubusercontent.com/98648448/187078503-b8b32ed9-0ba0-4c32-b271-a3dbb51484fe.jpg)
+<!-- ![Rainbow Gradient Pink and Purple Zoom Virtual Background](https://user-images.githubusercontent.com/98648448/187078503-b8b32ed9-0ba0-4c32-b271-a3dbb51484fe.jpg) -->
+<img src="https://user-images.githubusercontent.com/110045725/214537767-9b50c791-e987-477f-97c4-072777a2b59f.png"  alt="mockup layout" height="470px" width="100%" />
 
 
 <!--    - Homepage
@@ -36,12 +37,8 @@
    - Checkout
    - Login / Signup -->
    
-   <br />
-   
-  * HomePage
-  <br/>
-
-![Copy of Rainbow Gradient Pink and Purple Zoom Virtual Background](https://user-images.githubusercontent.com/98648448/187080274-65a8fbba-6649-4e9c-b091-b79bc22e2b43.jpg)
+  
+  ![full-home-page](https://user-images.githubusercontent.com/110045725/214582124-593c99c9-f434-4301-8017-c3c292a98963.png)
 
 ## 🚀 Features
 - Login/Signup User Account
@@ -61,7 +58,8 @@
 
 <table>
   <tr>
-    <td><img src="https://user-images.githubusercontent.com/98648448/187081084-431228e1-c84b-4e9e-9b81-c1fc84e365e7.jpg" alt="home" /></td>
+      
+    <td><img src="https://user-images.githubusercontent.com/110045725/214583935-4d9ca631-8b1a-45a9-9708-6417ae1fcd4f.png" alt="home" /></td>
     <td><img src="https://user-images.githubusercontent.com/98648448/187081184-118ed4ce-7beb-4817-a895-0ef5e0849a2f.jpg" alt="signup" /></td>
   </tr>
   <tr>
