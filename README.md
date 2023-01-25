@@ -1,6 +1,6 @@
-<h1 align="center">Clockify Clone</h1> 
+<h1 align="center">Myntra Clone</h1> 
 
-<h2 align="center">It's a MERN Stack Time tracking and management web app</h2>
+<h2 align="center">It's a fashion e-commerce website which deals with fashion and lifstyle products.</h2>
 
 <br />
 <p align="center">
@@ -8,61 +8,55 @@
     <img src="https://img.shields.io/badge/Redux_(4.1.1)-593D88?style=for-the-badge&logo=redux&logoColor=white" alt="redux" />
     <img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white" alt="redux" />
     <img src="https://img.shields.io/badge/Chakra%20UI-3bc7bd?style=for-the-badge&logo=chakraui&logoColor=white" alt="chakra-ui"/>
-    <img src="https://img.shields.io/badge/Rest_API-02303A?style=for-the-badge&logo=react-router&logoColor=white" alt="restAPI"/>
     <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white" alt="restAPI"/>
-    <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white" alt="restAPI"/>
-    <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" alt="restAPI"/>
-    <img src="https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white" alt="restAPI"/>
-    <img src="https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white" alt="restAPI"/>
-    <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="nodejs" />
-    <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" alt="expressjs"/>
-    <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" alt="mongodb"/>
+    <img src="https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" alt="firebase" width="40" height="40"/>
 </p>
 
 
 <h3 align="center"><a href="https://fixedthread-clockify.netlify.app/"><strong>Want to see live preview »</strong></a></h3>
 
-
-<p align="center"> 
+<h3 align="center"> 
     <br />&#10023;
-    <a href="#Demo">View Demo</a>   &#10023;  
-    <a href="https://github.com/J-Prajwal/clockifyClone-fixedThread/issues">Report Bug</a>    &#10023;
-    <a href="#Getting-Started">Getting Started</a> &#10023; <a href="#Install">Installing</a> &#10023;    
-    <a href="#Contact">Author</a> &#10023;
-  </p>
+    <a href="https://classicworld.vercel.app/">View Demo</a>   &#10023; 
+  </h3>
   
-  Clockify is the most popular free time tracker and timesheet app for teams of all sizes. Unlike all the other time trackers, Clockify lets you have an unlimited number of users for free. Clockify is an online app that works in a browser, but you can also install it on your computer or phone for convenience.
+<h4 align='center' > Myntra is one of the largest fashion e-commerce stores in India that deals with a wide range of fashion and lifestyle products for men, women, and kids. </h4>
   
+   ## Screens ( All screens are responsive small medium & large)
  
 ![Rainbow Gradient Pink and Purple Zoom Virtual Background](https://user-images.githubusercontent.com/98648448/187078503-b8b32ed9-0ba0-4c32-b271-a3dbb51484fe.jpg)
 
-  ## Screens ( All screens are responsive including the calendar )
-   - Homepage
+
+<!--    - Homepage
    - Features
-   - Time Tracker
+   - Navigation bar
    - Project Management
    - Calendar - Event & Schedule
    - Upgrade
    - Checkout
-   - Login / Signup
+   - Login / Signup -->
    
    <br />
+   
+  * HomePage
+  <br/>
 
 ![Copy of Rainbow Gradient Pink and Purple Zoom Virtual Background](https://user-images.githubusercontent.com/98648448/187080274-65a8fbba-6649-4e9c-b091-b79bc22e2b43.jpg)
 
 ## 🚀 Features
 - Login/Signup User Account
-- Create Your Own Projects & Tasks
-- Delete & Update Your Projects & Tasks
-- Track Your Time With Our Stopwatch
-- Keep A Record Of Your Tasks
-- Mark Events & Schedules On The Calendar(Only for Paid Users)
-- Buy Our Subscription Plan
-- Enjoy Unlimited Benifits
+- Add & Delete poduct to your cart or wishlist
+- Filter your product
+- Sorting to get a appropriate product
+- Admin-panel-functionalities
+- Data visualization at admin-dashboard
+- Listing all the products for admin (CRUD)
+- Admin can add the product for their users
+- Check all the users details 
 
 <br />
 
-## Glimpses of Clockify - Clone 🙈 :
+## Glimpses of Myntra - Clone 🙈 :
 
 
 <table>
@@ -82,9 +76,9 @@
 
 <br />
 
-## Demo
+<!-- ## Demo
 
-[Check here to see the presentation video of this project](https://drive.google.com/file/d/1o6nQyCER_kjk7TDh5xZ2XzbbbjcYb0-9/view?usp=sharing)
+[Check here to see the presentation video of this project](https://drive.google.com/file/d/1o6nQyCER_kjk7TDh5xZ2XzbbbjcYb0-9/view?usp=sharing) -->
 
 
 <br/>
@@ -98,7 +92,6 @@ This project was built using React v 17.0.2, Redux v 4.1.1, Chakra UI, CSS, Java
 
 - NPM 
 - Node JS
-- MongoDB
 
 ### Setup
 
@@ -108,15 +101,8 @@ The project repository can be found in [GitHub link](https://github.com/J-Prajwa
 
 ```
 Using HTTPS
-# git clone  https://github.com/J-Prajwal/clockifyClone-fixedThread
+# git clone  https://github.com/J-Prajwal/clockifyClone-fixedThread](https://github.com/sapna1309/illegal-quiver-3898.git
 ```
-
-+ Open terminal on your workspace with
-
-```
-cd /home/workspace/clockifyClone-fixedThread
-```
-
 
 ## Install
 
@@ -138,22 +124,11 @@ To confirm that you have npm installed you can run this command in your terminal
 npm -v
 ```
 
-To confirm that you have MongoDB installed you can run this command in your terminal:
-
-
-```
-mongo -v
-```
-
 
 To install all the dependences of the project, run the following command:
 
 
 ```
-cd backend
-npm install
-cd ../
-cd frontend
 npm install
 ```
 
@@ -164,27 +139,10 @@ To run the application got to the client folder and run the following command:
 npm start
 ```
 
-### Environment Variables
-
-To run this project, you will need to add the following environment variables to your .env file in server folder
-
-`PORT`
-
-`MONGO_URL`
-
-`SECRET`
-
- `GOOGLE_CLIENT_ID`
-
-`GOOGLE_CLIENT_SECRET`
-
-
 ### Tools used on this project
 
 - Visual Studio Code - IDE
-- create vite@latest - React Template 
-- MongoDB compass - DataBase Visualization
-- Postman - API Testing
+- npx create-react-app - React Template 
 
 <br/>
 
@@ -194,22 +152,22 @@ To run this project, you will need to add the following environment variables to
 
 If you want to contact us, you can reach us through below handles.
 
-<h3>Prajwal Jaiswal - Team Lead</h3>
+<h3>Sapna Sharma - Team Lead</h3>
 
-[![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/prajwal-jaiswal-3772aa215/)
-[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/J-Prajwal)
+[![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sapna-sharma-4a1136231/)
+[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sapna1309)
 
-<h3>Arfeen Mushtaque - Team Member</h3>
+<h3>Deepti Baghel - Team Member</h3>
+
+[![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/deepti-baghel-a21541232/)
+[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/dipti1144)
+
+<h3>Akash Fulari - Team Member</h3>
 
 [![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/arfeen-mushtaque-7a5988225/)
-[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Arfeen98)
+[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/akashfulari18)
 
-<h3>Nikhil Mehra - Team Member</h3>
-
-[![linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/arfeen-mushtaque-7a5988225/)
-[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/NikhilMehara)
-
-© 2022 Team Fixed-Thread
+© 2023 Team Fixed-Thread
 
 
 
