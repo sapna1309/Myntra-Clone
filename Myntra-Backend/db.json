@@ -6588,8 +6588,8 @@
                 "lastLoginAt": "",
                " lastSignInTime": ""
             },
-            "image": "",
-           " token": ""
+             "image": ""
+            
         },
         {    "id": 2,
             "name": "Kavita Saxena",
@@ -6603,8 +6603,8 @@
                 "lastLoginAt": "",
                " lastSignInTime": ""
             },
-            "image": "",
-           " token": ""
+             "image": ""
+            
         },
         {    "id": 3,
         "name": "Deepak Negi ",
@@ -6618,8 +6618,8 @@
             "lastLoginAt": "",
            " lastSignInTime": ""
         },
-        "image": "",
-       " token": ""
+         "image": ""
+        
        },
        {    "id": 4,
         "name": "ADarsha Khatua",
@@ -6633,8 +6633,8 @@
             "lastLoginAt": "",
            " lastSignInTime": ""
         },
-        "image": "",
-       " token": ""
+         "image": ""
+        
        },
        {    "id": 5,
         "name": "Deepti Singh",
@@ -6648,8 +6648,8 @@
             "lastLoginAt": "",
            " lastSignInTime": ""
         },
-        "image": "",
-       " token": ""
+         "image": ""
+        
        },
        {    "id": 6,
         "name": "Akash Fulari",
@@ -6663,8 +6663,8 @@
             "lastLoginAt": "",
            " lastSignInTime": ""
         },
-        "image": "",
-       " token": ""
+         "image": ""
+        
        },
        { "id": 7,
         "name": "Sankalp Tiwari",
@@ -6678,8 +6678,8 @@
             "lastLoginAt": "",
            " lastSignInTime": ""
         },
-        "image": "",
-       " token": ""
+         "image": ""
+        
        },
        {  "id": 8,
         "name": "Tanisha Singh",
@@ -6693,8 +6693,8 @@
             "lastLoginAt": "",
            " lastSignInTime": ""
         },
-        "image": "",
-       " token": ""
+         "image": ""
+        
        },
        {    "id": 9,
         "name": "Gautam Verma",
@@ -6708,8 +6708,8 @@
             "lastLoginAt": "",
            " lastSignInTime": ""
         },
-        "image": "",
-       " token": ""
+         "image": ""
+        
        },
        {    "id": 10,
         "name": "Mayur Wagh",
@@ -6723,8 +6723,8 @@
             "lastLoginAt": "",
            " lastSignInTime": ""
         },
-        "image": "",
-       " token": ""
+         "image": ""
+        
        }
     ],
     "AdminData":{"id":1,
