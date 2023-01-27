@@ -137,11 +137,18 @@ export default function Login() {
       setGoogleValue(data.user.email);
       localStorage.setItem("email", data.user.email);
       const { metadata } = data.user;
+      const {lastSignInTime,createdAt,creationTime,lastLoginAt}=metadata
+      console.log("Metadata",metadata);
       const user = {
         email: data.user.email,
         name: data.user.displayName,
         password: data.user.email,
-        logindetails: metadata,
+        logindetails:{
+          lastSignInTime:lastSignInTime,
+          createdAt:createdAt,
+          creationTime:creationTime,
+          lastLoginAt:lastLoginAt
+        },
         image: data.user.photoURL,
         contact: data.user.phoneNumber,
         isAuth: true,
@@ -151,10 +158,8 @@ export default function Login() {
         let el = usersListData[i];
         if (
          ( el.email === user.email &&
-          el.password === user.password &&
-          el.name === user.name) &&
+          el.password === user.password) &&
          ( user.email === currentUserData.email &&
-          user.name === currentUserData.name &&
           user.password === currentUserData.password)
         ) {
           dispatch(updateUsersListData(el.id, true)).then(()=>dispatch(getUsersListData()));
@@ -164,9 +169,7 @@ export default function Login() {
         if (
           el.email === user.email &&
           el.password === user.password &&
-          el.name === user.name &&
           user.email !== currentUserData.email &&
-          user.name !== currentUserData.name &&
           user.password !== currentUserData.password
         ) {
           dispatch(updateUsersListData(el.id, true)).then(()=>dispatch(getUsersListData()));
@@ -175,15 +178,11 @@ export default function Login() {
          if (
          ( el.email !== user.email &&
           el.password !== user.password &&
-          el.name !== user.name &&
           user.email === currentUserData.email &&
-          user.name === currentUserData.name &&
           user.password === currentUserData.password) || (
           el.email !== user.email &&
           el.password !== user.password &&
-          el.name !== user.name &&
           user.email !== currentUserData.email &&
-          user.name !== currentUserData.name &&
           user.password !== currentUserData.password
           ) 
         ) {

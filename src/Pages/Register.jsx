@@ -124,11 +124,18 @@ export default function Register() {
      // console.log(data.user);
       localStorage.setItem("email", data.user.email);
       const { metadata } = data.user;
+      const {lastSignInTime,createdAt,creationTime,lastLoginAt}=metadata
+      console.log("Metadata",lastSignInTime,createdAt,creationTime,lastLoginAt);
       const user = {
         email: data.user.email,
         name: data.user.displayName,
         password: data.user.email,
-        logindetails: metadata,
+        logindetails:{
+          lastSignInTime:lastSignInTime,
+          createdAt:createdAt,
+          creationTime:creationTime,
+          lastLoginAt:lastLoginAt
+        },
         image: data.user.photoURL,
         contact: data.user.phoneNumber,
         isAuth: true,
@@ -137,11 +144,10 @@ export default function Register() {
       for (let i = 0; i < usersListData.length; i++) {
         let el = usersListData[i];
         if (
-         ( el.email === user.email &&
+         ( 
           el.password === user.password &&
-          el.name === user.name) &&
+          el.email === user.email) &&
          ( user.email === currentUserData.email &&
-          user.name === currentUserData.name &&
           user.password === currentUserData.password)
         ) {
           dispatch(updateUsersListData(el.id, true)).then(()=>dispatch(getUsersListData()));
@@ -151,9 +157,7 @@ export default function Register() {
         if (
           el.email === user.email &&
           el.password === user.password &&
-          el.name === user.name &&
           user.email !== currentUserData.email &&
-          user.name !== currentUserData.name &&
           user.password !== currentUserData.password
         ) {
           dispatch(updateUsersListData(el.id, true)).then(()=>dispatch(getUsersListData()));
@@ -162,15 +166,11 @@ export default function Register() {
          if (
          ( el.email !== user.email &&
           el.password !== user.password &&
-          el.name !== user.name &&
           user.email === currentUserData.email &&
-          user.name === currentUserData.name &&
           user.password === currentUserData.password) || (
           el.email !== user.email &&
           el.password !== user.password &&
-          el.name !== user.name &&
           user.email !== currentUserData.email &&
-          user.name !== currentUserData.name &&
           user.password !== currentUserData.password
           ) 
         ) {
@@ -184,9 +184,9 @@ export default function Register() {
       }
       navigate("/");
       //navigate(comingFrom,{replace:true});
-      console.log("userCount", userCount);
-      console.log("currentUser",currentUserData);
-      console.log("user",user);
+      //console.log("userCount", userCount);
+      
+      //console.log("user",user);
     });
   };
 
