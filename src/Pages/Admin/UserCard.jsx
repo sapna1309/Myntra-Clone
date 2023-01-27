@@ -11,35 +11,75 @@ import {
   CardFooter,
   AvatarBadge,
   Divider,
+  Text,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverArrow,
+  PopoverBody,
+  Stack
 } from '@chakra-ui/react';
 import {AiOutlineShoppingCart,AiOutlineDelete,AiOutlineMail} from 'react-icons/ai'
 import { BsRecord2,BsTelephoneInbound,BsThreeDotsVertical } from 'react-icons/bs'
 
 
-export default function UserCard({fname,lname,email,contact,isAuth,id,deleteUsers}) {
+export default function UserCard({name,email,contact,isAuth,id,deleteUsers, image,logindetails}) {
   return (
     <Card maxW='4xl' paddingX={3}  mt={50}boxShadow='md' bgGradient="linear(to-t, pink,white,white)" >
   <CardHeader>
     <Flex spacing='4'  >
       <Flex flex='1' gap='4' alignItems='center'flexWrap='wrap'>
-       {isAuth? <Avatar name={`${fname}+${lname}`} size={'lg'} >
+       {image!=="" && isAuth===true? <Avatar src={image} size={'lg'} >
         <AvatarBadge boxSize='1em' bg='green.500' />
-        </Avatar>: <Avatar name={`${fname}+${lname}`}  size={'lg'} >
+        </Avatar>: image==="" && isAuth===true? <Avatar name={name}  size={'lg'} >
+        <AvatarBadge boxSize='1em' bg='green.500' />
+        </Avatar> : image!=="" && isAuth===false? <Avatar src={image}  size={'lg'} >
         <AvatarBadge boxSize='1em' bg='red.500' />
-        </Avatar>}
+        </Avatar> : <Avatar name={name}  size={'lg'} >
+        <AvatarBadge boxSize='1em' bg='red.500' />
+        </Avatar> }
         <Box textAlign={'left'}>
-          <Heading ml={4} size='md' fontWeight={'semibold'} >{fname} {lname}</Heading>
+          <Heading ml={4} size='md' fontWeight={'semibold'} >{name}</Heading>
           <Button  fontSize={18} fontWeight={'normal'} bg={'none'} leftIcon={<AiOutlineMail/>} >  {email}</Button>
-          <Button fontSize={18} fontWeight={'normal'} bg={'none'} leftIcon={<BsTelephoneInbound/>} >  {contact}</Button>
+          <Button fontSize={18} fontWeight={'normal'} bg={'none'} leftIcon={contact!==null?<BsTelephoneInbound/>:null} >  {contact}</Button>
         </Box>
         
       </Flex>
-      <IconButton
-        variant='ghost'
-        colorScheme='gray'
-        aria-label='See menu'
-        icon={<BsThreeDotsVertical />}
-      />
+      <Flex justifyContent="center" >
+        <Popover placement="bottom" isLazy>
+          <PopoverTrigger>
+            <Button bg={'none'} _hover={{color:'white',backgroundColor:'pink.700'}}  >
+            <IconButton
+              aria-label="Right menu"
+              icon={<BsThreeDotsVertical />}
+              variant="ghost"
+              w="fit-content"
+              bg={'none'}
+              fontWeight={'bold'}
+              _hover={{color:'white',backgroundColor:'pink.700'}} 
+            />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent w="fit-content" _focus={{ boxShadow: 'md' }}>
+            <PopoverArrow />
+            <PopoverBody>
+              <Stack textAlign={'left'}  >
+              <Text fontWeight={'bold'} color={'pink.700'} fontSize={20}>Login Details</Text>
+              <Stack boxShadow={'md'} padding={2} spacing={0} bgGradient="linear(to-t, pink,white,white)"  >
+              <Text fontWeight={'semibold'}>Acount created At</Text>
+              <Text > {logindetails.creationTime!==""?logindetails.creationTime:'No Such Details Found'}</Text>
+              </Stack>
+              <Stack boxShadow={'md'} padding={2} spacing={0}bgGradient="linear(to-t, pink,white,white)" >
+              <Text fontWeight={'semibold'} >Last SignIn At</Text>
+              <Text > {logindetails.lastSignInTime!==""?logindetails.lastSignInTime:'No Such Details Found'}</Text>
+              </Stack>
+             
+         
+              </Stack>
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
+      </Flex>
       
     </Flex>
   </CardHeader>

@@ -1,19 +1,18 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { Navigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, Navigate } from "react-router-dom";
+import { getCurrentUserData } from "../Redux/Admin/Admin.action";
+
 export const PrivateRoute = ({ children }) => {
-  const isAuth = useSelector((store) => store.AuthReducer.isAuth);
-
   const location = useLocation();
-  console.log("location", location);
-  let isLoggedIn;
+  const {currentUserData}=useSelector((store)=>store.adminManager);
+  const dispatch=useDispatch();
   useEffect(()=>{
-  isLoggedIn = localStorage.getItem('ISLOGIN');
-  },[])
-
-  console.log('ISLOGIN',isLoggedIn);
-  if (!isAuth) {
-    return <Navigate to="/login" state={location.pathname} replace />;
+    dispatch(getCurrentUserData());
+  },[dispatch])
+  console.log("CurrentUser",currentUserData);
+  if(currentUserData.isAuth===false){
+   return <Navigate to='/login' state={{from:location}} replace />
   }
   return children;
 };

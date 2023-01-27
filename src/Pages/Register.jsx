@@ -5,7 +5,6 @@ import {
   FormLabel,
   Input,
   InputGroup,
-  HStack,
   InputRightElement,
   Stack,
   Button,
@@ -14,6 +13,8 @@ import {
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Link, useNavigate } from "react-router-dom";
@@ -25,35 +26,59 @@ import {
 } from "firebase/auth";
 import { auth, provider } from "../Components/firebase";
 import FinalNavbar from "../Components/FinalNavbar";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getCurrentUserData,
+  getUsersListData,
+  postCurrentUserData,
+  updateCurrentUserData,
+  updateUsersListData,
+} from "../Redux/Admin/Admin.action";
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
+  const { usersListData,currentUserData } = useSelector((store) => store.adminManager);
+
+  useEffect(() => {
+    dispatch(getUsersListData());
+    dispatch(getCurrentUserData());
+  }, [dispatch]);
+
   const [value, setValue] = useState({
-    fname: "",
-    lname: "",
     email: "",
+    name: "",
     password: "",
-    contact: "",
-    isAuth: "true",
+    logindetails: {
+      createdAt: "",
+      creationTime: "",
+      lastLoginAt: "",
+      lastSignInTime: "",
+    },
+    image: "",
+    token: "",
+    contact: null,
+    isAuth: true,
   });
   const [googleValue, setGoogleValue] = useState("");
   const [submitbutton, setSubmitbutton] = useState(false);
   const navigate = useNavigate();
-  const [error, setError] = useState("");
+  
 
   const submitPost = async () => {
-    const payload = value;
-    console.log(payload);
+    dispatch(postCurrentUserData(value));
     fetch("https://classic-world.onrender.com/UsersList", {
       method: "POST",
-      body: JSON.stringify(payload),
+      body: JSON.stringify(value),
       headers: {
         "Content-Type": "application/json",
       },
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
+        console.log("res", res);
+        localStorage.setItem("USER", JSON.stringify(res));
+        console.log("V", value);
       })
       .catch((err) => {
         console.log(err);
@@ -61,66 +86,84 @@ export default function Register() {
   };
 
   const handleSubmit = () => {
-    if (!value.fname || !value.email || !value.password) {
-      setError("fill all fields");
+    if (!value.name || !value.email || !value.password) {
+      toast.error(`please fill all the field `, {
+        position: "top-center",
+      });
       return;
     }
 
-    setError("");
     setSubmitbutton(true);
     createUserWithEmailAndPassword(auth, value.email, value.password)
       .then(async (res) => {
         setSubmitbutton(false);
-
+        submitPost();
         const user = res.user;
-
         await updateProfile(user, {
-          displayName: value.fname,
+          displayName: value.name,
         });
+        setValue((prev)=>({...prev, email: "",
+        name: "",
+        password: "",contact:null}))
         navigate("/login");
-        // console.log(user)
-      //console.log("res",res.user)
       })
       .catch((err) => {
         setSubmitbutton(false);
-        setError(err.message);
-        // console.log("error-", err.message)
+        toast.error(`${err.message}`, {
+          position: "top-center",
+          
+        });
+       
       });
-
-    submitPost();
   };
-
-  const GoodleSignin = async() => {
+ 
+  const GoodleSignin = async () => {
     signInWithPopup(auth, provider).then((data) => {
       setGoogleValue(data.user.email);
-      //console.log(data.user);
+     // console.log(data.user);
       localStorage.setItem("email", data.user.email);
-      
-      const user={
+      const { metadata } = data.user;
+      const { createdAt, creationTime, lastLoginAt, lastSignInTime } = metadata;
+      const user = {
         email: data.user.email,
         name: data.user.displayName,
-        password:data.user.email,
-        logindetails:data.user.metadata,
-        image:data.user.photoURL,
-        contact:data.user.phoneNumber,
-        isAuth:true
+        password: data.user.email,
+        logindetails: { createdAt, creationTime, lastLoginAt, lastSignInTime },
+        image: data.user.photoURL,
+        contact: data.user.phoneNumber,
+        isAuth: true,
+      };
+      let userCount=0;
+      for(let i=0;i<usersListData.length;i++){
+       let el=usersListData[i];
+       if(el.email===user.email && el.password===user.password && el.name===user.name){
+        dispatch(updateUsersListData(el.id,true));
+        if(user.email===currentUserData.email && user.name===currentUserData.name && user.contact===currentUserData.contact){
+          dispatch(updateCurrentUserData(true));
+          userCount=userCount+1;
+         }
+       }else{
+        dispatch(postCurrentUserData(user));
+        dispatch(updateUsersListData(el.id,true));
+       }
       }
-      fetch("https://classic-world.onrender.com/UsersList", {
-      method: "POST",
-      body: JSON.stringify(user),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-       // console.log(res);
-       localStorage.setItem('USER',JSON.stringify(user));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-      
+      if(userCount===usersListData.length){
+        fetch("https://classic-world.onrender.com/UsersList", {
+          method: "POST",
+          body: JSON.stringify(user),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            // console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+
       navigate("/");
     });
   };
@@ -131,7 +174,7 @@ export default function Register() {
 
   return (
     <Box>
-    <FinalNavbar/>
+      <FinalNavbar />
       <Flex
         mt={10}
         minH={"100vh"}
@@ -139,7 +182,13 @@ export default function Register() {
         justify={"center"}
         bg={useColorModeValue("rgb(248, 230, 233)")}
       >
-        <Stack spacing={0} mx={"auto"} maxW={"lg"} py={12} px={6}>
+        <Stack
+          spacing={0}
+          mx={"auto"}
+          width={["100%", "80%", "60%", "45%"]}
+          py={12}
+          px={6}
+        >
           <Stack align={"center"}>
             <Heading fontSize={"2xl"} textAlign={"center"}>
               Sign up with Classic World
@@ -148,8 +197,6 @@ export default function Register() {
             <Text fontSize={"lg"} color={"gray.600"}>
               Welcome to Family ✌️
             </Text>
-
-            {/* <Image    src="https://assets.myntassets.com/dpr_1.5,q_60,w_400,c_limit,fl_progressive/assets/images/2022/9/21/8fca3ae9-d245-443b-a142-8d568247794c1663700243878-offer-banner-300-600x240-code-_-MYNTRA400.jpg" w="100%" /> */}
           </Stack>
           <Box
             rounded={"lg"}
@@ -163,30 +210,17 @@ export default function Register() {
                 <GoogleButton onClick={GoodleSignin} />
                 <Text fontWeight={"500"}>-Or using E-mail-</Text>
               </VStack>
-              <HStack>
-                <Box>
-                  <FormControl id="firstName" isRequired>
-                    <FormLabel>First Name</FormLabel>
-                    <Input
-                      type="text"
-                      onChange={(e) =>
-                        setValue((prev) => ({ ...prev, fname: e.target.value }))
-                      }
-                    />
-                  </FormControl>
-                </Box>
-                <Box>
-                  <FormControl id="lastName">
-                    <FormLabel>Last Name</FormLabel>
-                    <Input
-                      type="text"
-                      onChange={(e) =>
-                        setValue((prev) => ({ ...prev, lname: e.target.value }))
-                      }
-                    />
-                  </FormControl>
-                </Box>
-              </HStack>
+              <Box>
+                <FormControl id="firstName" isRequired>
+                  <FormLabel>Name</FormLabel>
+                  <Input
+                    type="text"
+                    onChange={(e) =>
+                      setValue((prev) => ({ ...prev, name: e.target.value }))
+                    }
+                  />
+                </FormControl>
+              </Box>
               <FormControl id="email" isRequired>
                 <FormLabel>Email address</FormLabel>
                 <Input
@@ -223,16 +257,13 @@ export default function Register() {
               <FormControl id="contact" isRequired>
                 <FormLabel>Contact no.</FormLabel>
                 <Input
-                  type="email"
+                  type="number"
                   onChange={(e) =>
                     setValue((prev) => ({ ...prev, contact: e.target.value }))
                   }
                 />
               </FormControl>
               <Stack spacing={10} pt={2}>
-                <Text color={"red"} align={"left"}>
-                  {error}
-                </Text>
                 <Button
                   disabled={submitbutton}
                   onClick={handleSubmit}
@@ -244,9 +275,6 @@ export default function Register() {
                     bg: "#ff3f6a",
                     color: "black",
                   }}
-                  // _disabled={{
-                  //   cursor: "not-allowed"
-                  // }}
                 >
                   Register
                 </Button>
@@ -263,6 +291,7 @@ export default function Register() {
           </Box>
         </Stack>
       </Flex>
+      <ToastContainer />
     </Box>
   );
 }

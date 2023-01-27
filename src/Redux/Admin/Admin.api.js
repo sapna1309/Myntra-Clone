@@ -25,6 +25,11 @@ export const getAdminDataAPI=async()=>{
     return res.data;
 }
 
+export const getCurrentUserAPI=async()=>{
+    let res = await axios.get(`https://classic-world.onrender.com/CurrentUser`);
+    return res.data;
+}
+
 //POST-API
 export const postAdminMensdataAPI=async(mensProduct)=>{
 let res = await axios.post('https://classic-world.onrender.com/MensData',mensProduct);
@@ -38,6 +43,11 @@ export const postAdminWomensdataAPI=async(womensProduct)=>{
 
 export const postAdminKidsdataAPI=async(kidsProduct)=>{
     let res = await axios.delete('https://classic-world.onrender.com/ChildrensData',kidsProduct);
+    return res.data;
+}
+
+export const postCurrentUserAPI=async(currentUser)=>{
+    let res = await axios.post(`https://classic-world.onrender.com/CurrentUser`,currentUser);
     return res.data;
 }
 
@@ -89,6 +99,19 @@ export const updateAdminPasswordAPI=async(data)=>{
     return res.data;
     }
         
+export const updateUsersListAPI=async(id,state)=>{
+    let res = await axios.patch(`https://classic-world.onrender.com/UsersList/${id}`,{
+        isAuth:state,
+    });
+    return res.data;
+}
+
+export const updateCurrentUserAPI=async(state)=>{
+    let res = await axios.patch(`https://classic-world.onrender.com/CurrentUser`,{
+        isAuth:state,
+    });
+    return res.data;
+}
 
 //DELETE-FUNCTION
 export const deleteAdminMensdataAPI=async(id)=>{

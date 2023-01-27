@@ -20,10 +20,10 @@ import Cart from "../Pages/Cart";
 
 import Payment from "../Pages/Payment";
 import Success from "../Pages/Success";
-
+import { PrivateRoute } from "./PrivateRouting";
 
 const AllRoutes = () => {
- // console.log(userName);
+  // console.log(userName);
 
   return (
     <div>
@@ -31,21 +31,56 @@ const AllRoutes = () => {
         <Route path="/" element={<Home />}></Route>
         <Route path="/product" element={<Product />}></Route>
         <Route path="/product/:id" element={<SingleProductPage />}></Route>
-        <Route path="/wishlist" element={<Wishlist />}></Route>
-        <Route path="/cart" element={<Cart />}></Route>
+        <Route
+          path="/wishlist"
+          element={
+            <PrivateRoute>
+              <Wishlist />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/cart"
+          element={
+            <PrivateRoute>
+              <Cart />
+            </PrivateRoute>
+          }
+        ></Route>
         <Route path="*" element={<PageNotFound />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
-        <Route path='/add-products' element={<AddProductsPage/>} ></Route>
-        <Route path='/admin-men' element={<MensPage/>} ></Route>
-        <Route path='/admin-women' element={<WomensPage/>} ></Route>
-        <Route path='/admin-kids' element={<KidsPage/>} ></Route>
-        <Route path='/admin-users' element={<UsersPage/>} ></Route>
-        <Route path='/admin-profile' element={<AdminProfilePage/>} ></Route>
-        <Route path="/address" element={<Address/>} ></Route>
-        <Route path="/payment" element={<Payment/>} ></Route>
-        <Route path="/success" element={<Success/>} ></Route>
+        <Route path="/add-products" element={<AddProductsPage />}></Route>
+        <Route path="/admin-men" element={<MensPage />}></Route>
+        <Route path="/admin-women" element={<WomensPage />}></Route>
+        <Route path="/admin-kids" element={<KidsPage />}></Route>
+        <Route path="/admin-users" element={<UsersPage />}></Route>
+        <Route path="/admin-profile" element={<AdminProfilePage />}></Route>
+        <Route
+          path="/address"
+          element={
+            <PrivateRoute>
+              <Address />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/payment"
+          element={
+            <PrivateRoute>
+              <Payment />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/success"
+          element={
+            <PrivateRoute>
+              <Success />
+            </PrivateRoute>
+          }
+        ></Route>
       </Routes>
     </div>
   );

@@ -47,7 +47,7 @@ export default function FinalNavbar() {
 
   useEffect(()=>{
     dispatch(fetchCartData());
-  },[])
+  },[dispatch])
   return (
     <Box>
       <Flex
@@ -81,12 +81,13 @@ export default function FinalNavbar() {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", sm:'center',  md: "start" }}>
+          <NavLink to='/' >
           <Image
             src={CWLOGO}
-            w={{ base: "40%", sm: "40%", md: "20%", lg: "10%" }}
+            w={{ base: "40%", sm: "40%", md: "25%", lg: "25%" }}
             mr={{sm:60, base:50,lg:0,md:0}}
           />
-
+</NavLink>
           <Flex
             display={{ base: "none", md: "none",lg:"flex" }}
             ml={10}
@@ -173,7 +174,6 @@ export default function FinalNavbar() {
                 paddingX={1.5}
                 borderRadius={"50%"}
                 fontSize={'xs'}
-                // _hover={{bg:'#BB1679',color:'black'}}
               >
                 {cartData.length}
               </Text>

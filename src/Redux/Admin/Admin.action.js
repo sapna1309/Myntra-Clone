@@ -1,3 +1,4 @@
+import { async } from "@firebase/util";
 import {
   deleteAdminKidsdataAPI,
   deleteAdminMensdataAPI,
@@ -7,10 +8,12 @@ import {
   getAdminKidsdataAPI,
   getAdminMensdataAPI,
   getAdminWomensdataAPI,
+  getCurrentUserAPI,
   getUsersListAPI,
   postAdminKidsdataAPI,
   postAdminMensdataAPI,
   postAdminWomensdataAPI,
+  postCurrentUserAPI,
   updateAdminContactAPI,
   updateAdminEmailAPI,
   updateAdminKidsdataAPI,
@@ -18,12 +21,15 @@ import {
   updateAdminNameAPI,
   updateAdminPasswordAPI,
   updateAdminWomensdataAPI,
+  updateCurrentUserAPI,
+  updateUsersListAPI,
 } from "./Admin.api";
 import {
   ADD_ADMIN_CONTACT,
   ADD_ADMIN_EMAIL,
   ADD_ADMIN_NAME,
   ADD_ADMIN_PASSWORD,
+  ADD_CURRENT_USER,
   ADD_KIDS_SUCCESS,
   ADD_MENS_SUCCESS,
   ADD_WOMENS_SUCCESS,
@@ -32,15 +38,18 @@ import {
   DELETE_PRODUCT_WOMENS,
   DELETE_USERSLIST_DATA,
   GET_ADMINDATA_SUCCESS,
+  GET_CURRENT_USER,
   GET_KIDS_SUCCESS,
   GET_MENS_SUCCESS,
   GET_PRODUCTS_ERROR,
   GET_PRODUCTS_LOADING,
   GET_USERSLIST_SUCCESS,
   GET_WOMENS_SUCCESS,
+  UPDATE_CURRENT_USER,
   UPDATE_PRODUCT_KIDS,
   UPDATE_PRODUCT_MENS,
   UPDATE_PRODUCT_WOMENS,
+  UPDATE_USERSLIST_DATA,
 } from "./Admin.type";
 
 //POST_FUNCTION
@@ -77,6 +86,17 @@ export const postKidsData = (kidsProduct) => async (dispatch) => {
     dispatch({ type: GET_PRODUCTS_ERROR });
   }
 };
+
+export const postCurrentUserData=(currentUser)=>async(dispatch)=>{
+  dispatch({type:GET_PRODUCTS_LOADING})
+ try {
+  await postCurrentUserAPI(currentUser);
+  dispatch({type:ADD_CURRENT_USER})
+ } catch (error) {
+   dispatch({type:GET_PRODUCTS_ERROR})
+ }
+}
+
 
 // GET-FUNCTION
 
@@ -129,6 +149,17 @@ export const getAdminData = () => async (dispatch) => {
     dispatch({ type: GET_PRODUCTS_ERROR });
   }
 };
+
+export const getCurrentUserData=()=>async(dispatch)=>{
+  dispatch({type:GET_PRODUCTS_LOADING})
+ try {
+  let data = await getCurrentUserAPI();
+  dispatch({type:GET_CURRENT_USER,payload:data})
+ } catch (error) {
+   dispatch({type:GET_PRODUCTS_ERROR})
+ }
+}
+
 
 //DELETE-FUNCTION
 
@@ -246,3 +277,23 @@ export const updateAdminPassword = (data) => async (dispatch) => {
     dispatch({ type: GET_PRODUCTS_ERROR });
   }
 };
+
+export const updateUsersListData = (id,state) => async (dispatch) => {
+  dispatch({ type: GET_PRODUCTS_LOADING });
+  try {
+    await updateUsersListAPI(id,state);
+    dispatch({ type: UPDATE_USERSLIST_DATA});
+  } catch (error) {
+    dispatch({ type: GET_PRODUCTS_ERROR });
+  }
+};
+
+export const updateCurrentUserData=(state)=>async(dispatch)=>{
+    dispatch({type:GET_PRODUCTS_LOADING})
+   try {
+    await updateCurrentUserAPI(state);
+    dispatch({type:UPDATE_CURRENT_USER})
+   } catch (error) {
+     dispatch({type:GET_PRODUCTS_ERROR})
+   }
+}

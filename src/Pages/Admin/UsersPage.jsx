@@ -26,10 +26,8 @@ const UsersPage = () => {
     <Heading mt={5} size={'lg'} >TOTAL USERS : {UsersListData.length}</Heading>
     <HStack justifyContent={'center'}>
     <AvatarGroup size='md' max={3} mt={3}>
-   <Avatar name='Ryan Florence' src='https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ' />
-    <Avatar name='Segun Adebayo' src='https://bit.ly/sage-adebayo' />
-    {UsersListData.length!==0 && UsersListData.map((el,i)=>(
-     <Avatar  key={i} name={`${el.fname}+${el.lname}`} />
+     {UsersListData.length!==0 && UsersListData.map((el,i)=>(
+     el.image!==""?<Avatar  key={i} src={el.image} /> :<Avatar  key={i} name={el.name} />
     ))}
 </AvatarGroup>
 </HStack>

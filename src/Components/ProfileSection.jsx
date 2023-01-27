@@ -26,37 +26,33 @@ import { TbAddressBook } from "react-icons/tb";
 import { CgProfile } from "react-icons/cg";
 import { RiShutDownLine, RiCouponLine } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { auth } from "./firebase";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentUserData, getUsersListData, updateCurrentUserData, updateUsersListData } from "../Redux/Admin/Admin.action";
 
 export default function ProfileSection() {
-  const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [lgUser, setLgUser] = useState({});
+  const dispatch = useDispatch();
+  const {usersListData,currentUserData} = useSelector((store)=>store.adminManager);
 
-  let User = JSON.parse(localStorage.getItem("USER")) || {};
-  let booleanValue = Boolean(User.isAuth);
-  //const [isLogin,setIsLogin]=useState(User?true:false);
+  useEffect(()=>{
+    dispatch(getUsersListData());
+    dispatch(getCurrentUserData());
+  },[dispatch])
 
-  //console.log(User);
-  useEffect(() => {
-    auth.onAuthStateChanged((user, email) => {
-      if (user) {
-        setUserName(user.displayName);
-        setUserEmail(user.email);
-       //console.log(user.displayName)
-      } else {
-        setUserName("");
-        setUserEmail("");
-      }
-    });
-  }, []);
+  //console.log("CrU",currentUserData);
+  let booleanValue = Boolean(currentUserData.isAuth);
+
   const handleLogout = () => {
-    setLgUser({ ...User, isAuth: false });
-    booleanValue = Boolean(lgUser.isAuth);
-    localStorage.setItem("USER", JSON.stringify(lgUser));
+    for(let i=0;i<usersListData.length;i++){
+      let el=usersListData[i];
+      if( el.email===currentUserData.email && el.name===currentUserData.name && currentUserData.password===el.password){
+      dispatch(updateUsersListData(el.id,false)).then(()=>dispatch(getUsersListData()));
+      dispatch(updateCurrentUserData(false)).then(()=>dispatch(getCurrentUserData()));
+      }
+    }
+    
+    
   };
-
   return (
     <Flex justifyContent="center" mt={0}>
       <Popover placement="bottom" isLazy>
@@ -91,7 +87,7 @@ export default function ProfileSection() {
                 fontSize="md"
                 colorScheme={"pink"}
               >
-               Hello, {booleanValue ? userName : "Welcome"}
+               Hello, {booleanValue ? currentUserData.name : "Welcome"}
               </Button>
               <Button
                 w="auto"
@@ -102,7 +98,7 @@ export default function ProfileSection() {
                 colorScheme="pink"
                 fontSize="sm"
               >
-                {booleanValue ? userEmail : "To access account and orders"}
+                {booleanValue ? currentUserData.email : "To access account and orders"}
               </Button>
               <Button
                 w="auto"

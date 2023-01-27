@@ -12,12 +12,10 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchCartData } from "../Redux/Cart/Cart.action";
 function SingleCard({ ...props }) {
-const dispatch = useDispatch();
-  //const [wishlist ,setWishlist] = useState([])
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const {
@@ -31,11 +29,12 @@ const dispatch = useDispatch();
     rating,
     rating_count,
   } = props.prod;
-  let prod =props.prod
+  let prod = props.prod;
 
   const handleAddToWishlist = async () => {
-         await axios
-        .post(`https://classic-world.onrender.com/WishList/`, prod )
+   
+      await axios
+        .post(`https://classic-world.onrender.com/WishList/`, prod)
         .then((res) => {
           alert("Added to Wishlist Successfully....");
           dispatch(fetchCartData());
@@ -50,7 +49,6 @@ const dispatch = useDispatch();
     <Card
       border={"none"}
       _hover={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
-      
     >
       <CardBody textAlign={"left"}>
         <Stack spacing={2}>

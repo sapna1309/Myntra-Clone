@@ -7,6 +7,7 @@ export const GET_WOMENS_SUCCESS='get/womensSuccess';
 export const GET_KIDS_SUCCESS='get/kidsSuccess';
 export const GET_USERSLIST_SUCCESS='get/usersList';
 export const GET_ADMINDATA_SUCCESS='get/adminData';
+export const GET_CURRENT_USER='get/currentUser';
 
 //ADD_TYPE
 
@@ -16,7 +17,8 @@ export const ADD_KIDS_SUCCESS='add/kidsSuccess';
 export const ADD_ADMIN_NAME='add/adminName';
 export const ADD_ADMIN_EMAIL='add/adminEmail';
 export const ADD_ADMIN_CONTACT='add/adminContact';
-export const ADD_ADMIN_PASSWORD='add/adminPassword'
+export const ADD_ADMIN_PASSWORD='add/adminPassword';
+export const ADD_CURRENT_USER='add/currentUser';
 
 
 //DELETE-TYPE
@@ -31,3 +33,5 @@ export const DELETE_USERSLIST_DATA='delete/usersList';
 export const UPDATE_PRODUCT_MENS='update/mens';
 export const UPDATE_PRODUCT_WOMENS='update/womens';
 export const UPDATE_PRODUCT_KIDS='update/kids';
+export const UPDATE_USERSLIST_DATA='update/userslist';
+export const UPDATE_CURRENT_USER='update/currentUser';
