@@ -31,6 +31,7 @@ import {
   getCurrentUserData,
   getUsersListData,
   postCurrentUserData,
+  postUsersListData,
   updateCurrentUserData,
   updateUsersListData,
 } from "../Redux/Admin/Admin.action";
@@ -123,48 +124,69 @@ export default function Register() {
      // console.log(data.user);
       localStorage.setItem("email", data.user.email);
       const { metadata } = data.user;
-      const { createdAt, creationTime, lastLoginAt, lastSignInTime } = metadata;
       const user = {
         email: data.user.email,
         name: data.user.displayName,
         password: data.user.email,
-        logindetails: { createdAt, creationTime, lastLoginAt, lastSignInTime },
+        logindetails: metadata,
         image: data.user.photoURL,
         contact: data.user.phoneNumber,
         isAuth: true,
       };
-      let userCount=0;
-      for(let i=0;i<usersListData.length;i++){
-       let el=usersListData[i];
-       if(el.email===user.email && el.password===user.password && el.name===user.name){
-        dispatch(updateUsersListData(el.id,true));
-        if(user.email===currentUserData.email && user.name===currentUserData.name && user.contact===currentUserData.contact){
-          dispatch(updateCurrentUserData(true));
+      let userCount = 0;
+      for (let i = 0; i < usersListData.length; i++) {
+        let el = usersListData[i];
+        if (
+         ( el.email === user.email &&
+          el.password === user.password &&
+          el.name === user.name) &&
+         ( user.email === currentUserData.email &&
+          user.name === currentUserData.name &&
+          user.password === currentUserData.password)
+        ) {
+          dispatch(updateUsersListData(el.id, true)).then(()=>dispatch(getUsersListData()));
+          dispatch(updateCurrentUserData(true)).then(()=>dispatch(getCurrentUserData()));
+
+         }  
+        if (
+          el.email === user.email &&
+          el.password === user.password &&
+          el.name === user.name &&
+          user.email !== currentUserData.email &&
+          user.name !== currentUserData.name &&
+          user.password !== currentUserData.password
+        ) {
+          dispatch(updateUsersListData(el.id, true)).then(()=>dispatch(getUsersListData()));
+          dispatch(postCurrentUserData(user)).then(()=>dispatch(getCurrentUserData()));
+        }
+         if (
+         ( el.email !== user.email &&
+          el.password !== user.password &&
+          el.name !== user.name &&
+          user.email === currentUserData.email &&
+          user.name === currentUserData.name &&
+          user.password === currentUserData.password) || (
+          el.email !== user.email &&
+          el.password !== user.password &&
+          el.name !== user.name &&
+          user.email !== currentUserData.email &&
+          user.name !== currentUserData.name &&
+          user.password !== currentUserData.password
+          ) 
+        ) {
           userCount=userCount+1;
-         }
-       }else{
-        dispatch(postCurrentUserData(user));
-        dispatch(updateUsersListData(el.id,true));
-       }
+        }
+       
       }
       if(userCount===usersListData.length){
-        fetch("https://classic-world.onrender.com/UsersList", {
-          method: "POST",
-          body: JSON.stringify(user),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then((res) => res.json())
-          .then((res) => {
-            // console.log(res);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        dispatch(postUsersListData(user)).then(()=>dispatch(getUsersListData()));
+        dispatch(postCurrentUserData(user)).then(()=>dispatch(getCurrentUserData(user)));
       }
-
       navigate("/");
+      //navigate(comingFrom,{replace:true});
+      console.log("userCount", userCount);
+      console.log("currentUser",currentUserData);
+      console.log("user",user);
     });
   };
 

@@ -18,6 +18,7 @@ export const ADD_ADMIN_NAME='add/adminName';
 export const ADD_ADMIN_EMAIL='add/adminEmail';
 export const ADD_ADMIN_CONTACT='add/adminContact';
 export const ADD_ADMIN_PASSWORD='add/adminPassword';
+export const ADD_USERSLIST_DATA= 'add/usersList';
 export const ADD_CURRENT_USER='add/currentUser';
 
 

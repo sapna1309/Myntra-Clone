@@ -14,6 +14,7 @@ import {
   postAdminMensdataAPI,
   postAdminWomensdataAPI,
   postCurrentUserAPI,
+  postUsersListAPI,
   updateAdminContactAPI,
   updateAdminEmailAPI,
   updateAdminKidsdataAPI,
@@ -32,6 +33,7 @@ import {
   ADD_CURRENT_USER,
   ADD_KIDS_SUCCESS,
   ADD_MENS_SUCCESS,
+  ADD_USERSLIST_DATA,
   ADD_WOMENS_SUCCESS,
   DELETE_PRODUCT_KIDS,
   DELETE_PRODUCT_MENS,
@@ -86,6 +88,16 @@ export const postKidsData = (kidsProduct) => async (dispatch) => {
     dispatch({ type: GET_PRODUCTS_ERROR });
   }
 };
+
+export const postUsersListData=(User)=>async(dispatch)=>{
+  dispatch({type:GET_PRODUCTS_LOADING})
+ try {
+  await postUsersListAPI(User);
+  dispatch({type:ADD_USERSLIST_DATA})
+ } catch (error) {
+   dispatch({type:GET_PRODUCTS_ERROR})
+ }
+}
 
 export const postCurrentUserData=(currentUser)=>async(dispatch)=>{
   dispatch({type:GET_PRODUCTS_LOADING})

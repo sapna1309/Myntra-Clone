@@ -26,7 +26,6 @@ import { useCallback } from "react";
 import FinalNavbar from "../Components/FinalNavbar";
 import SampleBrand from "./SampleBrand";
 import FinalFooter from "../Components/FinalFooter";
-import Footer from "../Components/Footer";
 
 let brands = [
   "HRX by Hrithik Roshan ",

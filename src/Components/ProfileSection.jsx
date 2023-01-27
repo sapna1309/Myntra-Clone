@@ -33,7 +33,7 @@ import { getCurrentUserData, getUsersListData, updateCurrentUserData, updateUser
 export default function ProfileSection() {
   const dispatch = useDispatch();
   const {usersListData,currentUserData} = useSelector((store)=>store.adminManager);
-
+ 
   useEffect(()=>{
     dispatch(getUsersListData());
     dispatch(getCurrentUserData());
@@ -48,7 +48,10 @@ export default function ProfileSection() {
       if( el.email===currentUserData.email && el.name===currentUserData.name && currentUserData.password===el.password){
       dispatch(updateUsersListData(el.id,false)).then(()=>dispatch(getUsersListData()));
       dispatch(updateCurrentUserData(false)).then(()=>dispatch(getCurrentUserData()));
+      
       }
+      //console.log("b",booleanValue);
+      booleanValue= Boolean(currentUserData.isAuth);
     }
     
     

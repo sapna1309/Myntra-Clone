@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { Link, useNavigate,useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import GoogleButton from "react-google-button";
 import {
   createUserWithEmailAndPassword,
@@ -34,6 +34,7 @@ import {
   getCurrentUserData,
   getUsersListData,
   postCurrentUserData,
+  postUsersListData,
   updateCurrentUserData,
   updateUsersListData,
 } from "../Redux/Admin/Admin.action";
@@ -49,13 +50,13 @@ export default function Login() {
   const gotoAdmin = useNavigate();
 
   const dispatch = useDispatch();
-  const location=useLocation();
-  const comingFrom = location.state?.from?.pathname|| "/" ;
+  const location = useLocation();
+  const comingFrom = location.state?.from?.pathname || "/";
   useEffect(() => {
     dispatch(getAdminData());
     dispatch(getUsersListData());
     dispatch(getCurrentUserData());
-  }, [dispatch]);
+  }, []);
 
   const [value, setValue] = useState({
     email: "",
@@ -96,23 +97,31 @@ export default function Login() {
           );
         }
       }
-    }else if(value.email!== currentUserData.email &&
-      currentUserData.password!== value.password){
-        for(let j=0;j<usersListData.length;j++){
-          let ele = usersListData[j];
-          if(ele.email===value.email && ele.password===value.password){
-            dispatch(postCurrentUserData(ele)).then(()=>dispatch(getCurrentUserData()));
-            dispatch(updateUsersListData(ele.id, true)).then(() =>dispatch(getUsersListData()));
-            dispatch(updateCurrentUserData(true)).then(()=>dispatch(getCurrentUserData()));
-          }
+    } else if (
+      value.email !== currentUserData.email &&
+      currentUserData.password !== value.password
+    ) {
+      for (let j = 0; j < usersListData.length; j++) {
+        let ele = usersListData[j];
+        if (ele.email === value.email && ele.password === value.password) {
+          dispatch(postCurrentUserData(ele)).then(() =>
+            dispatch(getCurrentUserData())
+          );
+          dispatch(updateUsersListData(ele.id, true)).then(() =>
+            dispatch(getUsersListData())
+          );
+          dispatch(updateCurrentUserData(true)).then(() =>
+            dispatch(getCurrentUserData())
+          );
         }
       }
+    }
 
     setSubmitbutton(true);
     signInWithEmailAndPassword(auth, value.email, value.password)
       .then(async (res) => {
         setSubmitbutton(false);
-        navigate(comingFrom,{replace:true});
+        navigate(comingFrom, { replace: true });
       })
       .catch((err) => {
         setSubmitbutton(false);
@@ -137,38 +146,61 @@ export default function Login() {
         contact: data.user.phoneNumber,
         isAuth: true,
       };
-      let userCount=0;
-      for(let i=0;i<usersListData.length;i++){
-       let el=usersListData[i];
-       if(el.email===user.email && el.password===user.password && el.name===user.name){
-        dispatch(updateUsersListData(el.id,true));
-        if(user.email===currentUserData.email && user.name===currentUserData.name && user.contact===currentUserData.contact){
-          dispatch(updateCurrentUserData(true));
+      let userCount = 0;
+      for (let i = 0; i < usersListData.length; i++) {
+        let el = usersListData[i];
+        if (
+         ( el.email === user.email &&
+          el.password === user.password &&
+          el.name === user.name) &&
+         ( user.email === currentUserData.email &&
+          user.name === currentUserData.name &&
+          user.password === currentUserData.password)
+        ) {
+          dispatch(updateUsersListData(el.id, true)).then(()=>dispatch(getUsersListData()));
+          dispatch(updateCurrentUserData(true)).then(()=>dispatch(getCurrentUserData()));
+
+         }  
+        if (
+          el.email === user.email &&
+          el.password === user.password &&
+          el.name === user.name &&
+          user.email !== currentUserData.email &&
+          user.name !== currentUserData.name &&
+          user.password !== currentUserData.password
+        ) {
+          dispatch(updateUsersListData(el.id, true)).then(()=>dispatch(getUsersListData()));
+          dispatch(postCurrentUserData(user)).then(()=>dispatch(getCurrentUserData()));
+        }
+         if (
+         ( el.email !== user.email &&
+          el.password !== user.password &&
+          el.name !== user.name &&
+          user.email === currentUserData.email &&
+          user.name === currentUserData.name &&
+          user.password === currentUserData.password) || (
+          el.email !== user.email &&
+          el.password !== user.password &&
+          el.name !== user.name &&
+          user.email !== currentUserData.email &&
+          user.name !== currentUserData.name &&
+          user.password !== currentUserData.password
+          ) 
+        ) {
           userCount=userCount+1;
-         }
-       }else{
-        dispatch(postCurrentUserData(user));
-        dispatch(updateUsersListData(el.id,true));
-       }
+          console.log("user count if not match user or current user matches",userCount);
+        }
+       
       }
       if(userCount===usersListData.length){
-        fetch("https://classic-world.onrender.com/UsersList", {
-          method: "POST",
-          body: JSON.stringify(user),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then((res) => res.json())
-          .then((res) => {
-            // console.log(res);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        dispatch(postUsersListData(user)).then(()=>dispatch(getUsersListData()));
+        dispatch(postCurrentUserData(user)).then(()=>dispatch(getCurrentUserData(user)));
       }
       navigate("/");
       //navigate(comingFrom,{replace:true});
+      console.log("userCount", userCount);
+      console.log("currentUser",currentUserData);
+      console.log("user",user);
     });
   };
 

@@ -42,7 +42,12 @@ export const postAdminWomensdataAPI=async(womensProduct)=>{
 }
 
 export const postAdminKidsdataAPI=async(kidsProduct)=>{
-    let res = await axios.delete('https://classic-world.onrender.com/ChildrensData',kidsProduct);
+    let res = await axios.post('https://classic-world.onrender.com/ChildrensData',kidsProduct);
+    return res.data;
+}
+
+export const postUsersListAPI=async(User)=>{
+    let res = await axios.post(`https://classic-world.onrender.com/UsersList`,User);
     return res.data;
 }
 
