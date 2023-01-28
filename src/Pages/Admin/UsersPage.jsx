@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import AdminNavbar from '../../Components/AdminNavbar';
 import { deleteUsersListData, getUsersListData } from '../../Redux/Admin/Admin.action';
 import UserCard from './UserCard';
+import Chart from "react-apexcharts";
 
 
 const UsersPage = () => {
@@ -18,11 +19,28 @@ const UsersPage = () => {
   const deleteUsers=(id)=>{
     dispatch(deleteUsersListData(id)).then(()=>dispatch(getUsersListData()));
   }
+  // UsersListData.map((el)=>{
+  //  return  el.isAuth?loginUsers=loginUsers+1:logoutUsers=logoutUsers+1
+  //  })
+  let loginUsers=0
+  let logoutUsers=0
+  for(let i=0;i<UsersListData.length;i++){
+    let el=UsersListData[i];
+    if(el.isAuth==true){
+    loginUsers=loginUsers+1
+    }else{
+      logoutUsers=logoutUsers+1
+    }
+  }
+  
+  
   return (
     <Box minH="100vh" bg={'gray.100'}>
       <AdminNavbar/>
     <Box mt={"80px"} >
      <Stack ml={'270px'} justifyContent={'center'}>
+      <HStack justifyContent={'space-around'} >
+     <Stack>
     <Heading mt={5} size={'lg'} >TOTAL USERS : {UsersListData.length}</Heading>
     <HStack justifyContent={'center'}>
     <AvatarGroup size='md' max={3} mt={3}>
@@ -31,6 +49,42 @@ const UsersPage = () => {
     ))}
 </AvatarGroup>
 </HStack>
+    </Stack>
+   <Stack>
+  
+   <Chart
+   
+   type="pie"
+   height={450}
+   series={[loginUsers,logoutUsers]}
+   options={{
+    noData: { text: "Unavailable" },
+    stroke: {
+      lineCap: "round"
+    },
+    radialBar: {
+     // dataLabels: {
+        total: {
+          show: true,
+          label: 'TOTAL',
+        }
+     // }
+    },
+    labels: ["Total Login Users", "Total Logout Users"],
+    
+  }}
+  >
+
+  </Chart>
+   </Stack>
+    </HStack>
+    {/* <HStack justifyContent={'center'}>
+    <AvatarGroup size='md' max={3} mt={3}>
+     {UsersListData.length!==0 && UsersListData.map((el,i)=>(
+     el.image!==""?<Avatar  key={i} src={el.image} /> :<Avatar  key={i} name={el.name} />
+    ))}
+</AvatarGroup>
+</HStack> */}
     </Stack>
     <Stack ml={'440px'} spacing={10} >
       {UsersListData.length!==0 && UsersListData.map((el,i)=>(
