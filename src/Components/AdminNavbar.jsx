@@ -89,7 +89,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       pos="fixed"
       h="full"
       {...rest}>
-      <Flex h="20" alignItems="center" mx="6" justifyContent="space-between"  >
+      <Flex h="20" alignItems="center" mx="14" justifyContent="space-between"  >
      
         <Image src={CWLOGO} alt='classic-world' display={{ base: 'none', md: 'flex' }}/>
       
