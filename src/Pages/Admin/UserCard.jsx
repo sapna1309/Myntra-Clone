@@ -17,11 +17,12 @@ import {
   PopoverContent,
   PopoverArrow,
   PopoverBody,
-  Stack
+  Stack,
 } from '@chakra-ui/react';
 import {AiOutlineShoppingCart,AiOutlineDelete,AiOutlineMail} from 'react-icons/ai'
 import { BsRecord2,BsTelephoneInbound,BsThreeDotsVertical } from 'react-icons/bs'
 export default function UserCard({name,email,contact,isAuth,id,deleteUsers, image,logindetails}) {
+ 
   const {lastSignInTime,createdAt,creationTime,lastLoginAt} = logindetails
     console.log(lastSignInTime,createdAt,creationTime,lastLoginAt);
   return (
