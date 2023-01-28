@@ -19,7 +19,7 @@ const UsersPage = () => {
   const deleteUsers=(id)=>{
     dispatch(deleteUsersListData(id)).then(()=>dispatch(getUsersListData()));
   }
-  dispatch(getUsersListData());
+ // dispatch(getUsersListData());
   let loginUsers=0
   let logoutUsers=0
   for(let i=0;i<UsersListData.length;i++){
