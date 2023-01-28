@@ -187,7 +187,7 @@ export default function Login() {
           ) 
         ) {
           userCount=userCount+1;
-          console.log("user count if not match user or current user matches",userCount);
+          //console.log("user count if not match user or current user matches",userCount);
         }
        
       }
@@ -197,9 +197,9 @@ export default function Login() {
       }
       navigate("/");
       //navigate(comingFrom,{replace:true});
-      console.log("userCount", userCount);
-      console.log("currentUser",currentUserData);
-      console.log("user",user);
+      //console.log("userCount", userCount);
+      //console.log("currentUser",currentUserData);
+      //console.log("user",user);
     });
   };
 
