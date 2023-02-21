@@ -23,8 +23,8 @@ import {AiOutlineShoppingCart,AiOutlineDelete,AiOutlineMail} from 'react-icons/a
 import { BsRecord2,BsTelephoneInbound,BsThreeDotsVertical } from 'react-icons/bs'
 export default function UserCard({name,email,contact,isAuth,id,deleteUsers, image,logindetails}) {
  
-  const {lastSignInTime,createdAt,creationTime,lastLoginAt} = logindetails
-    console.log(lastSignInTime,createdAt,creationTime,lastLoginAt);
+  //const {lastSignInTime,createdAt,creationTime,lastLoginAt} = logindetails
+   // console.log(lastSignInTime,createdAt,creationTime,lastLoginAt);
   return (
     <Card maxW='4xl' paddingX={3}  mt={50}boxShadow='md' bgGradient="linear(to-t, pink,white,white)" >
   <CardHeader>
@@ -68,11 +68,11 @@ export default function UserCard({name,email,contact,isAuth,id,deleteUsers, imag
               <Text fontWeight={'bold'} color={'pink.700'} fontSize={20}>Login Details</Text>
               <Stack boxShadow={'md'} padding={2} spacing={0} bgGradient="linear(to-t, pink,white,white)"  >
               <Text fontWeight={'semibold'}>Acount created At</Text>
-              <Text > {creationTime!==""?creationTime:'No Such Details Found'}</Text>
+              <Text > No Such Details Found</Text>
               </Stack>
               <Stack boxShadow={'md'} padding={2} spacing={0}bgGradient="linear(to-t, pink,white,white)" >
               <Text fontWeight={'semibold'} >Last SignIn At</Text>
-              <Text > {lastSignInTime!==""?lastSignInTime:'No Such Details Found'}</Text>
+              <Text > No Such Details Found</Text>
               </Stack>
              
          
