@@ -21,22 +21,24 @@ const AdminDashboard = () => {
   const wd =  womensData.length;
   const ud =  usersListData.length;
 
+  const total = kd+md+wd;
+
   //console.log(kd,md,wd);
   //#6476A3
   return (
-    <Box minH="100vh" bg={'gray.100'}  >
+    <Box minH="100vh" minW="100%" bg={'gray.100'}  >
         <AdminNavbar/>
         <Box marginTop={'80px'} pt={30} fontFamily={'sans-serif'}>
-        <Stack bg={'white'}  ml={'250px'} padding={10} borderRadius={15} boxShadow={'base'}>
-           <Heading fontFamily={'sans-serif'}>Total Products :  <b>{kd+md+wd}</b></Heading> 
+        <Stack bg={'white'}  ml={[0,0,'250px','250px']} padding={10} borderRadius={15} boxShadow={'base'}>
+           <Heading fontFamily={'sans-serif'} fontSize={[20,20,25,35]} >Total Products :  <b>{total}</b></Heading> 
           </Stack>
           
-          <Box ml={'250px'} borderRadius={15} mt={10}>
+          <Box display={["none","block","block",'block']} ml={[0,0,"250px","250px"]} justifyContent={"center"} mt={10} border={"1px solid black"} >
         <Chart
    
          type="radialBar"
          height={450}
-         series={[kd,md,wd,ud]}
+         series={[total,md,wd,kd,ud]}
          options={{
           noData: { text: "Unavailable" },
           stroke: {
@@ -50,7 +52,7 @@ const AdminDashboard = () => {
               }
            // }
           },
-          labels: [ "KIDS-PRODUCTS","MENS-PRODUCTS", "WOMENS-PRODUCTS",'TOTAL-USERS'],
+          labels: [ "TOTAL_PRODUCTS","MENS-PRODUCTS", "WOMENS-PRODUCTS","KIDS-PRODUCTS",'TOTAL-USERS'],
           
         }}
            
@@ -61,17 +63,47 @@ const AdminDashboard = () => {
         </Chart>
         
         </Box>
-        <HStack ml={'250px'} mt={10} pb={10} alignItems={'center'} spacing={3} >
+        <Box display={["block","none","none",'none']}  justifyContent={"center"} mt={10}>
+        <Chart
+   
+         type="radialBar"
+         height={330}
+         series={[total,md,wd,kd,ud]}
+         options={{
+          noData: { text: "Unavailable" },
+          stroke: {
+            lineCap: "round"
+          },
+          radialBar: {
+           // dataLabels: {
+              total: {
+                show: true,
+                label: 'TOTAL',
+              }
+           // }
+          },
+          labels: [ "TOTAL_PRODUCTS","MENS-PRODUCTS", "WOMENS-PRODUCTS","KIDS-PRODUCTS",'TOTAL-USERS'],
+          
+        }}
+           
+         
+         
+      >
+
+        </Chart>
+        
+        </Box>
+        <Box display={"flex"} flexDirection={["column","row","row","row"]} ml={[0,0,'250px','250px']} mt={10} pb={10} alignItems={'center'} border={"1px solid black"} gap={5}>
           <Stack bg={'#00E396'} boxShadow={'base'}  padding={8} borderRadius={15}>
-           <Heading fontWeight={'normal'} fontFamily={'sans-serif'}>Total Mens Products  <b>{md}</b></Heading> 
+           <Heading fontWeight={'normal'} fontSize={[20,20,25,35]} fontFamily={'sans-serif'}>Total Mens Products  <b>{md}</b></Heading> 
           </Stack>
           <Stack bg={'#FEB019'} padding={8}boxShadow={'base'} borderRadius={15}>
-           <Heading fontWeight={'normal'} fontFamily={'sans-serif'}>Total Womens Products   <b>{wd}</b></Heading> 
+           <Heading fontWeight={'normal'} fontSize={[20,20,25,35]} fontFamily={'sans-serif'}>Total Womens Products   <b>{wd}</b></Heading> 
           </Stack>
           <Stack bg={'#008FFB'} padding={8}boxShadow={'base'} borderRadius={15}>
-           <Heading fontWeight={'normal'} fontFamily={'sans-serif'}>Total Kids Products   <b>{kd}</b></Heading> 
+           <Heading fontWeight={'normal'} fontSize={[20,20,25,35]} fontFamily={'sans-serif'}>Total Kids Products   <b>{kd}</b></Heading> 
           </Stack>
-          </HStack>
+          </Box>
         </Box>
     </Box>
   )
