@@ -75,7 +75,7 @@ function SingleCard({ ...props }) {
           >
             <Text fontSize={"0.9rem"} fontWeight={"600"}>
               {" "}
-              Rs.{discounted_price}
+              ₹ {discounted_price===null?Number(strike_price)-275:discounted_price}
             </Text>
             <Text
               fontSize={"0.7rem"}

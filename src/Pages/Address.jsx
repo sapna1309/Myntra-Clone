@@ -18,26 +18,47 @@ import PaymentNavbar from '../Components/PaymentNavbar';
 import { Link} from "react-router-dom"
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
+import { useSelector } from 'react-redux';
   
   export default function Address() {
-    const [toggel , setToggle]=useState(true)
+    const [toggel , setToggle]=useState(true);
+    const {currentUserData} = useSelector((store)=>store.adminManager)
     // const[error, setError]=useState("")
+
     const [value , setValue]=useState({
-        name:"",
-        mobileno:"",
+        name:currentUserData.name,
+        mobileno:currentUserData.contact || "",
         pinCode:"",
         address:"",
         town:"",
         city:"",
         state:"", 
     })
-    
-
+  console.log(value);
     const {name , mobileno, pinCode, address,town , city, state}=value
+
+    let mn=false;
+    let pn=false;
+if(mobileno.length>10){
+  mn=true;
+};
+if(pinCode.length>6){
+  pn=true;
+}
 
     const handleSubmit=()=>{
         if(!name || !mobileno || !pinCode || !address || !town || !city || !state){
           toast.error(`Please fill the field first`, {
+            position: "top-center",
+          });
+            return 
+        }else if(mobileno.length>10 || mobileno.length<10){
+          toast.error(`Mobile number should have 10 digits`, {
+            position: "top-center",
+          });
+            return 
+        }else if(pinCode.length>6 || pinCode.length<6){
+          toast.error(`Pincode should have 6 digits`, {
             position: "top-center",
           });
             return 
@@ -52,10 +73,9 @@ import { ToastContainer, toast } from 'react-toastify';
    const handleTogge=()=>{
     setToggle(!toggel)
    }
-
+   console.log("mn",mn,"pn",pn);
    const TotalMRP = localStorage.getItem('Total MRP');
    const DiscountPrice = localStorage.getItem('DiscountPrice');
-
     return (
       <Box>
         <PaymentNavbar/>
@@ -85,15 +105,17 @@ import { ToastContainer, toast } from 'react-toastify';
               <FormControl>
                 <FormLabel fontSize={"11px"} fontFamily={"1000"}>CONTACT DETAILS</FormLabel>
                 <Input type="text" placeholder='Name*' isRequired fontSize={"13px"} marginBottom={4}
-                onChange={(e)=>setValue((prev)=>({...prev, name:e.target.value}))}
+                value={value.name}
+                onChange={(e)=>setValue({...value, name:e.target.value})}
                  />
-                <Input type="number" placeholder='Mobile No*' isRequired fontSize={"13px"} marginBottom={4}
-                onChange={(e)=>setValue((prev)=>({...prev, mobileno:e.target.value}))}
+                <Input type="number" placeholder='Mobile No*' isInvalid={mn} isRequired fontSize={"13px"} marginBottom={4}
+                value={value.mobileno}
+                onChange={(e)=>setValue({...value, mobileno:e.target.value})}
                  />
               </FormControl>
               <FormControl>
                 <FormLabel fontSize={"11px"} fontFamily={"1000"} >ADDRESS</FormLabel>
-                <Input type="number" placeholder="Pin Code*" isRequired fontSize={"13px"} marginBottom={4}
+                <Input type="number" placeholder="Pin Code*" isInvalid={pn} isRequired fontSize={"13px"} marginBottom={4}
                 onChange={(e)=>setValue((prev)=>({...prev, pinCode:e.target.value}))}
                  />
                 <Input type="text" placeholder='Address (House No, Building, Street, Area)*' isRequired fontSize={"13px"} marginBottom={4}

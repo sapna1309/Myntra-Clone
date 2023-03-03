@@ -210,7 +210,7 @@ const Cart = () => {
             goToAddress("/address");
             localStorage.setItem('Total MRP',resultcount);
             localStorage.setItem('DiscountPrice',resultStriked);
-          }}>PLACE ORDER</Button>
+          }} isDisabled={sampleData.length===0} >PLACE ORDER</Button>
         </Box>
 
         

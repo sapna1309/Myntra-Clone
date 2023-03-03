@@ -127,7 +127,7 @@ const SingleProductPage = () => {
 
               <Flex alignItems={"baseline"}>
                 <Text fontWeight={600} fontSize={"1.3rem"} color={"gray.700"}>
-                  ₹{discounted_price}
+                  ₹ {discounted_price===null?Number(strike_price-275):discounted_price}
                 </Text>
                 <Text pl={"1.2rem"} fontSize={"0.9rem"}>
                   MRP{" "}

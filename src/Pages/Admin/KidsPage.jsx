@@ -55,6 +55,7 @@ const handleOpen=(id)=>{
   onOpen();
 }
 
+KidsData.reverse();
   return (
     <Box bg={"gray.100"} width={"100%"}>
       <AdminNavbar />

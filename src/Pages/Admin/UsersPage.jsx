@@ -33,13 +33,13 @@ const UsersPage = () => {
   
   
   return (
-    <Box minH="100vh" bg={'gray.100'} fontFamily={'sans-serif'}>
+    <Box minH="100vh" width={"100%"} bg={'gray.100'} fontFamily={'sans-serif'}>
       <AdminNavbar/>
     <Box mt={"80px"} >
-     <Stack ml={'270px'} justifyContent={'center'}>
-      <HStack justifyContent={'space-around'} >
-     <Stack>
-    <Heading mt={5} size={'lg'} fontFamily={'sans-serif'} >Total Users : {UsersListData.length} 
+     <Stack ml={[2,5,'270px','270px']} mr={[2,5,5,0]} border={"0px solid black"} justifyContent={'center'}>
+      <Box display={"flex"} flexDirection={["column","row","row","row"]} gap={5} justifyContent={'space-around'} border={"0px solid blue"} >
+     <Stack border={"0px solid green"}>
+    <Heading mt={5} size={["lg","md","md",'lg']} fontFamily={'sans-serif'} >Total Users : {UsersListData.length} 
       </Heading>
     <HStack justifyContent={'center'}>
     <AvatarGroup size='md' max={3} mt={3}>
@@ -49,10 +49,9 @@ const UsersPage = () => {
 </AvatarGroup>
 </HStack>
     </Stack>
-   <Stack>
+   <Stack border={"0px solid green"} mt={5} display={["none","block","block","block"]}>
   
    <Chart
-   
    type="pie"
    height={450}
    series={[loginUsers,logoutUsers]}
@@ -70,9 +69,29 @@ const UsersPage = () => {
 
   </Chart>
    </Stack>
-    </HStack>
+   <Stack border={"0px solid green"} width={"90%"} display={["block","none","none","none"]}>
+  
+  <Chart
+  type="pie"
+  height={120}
+  series={[loginUsers,logoutUsers]}
+  options={{
+   noData: { text: "Unavailable" },
+   stroke: {
+     lineCap: "round"
+   },
+  colors: ['#2BA751', '#FF0000'],
+ 
+   labels: ["Total Login Users", "Total Logout Users"],
+   
+ }}
+ >
+
+ </Chart>
+  </Stack>
+    </Box>
     </Stack>
-    <Stack ml={'440px'} spacing={10} >
+    <Stack ml={[15,30,"270px","440px"]} mr={[15,30,"20px","10px"]} border={"0px solid red"} spacing={10} >
       {UsersListData.length!==0 && UsersListData.map((el,i)=>(
         <UserCard key={i} {...el} deleteUsers={deleteUsers} />
       ))}

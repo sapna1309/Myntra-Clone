@@ -30,6 +30,14 @@ function Payment() {
     month: "",
     cvv: "",
   });
+ let cn=false,cv=false;
+  if(value.cardno.length>16){
+    cn=true;
+  }
+  if(value.cvv.length>3){
+    cv=true;
+  }
+
   const { cartData } = useSelector((store) => store.cart);
   const { checkoutData } = useSelector((store) => store.checkout);
   const dispatch = useDispatch();
@@ -102,12 +110,22 @@ function Payment() {
       toast.error("Please fill the field first", {
         position: "top-center",
       });
-      
-    
       return;
+    }else if(cardno.length>16||cardno.length<16){
+      toast.error("Card number should have 16 digits", {
+        position: "top-center",
+      });
+      return
+    }else if(cvv.length>3||cvv.length<3){
+      toast.error("Cvv number should have 3 digits", {
+        position: "top-center",
+      });
+      return 
     }
     navigate("/success");
   };
+
+  console.log(cn,cv);
   return (
     <>
       <PaymentNavbar />
@@ -286,13 +304,15 @@ function Payment() {
                           <Input
                             fontSize={"13px"}
                             type="number"
+                            value={value.cardno}
+                            isInvalid={cn}
                             placeholder="Card Number"
                             isRequired
                             onChange={(e) =>
-                              setValue((prev) => ({
-                                ...prev,
+                              setValue({
+                                ...value,
                                 cardno: e.target.value,
-                              }))
+                              })
                             }
                           />
                           <Input
@@ -302,11 +322,9 @@ function Payment() {
                             marginBottom={4}
                             placeholder="Name on card"
                             isRequired
+                            value={value.cardName}
                             onChange={(e) =>
-                              setValue((prev) => ({
-                                ...prev,
-                                cardName: e.target.value,
-                              }))
+                              setValue({...value,cardName: e.target.value})
                             }
                           />
                           <HStack>
@@ -315,23 +333,20 @@ function Payment() {
                               type="month"
                               placeholder="Valid Thru(MM/YY)"
                               isRequired
+                              value={value.month}
                               onChange={(e) =>
-                                setValue((prev) => ({
-                                  ...prev,
-                                  month: e.target.value,
-                                }))
+                                setValue({...value,month:e.target.value})
                               }
                             />
                             <Input
                               fontSize={"13px"}
                               type="number"
+                              isInvalid={cv}
                               placeholder="CVV"
                               isRequired
+                              value={value.cvv}
                               onChange={(e) =>
-                                setValue((prev) => ({
-                                  ...prev,
-                                  cvv: e.target.value,
-                                }))
+                                setValue({...value,cvv:e.target.value})
                               }
                             />
                           </HStack>

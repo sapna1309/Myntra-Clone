@@ -1,4 +1,4 @@
-import { Box, Heading, HStack, Stack } from '@chakra-ui/layout';
+import { Box, Heading, Stack } from '@chakra-ui/layout';
 import { useEffect } from 'react';
 import Chart from "react-apexcharts";
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,7 +33,7 @@ const AdminDashboard = () => {
            <Heading fontFamily={'sans-serif'} fontSize={[20,20,25,35]} >Total Products :  <b>{total}</b></Heading> 
           </Stack>
           
-          <Box display={["none","block","block",'block']} ml={[0,0,"250px","250px"]} justifyContent={"center"} mt={10} border={"1px solid black"} >
+          <Box display={["none","block","block",'block']} ml={[0,0,"250px","250px"]} justifyContent={"center"} mt={10} border={"0px solid black"} >
         <Chart
    
          type="radialBar"
@@ -93,7 +93,7 @@ const AdminDashboard = () => {
         </Chart>
         
         </Box>
-        <Box display={"flex"} flexDirection={["column","row","row","row"]} ml={[0,0,'250px','250px']} mt={10} pb={10} alignItems={'center'} border={"1px solid black"} gap={5}>
+        <Box display={"flex"} flexDirection={["column","row","row","row"]} ml={[0,0,'250px','250px']} mt={10} pb={10} alignItems={'center'} border={"0px solid black"} gap={5}>
           <Stack bg={'#00E396'} boxShadow={'base'}  padding={8} borderRadius={15}>
            <Heading fontWeight={'normal'} fontSize={[20,20,25,35]} fontFamily={'sans-serif'}>Total Mens Products  <b>{md}</b></Heading> 
           </Stack>

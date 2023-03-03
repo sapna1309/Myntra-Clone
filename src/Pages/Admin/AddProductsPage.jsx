@@ -31,21 +31,21 @@ const Form1 = ({productDetails,setProductDetails}) => {
         Product Details
       </Heading>
       <Flex>
-        <FormControl mr="5%">
+        <FormControl mr="5%" isRequired>
           <FormLabel htmlFor="title" fontWeight={500}>
             Title
           </FormLabel>
-          <Input id="first-name" placeholder="Enter Product Name" value={productDetails.title} onChange={(e)=>setProductDetails({...productDetails,title:e.target.value})} />
+          <Input id="titlt" type="text" placeholder="Enter Product Name" value={productDetails.title} onChange={(e)=>setProductDetails({...productDetails,title:e.target.value})} />
         </FormControl>
 
-        <FormControl>
+        <FormControl isRequired={true}>
           <FormLabel htmlFor="brand" fontWeight={500}>
             Brand
           </FormLabel>
-          <Input id="last-name" placeholder="Enter Brand Name" value={productDetails.brand} onChange={(e)=>setProductDetails({...productDetails,brand:e.target.value})}  />
+          <Input id="brand" type="text" placeholder="Enter Brand Name" value={productDetails.brand} onChange={(e)=>setProductDetails({...productDetails,brand:e.target.value})}  />
         </FormControl>
       </Flex>
-      <FormControl mt="2%">
+      <FormControl mt="2%" isRequired={true}>
         <FormLabel htmlFor="category"  fontWeight={500}>
           Category
         </FormLabel>
@@ -65,11 +65,11 @@ const Form1 = ({productDetails,setProductDetails}) => {
         </Select>
       </FormControl>
 
-      <FormControl mt="2%">
+      <FormControl mt="2%"isRequired={true}>
         <FormLabel htmlFor="price"  fontWeight={500}>
           Price
         </FormLabel>
-        <Input id="price" type="text" placeholder='Enter Price' value={productDetails.discounted_price} onChange={(e)=>setProductDetails({...productDetails,discounted_price:+e.target.value})}  />
+        <Input id="price" type="number" placeholder='Enter Price' value={productDetails.discounted_price} onChange={(e)=>setProductDetails({...productDetails,discounted_price:+e.target.value})}  />
       </FormControl>
 
     </>
@@ -80,11 +80,11 @@ const Form2 = ({productDetails,setProductDetails}) => {
   return (
     <>
       <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
-        Additional Details
+        Product Details
       </Heading>
-      <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
+      <FormControl as={GridItem} colSpan={[6, 6, null, 2]} isRequired={true}>
         <FormLabel
-          htmlFor="city"
+          htmlFor="discount rate"
           fontSize="sm"
           fontWeight={500}
           color="gray.700"
@@ -105,11 +105,11 @@ const Form2 = ({productDetails,setProductDetails}) => {
           placeholder='Enter Discount Amount'
           rounded="md"
           value={productDetails.discount} 
-          onChange={(e)=>setProductDetails({...productDetails,discount:+e.target.value})}
+          onChange={(e)=>setProductDetails({...productDetails,discount:e.target.value})}
         />
       </FormControl>
 
-      <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
+      <FormControl as={GridItem}  isRequired={true} colSpan={[6, 3, null, 2]}>
         <FormLabel
           htmlFor="state"
           fontSize="sm"
@@ -131,12 +131,12 @@ const Form2 = ({productDetails,setProductDetails}) => {
           w="full"
           placeholder='Enter Strike Amount'
           rounded="md"
-          value={productDetails.strike} 
-          onChange={(e)=>setProductDetails({...productDetails,strike_price:+e.target.value})}
+          value={productDetails.strike_price} 
+          onChange={(e)=>setProductDetails({...productDetails,strike_price:e.target.value})}
         />
       </FormControl>
 
-      <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
+      <FormControl as={GridItem} isRequired={true} colSpan={[6, 3, null, 2]}>
         <FormLabel
           htmlFor="postal_code"
           fontSize="sm"
@@ -168,7 +168,7 @@ const Form2 = ({productDetails,setProductDetails}) => {
         </Select>
       </FormControl>
 
-      <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
+      <FormControl as={GridItem} isRequired={true} colSpan={[6, 3, null, 2]}>
           <FormLabel
             fontSize="sm"
             fontWeight={500}
@@ -278,7 +278,7 @@ title:"",
 discounted_price:"",
 strike_price:"",
 discount:"",
-images:[],
+images:[""],
 size:"",
 country:"",
 description:"",}
@@ -290,9 +290,8 @@ export default function AddProductsPage() {
   const [progress, setProgress] = useState(33.33);
   const [productDetails,setProductDetails]=useState(initialProduct);
 
-  //const loading = useSelector((store)=>store.adminManager.loading);
   const dispatch = useDispatch();
-  //console.log(loading);
+  
   const handleSubmit=()=>{
     if(productDetails.category==="Mens"){
       dispatch(postMensData(productDetails))
@@ -317,23 +316,22 @@ export default function AddProductsPage() {
   
    setProductDetails(initialProduct)
    }
-   console.log("Image",productDetails.images);
+   //console.log("Image",productDetails.images);
   return (
-    <Box minH="100vh" bg={'gray.100'} >
+    <Box minH="100vh" width={"full"} bg={'gray.100'} >
       <AdminNavbar/>
       <Box
         bg={'white'}
         borderWidth="1px"
         rounded="lg"
         shadow="1px 1px 3px rgba(0,0,0,0.3)"
-        maxWidth={800}
+        w={["95%","90%","65%","55%"]}
         p={6}
-        m="10px auto"
+        m="auto"
+        position={"absolute"}
         // mt={'150px'}
-        pos={"absolute"}
         top={150}
-        left={'33%'}
-        right={'18%'}
+        left={["2.5%","5%",'32%','30%']}
         as="form"
         >
         <Progress
@@ -361,7 +359,7 @@ export default function AddProductsPage() {
               </Button>
               <Button
                 w="7rem"
-                isDisabled={step === 3}
+                isDisabled={step === 3 || ( step===1 && (productDetails.title===""||productDetails.brand===""||productDetails.category===""||productDetails.discounted_price==="")) || (step===2 && (productDetails.discount===""||productDetails.strike_price===""||productDetails.size===""||productDetails.images[0]===""))}
                 onClick={() => {
                   setStep(step + 1);
                   if (step === 3) {
