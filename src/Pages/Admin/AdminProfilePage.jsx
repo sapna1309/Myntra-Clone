@@ -15,6 +15,7 @@ import {
   updateAdminContact,
   updateAdminEmail,
   updateAdminName,
+  updateAdminPassword,
 } from "../../Redux/Admin/Admin.action";
 import EditName from "./EditName";
 import EditEmail from "./EditEmail";
@@ -23,10 +24,6 @@ import EditPassword from "./EditPassword";
 import { useNavigate } from "react-router-dom";
 
 const AdminProfilePage = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [contact, setContact] = useState("");
-  const [password,setPassword] = useState("");
   const { adminData } = useSelector((store) => store.adminManager);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,26 +31,26 @@ const AdminProfilePage = () => {
     dispatch(getAdminData());
   }, []);
   
-  const handleNameSubmit = () => {
+  const handleNameSubmit = (name) => {
     dispatch(updateAdminName(name)).then(() => dispatch(getAdminData()));
   };
 
-  const handleEmailSubmit = () => {
+  const handleEmailSubmit = (email) => {
     dispatch(updateAdminEmail(email)).then(() => dispatch(getAdminData()));
   };
 
-  const handleContactSubmit = () => {
+  const handleContactSubmit = (contact) => {
     dispatch(updateAdminContact(contact)).then(() => dispatch(getAdminData()));
   };
 
-  const handlePasswordSubmit = () => {
-    dispatch(updateAdminContact(contact)).then(() => dispatch(getAdminData()));
+  const handlePasswordSubmit = (password) => {
+    dispatch(updateAdminPassword(password)).then(() => dispatch(getAdminData()));
   };
-  
+  console.log("Admin",adminData);
   return (
-    <Box minH="100vh" bg={"gray.100"} fontFamily={"sans-serif"}>
+    <Box minH="100vh" width={"100%"} bg={"gray.100"} fontFamily={"sans-serif"}>
       <AdminNavbar />
-      <Box mt={"80px"} ml={"250px"}>
+      <Box mt={"80px"} ml={[3,5,"250px","250px"]} mr={[3,5,0,0]} >
         <Center>
           <Stack
             bg={"white"}
@@ -82,11 +79,10 @@ const AdminProfilePage = () => {
               justifyContent={"space-between"}
               borderBottom={"1px solid black"}
             >
-              <EditName
+              {/* <EditName
                 handleNameSubmit={handleNameSubmit}
-                name={name}
-                setName={setName}
-              />
+              /> */}
+              <EditName handleNameSubmit={handleNameSubmit}/>
             </HStack>
             <HStack
               alignItems={"end"}
@@ -95,8 +91,6 @@ const AdminProfilePage = () => {
             >
               <EditEmail
                 handleEmailSubmit={handleEmailSubmit}
-                email={email}
-                setEmail={setEmail}
               />
             </HStack>
             <HStack
@@ -106,8 +100,6 @@ const AdminProfilePage = () => {
             >
               <EditContact
                 handleContactSubmit={handleContactSubmit}
-                contact={contact}
-                setContact={setContact}
               />
             </HStack>
             <HStack
@@ -117,14 +109,14 @@ const AdminProfilePage = () => {
             >
               <EditPassword
                 handlePasswordSubmit={handlePasswordSubmit}
-                password={password}
-                setPassword={setPassword}
               />
             </HStack>
-            <Button bg={'pink.700'} color='white' _hover={{color:'black',bg:'gray.200'}} 
+            <HStack justifyContent={"center"} width="full" border={"0px solid black"}>
+            <Button bg={'pink.700'} color='white' textAlign={"center"} width={"100px"} _hover={{color:'black',bg:'gray.200'}} 
             onClick={()=>navigate("/")}>
              LOGOUT
             </Button>
+            </HStack>
           </Stack>
         </Center>
       </Box>

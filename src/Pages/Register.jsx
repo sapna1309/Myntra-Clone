@@ -58,13 +58,17 @@ export default function Register() {
     },
     image: "",
     token: "",
-    contact: null,
+    contact: null||"",
     isAuth: true,
   });
   const [googleValue, setGoogleValue] = useState("");
   const [submitbutton, setSubmitbutton] = useState(false);
   const navigate = useNavigate();
   
+let cn=false;
+if(value.contact.length!==0 && value.contact.length>10){
+  cn=true;
+}
 
   const submitPost = async () => {
     dispatch(postCurrentUserData(value));
@@ -87,8 +91,14 @@ export default function Register() {
   };
 
   const handleSubmit = () => {
-    if (!value.name || !value.email || !value.password) {
+    if (!value.name || !value.email || !value.password || !value.password) {
       toast.error(`please fill all the field `, {
+        position: "top-center",
+      });
+      return;
+    }else if(value.contact.length>10 || value.contact.length<10){
+      //console.log(value.password.length);
+      toast.error(`Contact number should have 10 digits`, {
         position: "top-center",
       });
       return;
@@ -280,6 +290,7 @@ export default function Register() {
                 <FormLabel>Contact no.</FormLabel>
                 <Input
                   type="number"
+                  isInvalid={cn}
                   onChange={(e) =>
                     setValue((prev) => ({ ...prev, contact: e.target.value }))
                   }

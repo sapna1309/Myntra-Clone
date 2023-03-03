@@ -1,4 +1,4 @@
-import { ADD_ADMIN_CONTACT, ADD_ADMIN_EMAIL, ADD_ADMIN_NAME, ADD_ADMIN_PASSWORD, ADD_CURRENT_USER, ADD_KIDS_SUCCESS, ADD_MENS_SUCCESS, ADD_USERSLIST_DATA, ADD_WOMENS_SUCCESS, DELETE_PRODUCT_KIDS, DELETE_PRODUCT_MENS, DELETE_PRODUCT_WOMENS, DELETE_USERSLIST_DATA, GET_ADMINDATA_SUCCESS, GET_CURRENT_USER, GET_KIDS_SUCCESS, GET_MENS_SUCCESS, GET_PRODUCTS_ERROR, GET_PRODUCTS_LOADING, GET_USERSLIST_SUCCESS, GET_WOMENS_SUCCESS, UPDATE_CURRENT_USER, UPDATE_PRODUCT_KIDS, UPDATE_PRODUCT_MENS, UPDATE_PRODUCT_WOMENS, UPDATE_USERSLIST_DATA } from "./Admin.type"
+import { ADD_CURRENT_USER, ADD_KIDS_SUCCESS, ADD_MENS_SUCCESS, ADD_USERSLIST_DATA, ADD_WOMENS_SUCCESS, DELETE_PRODUCT_KIDS, DELETE_PRODUCT_MENS, DELETE_PRODUCT_WOMENS, DELETE_USERSLIST_DATA, GET_ADMINDATA_SUCCESS, GET_CURRENT_USER, GET_KIDS_SUCCESS, GET_MENS_SUCCESS, GET_PRODUCTS_ERROR, GET_PRODUCTS_LOADING, GET_USERSLIST_SUCCESS, GET_WOMENS_SUCCESS, UPDATE_ADMIN_CONTACT, UPDATE_ADMIN_EMAIL, UPDATE_ADMIN_NAME, UPDATE_ADMIN_PASSWORD, UPDATE_CURRENT_USER, UPDATE_PRODUCT_KIDS, UPDATE_PRODUCT_MENS, UPDATE_PRODUCT_WOMENS, UPDATE_USERSLIST_DATA } from "./Admin.type"
 
 const initialState = {
     loading: false,
@@ -59,28 +59,28 @@ export const adminReducer = (state = initialState, { type, payload }) => {
                 error: false,
             }
         }
-        case ADD_ADMIN_NAME: {
+        case UPDATE_ADMIN_NAME: {
             return {
                 ...state,
                 loading: false,
                 error: false,
             }
         }
-        case ADD_ADMIN_EMAIL: {
+        case UPDATE_ADMIN_EMAIL: {
             return {
                 ...state,
                 loading: false,
                 error: false,
             }
         }
-        case ADD_ADMIN_CONTACT: {
+        case UPDATE_ADMIN_CONTACT: {
             return {
                 ...state,
                 loading: false,
                 error: false,
             }
         }
-        case ADD_ADMIN_PASSWORD: {
+        case UPDATE_ADMIN_PASSWORD: {
             return {
                 ...state,
                 loading: false,

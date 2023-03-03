@@ -26,10 +26,6 @@ import {
   updateUsersListAPI,
 } from "./Admin.api";
 import {
-  ADD_ADMIN_CONTACT,
-  ADD_ADMIN_EMAIL,
-  ADD_ADMIN_NAME,
-  ADD_ADMIN_PASSWORD,
   ADD_CURRENT_USER,
   ADD_KIDS_SUCCESS,
   ADD_MENS_SUCCESS,
@@ -47,6 +43,10 @@ import {
   GET_PRODUCTS_LOADING,
   GET_USERSLIST_SUCCESS,
   GET_WOMENS_SUCCESS,
+  UPDATE_ADMIN_CONTACT,
+  UPDATE_ADMIN_EMAIL,
+  UPDATE_ADMIN_NAME,
+  UPDATE_ADMIN_PASSWORD,
   UPDATE_CURRENT_USER,
   UPDATE_PRODUCT_KIDS,
   UPDATE_PRODUCT_MENS,
@@ -254,7 +254,7 @@ export const updateAdminName = (data) => async (dispatch) => {
   dispatch({ type: GET_PRODUCTS_LOADING });
   try {
     await updateAdminNameAPI(data);
-    dispatch({ type: ADD_ADMIN_NAME });
+    dispatch({ type: UPDATE_ADMIN_NAME });
   } catch (error) {
     dispatch({ type: GET_PRODUCTS_ERROR });
   }
@@ -264,7 +264,7 @@ export const updateAdminEmail = (data) => async (dispatch) => {
   dispatch({ type: GET_PRODUCTS_LOADING });
   try {
     await updateAdminEmailAPI(data);
-    dispatch({ type: ADD_ADMIN_EMAIL });
+    dispatch({ type: UPDATE_ADMIN_EMAIL});
   } catch (error) {
     dispatch({ type: GET_PRODUCTS_ERROR });
   }
@@ -274,7 +274,7 @@ export const updateAdminContact = (data) => async (dispatch) => {
   dispatch({ type: GET_PRODUCTS_LOADING });
   try {
     await updateAdminContactAPI(data);
-    dispatch({ type: ADD_ADMIN_CONTACT });
+    dispatch({ type: UPDATE_ADMIN_CONTACT });
   } catch (error) {
     dispatch({ type: GET_PRODUCTS_ERROR });
   }
@@ -284,7 +284,7 @@ export const updateAdminPassword = (data) => async (dispatch) => {
   dispatch({ type: GET_PRODUCTS_LOADING });
   try {
     await updateAdminPasswordAPI(data);
-    dispatch({ type: ADD_ADMIN_PASSWORD });
+    dispatch({ type: UPDATE_ADMIN_PASSWORD });
   } catch (error) {
     dispatch({ type: GET_PRODUCTS_ERROR });
   }

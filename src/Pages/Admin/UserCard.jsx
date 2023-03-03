@@ -7,7 +7,6 @@ import {
   CardHeader,
   Heading,
   IconButton,
-  CardBody,
   CardFooter,
   AvatarBadge,
   Divider,
@@ -23,13 +22,13 @@ import {AiOutlineShoppingCart,AiOutlineDelete,AiOutlineMail} from 'react-icons/a
 import { BsRecord2,BsTelephoneInbound,BsThreeDotsVertical } from 'react-icons/bs'
 export default function UserCard({name,email,contact,isAuth,id,deleteUsers, image,logindetails}) {
  
-  //const {lastSignInTime,createdAt,creationTime,lastLoginAt} = logindetails
-   // console.log(lastSignInTime,createdAt,creationTime,lastLoginAt);
+  const {lastSignInTime,createdAt,creationTime,lastLoginAt} = logindetails
+    console.log(lastSignInTime,createdAt,creationTime,lastLoginAt);
   return (
-    <Card maxW='4xl' paddingX={3}  mt={50}boxShadow='md' bgGradient="linear(to-t, pink,white,white)" >
+    <Card maxW='4xl' border={"0px solid grey"} mt={50}boxShadow='md' bgGradient="linear(to-t, pink,white,white)" >
   <CardHeader>
-    <Flex spacing='4'  >
-      <Flex flex='1' gap='4' alignItems='center'flexWrap='wrap'>
+    <Flex >
+      <Flex flex='1' gap='4' border={"0px solid green"} alignItems='center' flexWrap='wrap'>
        {image!=="" && isAuth===true? <Avatar src={image} size={'lg'} >
         <AvatarBadge boxSize='1em' bg='green.500' />
         </Avatar>: image==="" && isAuth===true? <Avatar name={name}  size={'lg'} >
@@ -46,7 +45,7 @@ export default function UserCard({name,email,contact,isAuth,id,deleteUsers, imag
         </Box>
         
       </Flex>
-      <Flex justifyContent="center" >
+      <Flex justifyContent="flex-end" border={"0px solid black"} >
         <Popover placement="bottom" isLazy>
           <PopoverTrigger>
             <Button bg={'none'} _hover={{color:'white',backgroundColor:'pink.700'}}  >
@@ -68,11 +67,11 @@ export default function UserCard({name,email,contact,isAuth,id,deleteUsers, imag
               <Text fontWeight={'bold'} color={'pink.700'} fontSize={20}>Login Details</Text>
               <Stack boxShadow={'md'} padding={2} spacing={0} bgGradient="linear(to-t, pink,white,white)"  >
               <Text fontWeight={'semibold'}>Acount created At</Text>
-              <Text > No Such Details Found</Text>
+              <Text > {creationTime!==""?creationTime:"No Such Details Found"}</Text>
               </Stack>
               <Stack boxShadow={'md'} padding={2} spacing={0}bgGradient="linear(to-t, pink,white,white)" >
               <Text fontWeight={'semibold'} >Last SignIn At</Text>
-              <Text > No Such Details Found</Text>
+              <Text > {lastSignInTime!==""?lastSignInTime:"No Such Details Found"}</Text>
               </Stack>
              
          
@@ -84,18 +83,11 @@ export default function UserCard({name,email,contact,isAuth,id,deleteUsers, imag
       
     </Flex>
   </CardHeader>
-  <CardBody>
-  </CardBody>
  <Divider/>
   <CardFooter
-    justify='space-between'
+  border={"0px solid blue"}
+    justifyContent='space-between'
     flexWrap='wrap'
-    sx={{
-      '& > button': {
-        minW: '146px',
-        maxW:'160px'
-      },
-    }}
   >
     <Button flex='1' _hover={{color:'white',backgroundColor:'pink.700'}} variant='ghost' leftIcon={<AiOutlineShoppingCart />}>
       Cart
