@@ -14,7 +14,7 @@ const AdminDashboard = () => {
     dispatch(getMensData());
     dispatch(getWomensData());
     dispatch(getUsersListData());
-  },[])
+  },[dispatch])
   
   const kd =  kidsData.length;
   const md =  mensData.length;

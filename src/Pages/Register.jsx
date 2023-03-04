@@ -66,8 +66,12 @@ export default function Register() {
   const navigate = useNavigate();
   
 let cn=false;
-if(value.contact.length!==0 && value.contact.length>10){
+let pd=false
+if((value.contact.length>10 && value.contact.length>0) ||(value.contact.length>0 && value.contact.length<10)){
   cn=true;
+}
+if((value.password.length>10 && value.password.length>0) ||(value.password.length>0 && value.password.length<6)){
+  pd=true;
 }
 
   const submitPost = async () => {
@@ -219,7 +223,7 @@ if(value.contact.length!==0 && value.contact.length>10){
           mx={"auto"}
           width={["100%", "80%", "60%", "45%"]}
           py={12}
-          px={6}
+          px={[3,6,0,0]}
         >
           <Stack align={"center"}>
             <Heading fontSize={"2xl"} textAlign={"center"}>
@@ -262,10 +266,12 @@ if(value.contact.length!==0 && value.contact.length>10){
                   }
                 />
               </FormControl>
-              <FormControl id="password" isRequired>
-                <FormLabel>Password</FormLabel>
+              <FormControl id="password" isRequired textAlign={"left"}>
+                <FormLabel>Password </FormLabel>
+                <span style={pd?{color:"red",fontSize:"13px",display:"block"}:{color:"gray",fontSize:"13px",display:"none"}} >password atleast should have 6 characters</span> 
                 <InputGroup>
-                  <Input
+                  <Input 
+                  isInvalid={pd}
                     type={showPassword ? "text" : "password"}
                     onChange={(e) =>
                       setValue((prev) => ({
@@ -286,8 +292,9 @@ if(value.contact.length!==0 && value.contact.length>10){
                   </InputRightElement>
                 </InputGroup>
               </FormControl>
-              <FormControl id="contact" isRequired>
-                <FormLabel>Contact no.</FormLabel>
+              <FormControl id="contact" isRequired textAlign={"left"}>
+                <FormLabel>Contact no. </FormLabel>
+                <span style={cn?{color:"red",fontSize:"13px",display:"block"}:{color:"gray",fontSize:"13px",display:"none"}} >Contact number should have 10 digits</span> 
                 <Input
                   type="number"
                   isInvalid={cn}

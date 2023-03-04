@@ -10,10 +10,11 @@ export default function EditPassword({handlePasswordSubmit}) {
     const [password,setPassword]=useState("");
     useEffect(()=>{
         dispatch(getAdminData());
-    },[])
+    },[dispatch])
     /* Here's a custom control */
     const handleAdmin=()=>{
       handlePasswordSubmit(password)
+      
     }
     function EditableControls() {
       const {

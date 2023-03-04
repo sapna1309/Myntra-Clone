@@ -35,6 +35,7 @@ import {
   getUsersListData,
   postCurrentUserData,
   postUsersListData,
+  updateAdminLogin,
   updateCurrentUserData,
   updateUsersListData,
 } from "../Redux/Admin/Admin.action";
@@ -70,7 +71,11 @@ export default function Login() {
       adminData.email === value.email &&
       adminData.password === value.password
     ) {
-      return gotoAdmin("/admin-dashboard");
+      dispatch(updateAdminLogin())
+      if(adminData.isAuth===true) {
+        return gotoAdmin("/admin-dashboard");
+      }
+      return
     } else if (!value.email || !value.password) {
       toast.error(`please fill all the field `, {
         position: "top-center",

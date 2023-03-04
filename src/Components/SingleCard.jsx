@@ -43,7 +43,7 @@ function SingleCard({ ...props }) {
         .catch((err) => alert("Already Exists"));
     
   };
-
+console.log(typeof +discounted_price)
   return (
     // <div className={Style.cardContainer}>
     <Card
@@ -56,7 +56,7 @@ function SingleCard({ ...props }) {
             <Image
               src={images[0]}
               width={"100%"}
-              _hover={{ p: "0.5rem" }}
+              //_hover={{ p: "0.5rem" }}
               overflow={"hidden"}
               borderRadius={"0.9rem"}
             />
@@ -75,7 +75,7 @@ function SingleCard({ ...props }) {
           >
             <Text fontSize={"0.9rem"} fontWeight={"600"}>
               {" "}
-              ₹ {discounted_price===null?Number(strike_price)-275:discounted_price}
+              ₹ {+discounted_price}
             </Text>
             <Text
               fontSize={"0.7rem"}
@@ -93,9 +93,9 @@ function SingleCard({ ...props }) {
             <Flex justifyContent={"space-between"} alignItems={"center"}>
               <Text>
                 {" "}
-                {rating} <StarIcon fontSize={"0.8rem"} />
+                {+rating} <StarIcon fontSize={"0.8rem"} />
               </Text>
-              <Text>{rating_count}</Text>
+              <Text>{+rating_count}</Text>
             </Flex>
           </Box>
 

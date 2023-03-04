@@ -284,9 +284,14 @@ const DesktopNav = () => {
                   borderBottom: "3px solid #BB1679",
                 }}
               >
-                <NavLink to='/product' >
+                {navItem.label==="MENS"?<NavLink to='/product' >
                 {navItem.label}
-                </NavLink>
+                </NavLink>:<NavLink to='/womens' >
+                {navItem.label}
+                </NavLink>}
+                {/* <NavLink to='/product' >
+                {navItem.label}
+                </NavLink> */}
               </Link>
             </PopoverTrigger>
 
@@ -405,10 +410,12 @@ const MobileNavItem = ({ label, children, href }) => {
           fontWeight={600}
           color={useColorModeValue("gray.600", "gray.200")}
           fontSize={{base:12,sm:13,md:18,lg:18}}
-        >
-          <NavLink  to="/product">
+        >{label==="MENS"?<NavLink  to="/product">
+        {label}
+        </NavLink>:<NavLink  to="/womens">
           {label}
-          </NavLink>
+          </NavLink>}
+          
         </Text>
         {children && (
           <Icon
@@ -459,7 +466,7 @@ const NAV_ITEMS = [
           "Suits",
           "Rain Jackets",
         ],
-        href: "#",
+        href: "/product",
       },
       {
         label: "Indian and Festive Wear",
@@ -469,7 +476,7 @@ const NAV_ITEMS = [
           "Nehru Jacket",
           "Dhoties",
         ],
-        href: "#",
+        href: "/product",
       },
       {
         label: "Bottomwear",
@@ -479,7 +486,7 @@ const NAV_ITEMS = [
           "Shorts",
           "TrackPants and Joggers",
         ],
-        href: "#",
+        href: "/product",
       },
       {
         label: "Innerwear ans Sleepwear",
@@ -489,7 +496,7 @@ const NAV_ITEMS = [
           "Sleepwear and Loungewear",
           "Thermals",
         ],
-        href: "#",
+        href: "/product",
       },
 
       {
@@ -503,7 +510,7 @@ const NAV_ITEMS = [
           "Flip Flops",
           "Socks",
         ],
-        href: "#",
+        href: "/product",
       },
     ],
   },
@@ -521,7 +528,7 @@ const NAV_ITEMS = [
           "Ethnic saree",
           "Ethnic skirt",
         ],
-        href: "#",
+        href: "/womens",
       },
       {
         label: "Western Wear",
@@ -539,7 +546,7 @@ const NAV_ITEMS = [
           "Sweaters & SweatShirts",
           "Blazzers and Waistcoats",
         ],
-        href: "#",
+        href: "/womens",
       },
       {
         label: "Footwear",
@@ -551,7 +558,7 @@ const NAV_ITEMS = [
           "Sports Shoes & Floaters",
           "Sports and Active Wear",
         ],
-        href: "#",
+        href: "/womens",
       },
       {
         label: "Lingerie & Sleepwear",
@@ -564,7 +571,7 @@ const NAV_ITEMS = [
           "Lack of Fairness",
           "Pigmentaion",
         ],
-        href: "#",
+        href: "/womens",
       },
       {
         label: "Beauty & Personal Care",
@@ -577,7 +584,7 @@ const NAV_ITEMS = [
           "Mineral",
           "Eye Protection",
         ],
-        href: "#",
+        href: "/womens",
       },
     ],
   },

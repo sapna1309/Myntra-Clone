@@ -10,7 +10,7 @@ export default function EditName({handleNameSubmit}) {
     const [name,setName]=useState("");
     useEffect(()=>{
         dispatch(getAdminData());
-    },[])
+    },[dispatch])
     /* Here's a custom control */
     const handleAdmin=()=>{
       handleNameSubmit(name)

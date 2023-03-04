@@ -18,6 +18,8 @@ import {
   updateAdminContactAPI,
   updateAdminEmailAPI,
   updateAdminKidsdataAPI,
+  updateAdminLoginAPI,
+  updateAdminLogoutAPI,
   updateAdminMensdataAPI,
   updateAdminNameAPI,
   updateAdminPasswordAPI,
@@ -31,6 +33,8 @@ import {
   ADD_MENS_SUCCESS,
   ADD_USERSLIST_DATA,
   ADD_WOMENS_SUCCESS,
+  ADMIN_LOGIN_SUCCESS,
+  ADMIN_LOGOUT_SUCCESS,
   DELETE_PRODUCT_KIDS,
   DELETE_PRODUCT_MENS,
   DELETE_PRODUCT_WOMENS,
@@ -122,10 +126,10 @@ export const getMensData = () => async (dispatch) => {
   }
 };
 
-export const getWomensData = () => async (dispatch) => {
+export const getWomensData = (getProductParam) => async (dispatch) => {
   dispatch({ type: GET_PRODUCTS_LOADING });
   try {
-    let data = await getAdminWomensdataAPI();
+    let data = await getAdminWomensdataAPI(getProductParam||"");
     dispatch({ type: GET_WOMENS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: GET_PRODUCTS_ERROR });
@@ -290,6 +294,26 @@ export const updateAdminPassword = (data) => async (dispatch) => {
   }
 };
 
+export const updateAdminLogin = () => async (dispatch) => {
+  dispatch({ type: GET_PRODUCTS_LOADING });
+  try {
+    await updateAdminLoginAPI();
+    dispatch({ type: ADMIN_LOGIN_SUCCESS });
+  } catch (error) {
+    dispatch({ type: GET_PRODUCTS_ERROR });
+  }
+};
+
+export const updateAdminLogout = () => async (dispatch) => {
+  dispatch({ type: GET_PRODUCTS_LOADING });
+  try {
+    await updateAdminLogoutAPI();
+    dispatch({ type: ADMIN_LOGOUT_SUCCESS });
+  } catch (error) {
+    dispatch({ type: GET_PRODUCTS_ERROR });
+  }
+};
+
 export const updateUsersListData = (id,state) => async (dispatch) => {
   dispatch({ type: GET_PRODUCTS_LOADING });
   try {
@@ -309,3 +333,5 @@ export const updateCurrentUserData=(state)=>async(dispatch)=>{
      dispatch({type:GET_PRODUCTS_ERROR})
    }
 }
+
+

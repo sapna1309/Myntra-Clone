@@ -10,7 +10,7 @@ export const PrivateRoute = ({ children }) => {
   useEffect(()=>{
     dispatch(getCurrentUserData());
   },[dispatch])
-  console.log("CurrentUser",currentUserData);
+  //console.log("CurrentUser",currentUserData);
   if(currentUserData.isAuth===false){
    return <Navigate to='/login' state={{from:location}} replace />
   }
