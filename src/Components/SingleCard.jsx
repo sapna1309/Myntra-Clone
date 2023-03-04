@@ -43,7 +43,7 @@ function SingleCard({ ...props }) {
         .catch((err) => alert("Already Exists"));
     
   };
-console.log(typeof +discounted_price)
+console.log(typeof discounted_price)
   return (
     // <div className={Style.cardContainer}>
     <Card
@@ -75,14 +75,14 @@ console.log(typeof +discounted_price)
           >
             <Text fontSize={"0.9rem"} fontWeight={"600"}>
               {" "}
-              ₹ {+discounted_price}
+              ₹ {discounted_price}
             </Text>
             <Text
               fontSize={"0.7rem"}
               alignItems={"baseline"}
               textDecoration={"line-through"}
             >
-              Rs.{strike_price}
+              ₹ {strike_price}
             </Text>
             <Text fontSize={"0.7rem"} color="pink.300">
               {discount}
@@ -93,9 +93,9 @@ console.log(typeof +discounted_price)
             <Flex justifyContent={"space-between"} alignItems={"center"}>
               <Text>
                 {" "}
-                {+rating} <StarIcon fontSize={"0.8rem"} />
+                {rating} <StarIcon fontSize={"0.8rem"} />
               </Text>
-              <Text>{+rating_count}</Text>
+              <Text>{rating_count}</Text>
             </Flex>
           </Box>
 
