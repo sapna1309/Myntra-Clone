@@ -5,8 +5,8 @@ export const getAdminMensdataAPI=async()=>{
  return res.data;
 }
 
-export const getAdminWomensdataAPI=async()=>{
-    let res = await axios.get('https://classic-world.onrender.com/WomensData');
+export const getAdminWomensdataAPI=async(getProductParam)=>{
+    let res = await axios.get('https://classic-world.onrender.com/WomensData',getProductParam);
     return res.data;
 }
 
@@ -93,6 +93,16 @@ export const updateAdminEmailAPI=async(data)=>{
     let res = await axios.patch('https://classic-world.onrender.com/AdminData',{email:data});
     return res.data;
     }
+
+export const updateAdminLoginAPI=async()=>{
+    let res = await axios.patch('https://classic-world.onrender.com/AdminData',{isAuth:true});
+    return res.data;
+    } 
+    
+export const updateAdminLogoutAPI=async()=>{
+    let res = await axios.patch('https://classic-world.onrender.com/AdminData',{isAuth:false});
+    return res.data;
+    }     
         
 export const updateAdminContactAPI=async(data)=>{
     let res = await axios.patch('https://classic-world.onrender.com/AdminData',{contact:data});

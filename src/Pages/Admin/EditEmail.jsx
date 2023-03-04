@@ -10,7 +10,7 @@ export default function EditEmail({handleEmailSubmit}) {
     const [email,setEmail]=useState("");
     useEffect(()=>{
         dispatch(getAdminData());
-    },[])
+    },[dispatch])
     /* Here's a custom control */
     const handleAdmin=()=>{
       handleEmailSubmit(email)

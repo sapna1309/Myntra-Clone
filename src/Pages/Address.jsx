@@ -39,10 +39,10 @@ import { useSelector } from 'react-redux';
 
     let mn=false;
     let pn=false;
-if(mobileno.length>10){
+if((mobileno.length>10 && mobileno.length>0) || (mobileno.length<10 && mobileno.length>0) ){
   mn=true;
 };
-if(pinCode.length>6){
+if((pinCode.length>6 && pinCode.length>0)||(pinCode.length<6 && pinCode.length>0)){
   pn=true;
 }
 
@@ -102,19 +102,21 @@ if(pinCode.length>6){
             // w={"lg"}
             >
             <Stack spacing={4}  >
-              <FormControl>
+              <FormControl textAlign={"left"}>
                 <FormLabel fontSize={"11px"} fontFamily={"1000"}>CONTACT DETAILS</FormLabel>
                 <Input type="text" placeholder='Name*' isRequired fontSize={"13px"} marginBottom={4}
                 value={value.name}
                 onChange={(e)=>setValue({...value, name:e.target.value})}
                  />
+             <span style={mn?{color:"red",fontSize:"13px",display:"block"}:{color:"gray",fontSize:"13px",display:"none"}} >Mobile number should have 10 digits</span>
                 <Input type="number" placeholder='Mobile No*' isInvalid={mn} isRequired fontSize={"13px"} marginBottom={4}
                 value={value.mobileno}
                 onChange={(e)=>setValue({...value, mobileno:e.target.value})}
                  />
               </FormControl>
-              <FormControl>
-                <FormLabel fontSize={"11px"} fontFamily={"1000"} >ADDRESS</FormLabel>
+              <FormControl textAlign={"left"}>
+                <FormLabel fontSize={"11px"}>ADDRESS </FormLabel>
+                <span style={pn?{color:"red",fontSize:"13px",display:"block"}:{color:"gray",fontSize:"13px",display:"none"}} >Pin Code should have 6 digits</span>
                 <Input type="number" placeholder="Pin Code*" isInvalid={pn} isRequired fontSize={"13px"} marginBottom={4}
                 onChange={(e)=>setValue((prev)=>({...prev, pinCode:e.target.value}))}
                  />

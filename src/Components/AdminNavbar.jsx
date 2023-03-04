@@ -27,7 +27,7 @@ import {BsFillBellFill} from 'react-icons/bs'
 import {HiFolderAdd} from 'react-icons/hi'
 import {ImMan,ImWoman} from 'react-icons/im';
 import {FaChild,FaUsers} from 'react-icons/fa'
-import {RiAccountPinCircleFill,RiLogoutCircleFill} from 'react-icons/ri'
+import {RiAccountPinCircleFill} from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getAdminData } from '../Redux/Admin/Admin.action';
@@ -39,7 +39,6 @@ const LinkItems= [
   { name: 'Kids', icon: FaChild, path:'/admin-kids' },
   { name: 'Users', icon: FaUsers, path:'/admin-users' },
   { name: 'Account', icon: RiAccountPinCircleFill, path:'/admin-profile' },
-  { name: 'Logout', icon: RiLogoutCircleFill, path:'/' }
 ];
 //RiLogoutCircleFill
 export default function AdminNavbar({
@@ -135,6 +134,11 @@ const NavItem = ({ icon, children, item,...rest }) => {
   );
 };
 const MobileNav = ({ onOpen,name, ...rest }) => {
+  const {adminData} = useSelector((store)=>store.adminManager);
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(getAdminData());
+  },[])
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -173,7 +177,7 @@ const MobileNav = ({ onOpen,name, ...rest }) => {
               <HStack>
                 <Avatar size={'sm'}
                   src={AdminProfile}>
-                  <AvatarBadge boxSize='1em' bg='green.500' />
+                  {adminData.isAuth?<AvatarBadge boxSize='1em' bg='green.500' />:<AvatarBadge boxSize='1em' bg='red.500' />}
                   </Avatar>
                 <VStack
                   display={{ base: 'none', md: 'flex' }}

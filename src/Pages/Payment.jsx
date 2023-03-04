@@ -31,10 +31,10 @@ function Payment() {
     cvv: "",
   });
  let cn=false,cv=false;
-  if(value.cardno.length>16){
+  if((value.cardno.length>16 && value.cardno.length>0)||(value.cardno.length<16 && value.cardno.length>0)){
     cn=true;
   }
-  if(value.cvv.length>3){
+  if((value.cvv.length>3 && value.cvv.length>0)||(value.cvv.length<3 && value.cvv.length>0)){
     cv=true;
   }
 
@@ -73,7 +73,7 @@ function Payment() {
   };
 
   const handleToggle = () => {
-    setToggle(!toggle);
+    setToggle(false);
   };
   const handleSubmit = () => {
     for(let i=0;i<cartData.length;i++){
@@ -194,12 +194,12 @@ function Payment() {
                       marginTop={[0, 0, 0]}
                       w="40%"
                     >
-                      <Box onClick={handleToggle} style={activeStyle} p={2}>
+                      <Box onClick={()=>setToggle(true)} style={activeStyle} p={2}>
                         Cash On Delivery
                       </Box>
                       <Box
                         mt={2}
-                        onClick={handleToggle}
+                        onClick={()=>setToggle(false)}
                         style={defaultStyle}
                         p={2}
                       >
@@ -220,12 +220,12 @@ function Payment() {
                     </Box>
                   ) : (
                     <Box marginTop={[0, 0, 0]} w="40%">
-                      <Box onClick={handleToggle} style={defaultStyle} p={2}>
+                      <Box onClick={()=>setToggle(true)} style={defaultStyle} p={2}>
                         Cash On Delivery
                       </Box>
                       <Box
                         mt={2}
-                        onClick={handleToggle}
+                        onClick={()=>setToggle(false)}
                         style={activeStyle}
                         p={2}
                       >
@@ -301,6 +301,8 @@ function Payment() {
                           transaction .<Text color="#ff3f6c">know More</Text>
                         </Text>
                         <Stack mt={4} spacing={6}>
+                          <Stack spacing={0}>
+                        <span style={cn?{color:"red",fontSize:"13px",display:"block"}:{color:"gray",fontSize:"13px",display:"none"}} >Card number should have 16 digits</span>
                           <Input
                             fontSize={"13px"}
                             type="number"
@@ -315,6 +317,7 @@ function Payment() {
                               })
                             }
                           />
+                          </Stack>
                           <Input
                             fontSize={"13px"}
                             type="text"
@@ -327,6 +330,8 @@ function Payment() {
                               setValue({...value,cardName: e.target.value})
                             }
                           />
+                          <Stack textAlign={"right"} spacing={0}>
+                           <span style={cv?{color:"red",fontSize:"13px",marginRight:"10px",display:"block"}:{color:"gray",fontSize:"13px",marginRight:"10px",display:"none"}} >CVV should have 3 digits</span>
                           <HStack>
                             <Input
                               fontSize={"13px"}
@@ -338,6 +343,7 @@ function Payment() {
                                 setValue({...value,month:e.target.value})
                               }
                             />
+                           
                             <Input
                               fontSize={"13px"}
                               type="number"
@@ -350,6 +356,7 @@ function Payment() {
                               }
                             />
                           </HStack>
+                          </Stack>
                           <Button
                             mt={4}
                             background={"#ff3f6c"}

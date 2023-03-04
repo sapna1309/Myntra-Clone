@@ -4,6 +4,7 @@ import SingleCard from "../Components/SingleCard";
 import {
   Box,
   Checkbox,
+  CheckboxGroup,
   Flex,
   Grid,
   Heading,
@@ -26,122 +27,113 @@ import { useCallback } from "react";
 import FinalNavbar from "../Components/FinalNavbar";
 import SampleBrand from "./SampleBrand";
 import FinalFooter from "../Components/FinalFooter";
+import { getWomensData } from "../Redux/Admin/Admin.action";
+import { useSearchParams } from "react-router-dom";
 
 let brands = [
-  "HRX by Hrithik Roshan ",
-  "Roadster",
-  "The Indian Garage Co ",
-  "HIGHLANDER",
-  "LOCOMOTIVE",
-  "United Colors of Benetton",
-  "IVOC",
+  "KALINI",
+  "Khushal K",
+  "Anouk",
+  "Indo Era",
+  "Anubhutee",
+  "FASHOR",
+  "Ahalyaa",
+  "Nayo",
+  "Varanga",
   "H&M",
-  "Mast & Harbour",
-  "Lee",
-  "DENNISON",
-  "HERE&NOW",
-  "Levis",
-  "WROGN",
-  "Urbano Fashion",
-  "High Star",
-  "KRA",
-  "Blackberrys",
-  "Artengo By Decathlon",
-  "FITINC",
+  "AHIKA",
+  "Roadster",
+  "JAIPURI BUNAAI",
+  "KASSUALLY",
+  "InWeave",
+  "Mitera",
+  "Antheaa",
+  "Berrylush",
+  "Chemistry",
+  "SASSAFRAS",
+  "Yufta",
+  "MOKSHA DESIGNS",
+  "DOLCE CRUDO",
+  "Libas",
+  "Tokyo Talkies",
+  "ADDYVERO",
+  "heemara",
+  "Difference of Opinion",
+  "Kotty",
+  "Anubhutee"
 ]; /**
 ,
 */
 
-const Product = () => {
-  const { loading, error, totalPages, products, filteredBrandData } =
-    useSelector((store) => store.mens);
-  // page state
-  /* current page is for pagination */
-  const [currentPage, setCurrentPage] = useState(1);
+const WomensProduct = () => {
+const [searchParams ,setSearchParams] =useSearchParams()
+const initFilterValues =searchParams.getAll('filter')
+const initSortValue =searchParams.getAll('sort')
+const initOrder =searchParams.getAll('order')  
 
-  /* SValue  is for sorting */
-  const [sValue, setSValue] = useState("");
+const [filterValues,setFilterValues] = useState(initFilterValues || [])
+const [sortValue , setSortValue] = useState(initSortValue)
+const [order, setOrder] = useState(initOrder)
 
-  /* brand is for brand filter */
-  const [brand, setBrand] = useState();
+const { womensData } = useSelector((store) => store.adminManager);
+const dispatch = useDispatch();
 
-  const [checked, setChecked] = useState(false);
-
-  const dispatch = useDispatch();
-
-  //console.log(products, currentPage);
-
-  useEffect(() => {
-    // if (products.length === 0) {
-    dispatch(getMensProducts(currentPage));
-    dispatch(getMainData());
-    // }
-  }, [dispatch, currentPage]);
-
-  //console.log(brands);
-
-  // pagination starts here
-
-  useEffect(() => {
-    dispatch(getMensProducts(currentPage));
-  }, [dispatch, currentPage]);
-
-  const handlePage = (val) => {
-    setCurrentPage((prev) => prev + val);
-  };
-  // pagination ends here
-
-  // sorting filter start
-  useEffect(() => {
-    //console.log(sValue);
-    dispatch(getMensProductsSorted(sValue, currentPage));
-  }, [dispatch, sValue, currentPage]);
-
-  const handleChange = (e) => {
-    setSValue(e.target.value);
-  };
-
-  // sorting filter ends here
-
-  /*brand filter starts here */
-
-  useEffect(() => {
-    dispatch(getFilterdProducts(brand));
-  }, [brand, dispatch]);
-
-  const handleCheck = (e) => {
-    e.preventDefault();
-    if (checked) {
-      setChecked(false);
-    } else {
-      setChecked(true);
-      setBrand(e.target.value);
+useEffect(()=>{
+    let params={}
+    if(filterValues.length) params.filter = filterValues
+    if(sortValue) {
+        params._sort = sortValue
     }
-  };
-  //console.log("isChecked", checked);
+    if(sortValue==="rating"){
+        params._order = "desc"
+    }else if(sortValue==="discount"){
+        params._order = "desc"
+    }else if(sortValue==="discounted_price"){
+        params._order = "desc"
+    }else if(sortValue==="rating_count"){
+        params._order = "desc"
+    }else if(order===""&&sortValue===""){
+        params._sort = "discounted_price"
+        params._order = "asc"
+    }
+    setSearchParams(params)
+    console.log("Params",params);
+},[filterValues,setSearchParams,sortValue,order])
 
-  /*brand filter ends here */
+  useEffect(()=>{
+    const getProductParam = {
+        params :{
+          brand:searchParams.getAll('filter'),
+          _sort:searchParams.get("_sort"),
+          _order:searchParams.get("_order"),
+        }
+      }
+      console.log("get",getProductParam)
+    dispatch(getWomensData(getProductParam));
+  },[searchParams,dispatch])
 
-  /* handleClear starts here*/
+  const handleFilterChange = (value)=>{
+    setFilterValues(value)
+}
+// const handleSortChange=(value)=>{
+// setOrder(value)
 
-  const handleClear = useCallback(() => {
-    dispatch(getMensProducts(currentPage));
-  }, [dispatch, currentPage]);
+// }
+//console.log(searchParams.getAll("filter"));
+console.log(womensData);
 
-  /* handleClear ends here*/
-
-  if (loading)
-    return (
-      <>
-        <LoadingPage />
-      </>
-    );
-  if (error)
-    return (
-      <>
-        <PageNotFound />
-      </>
-    );
+//   if (loading)
+//     return (
+//       <>
+//         <LoadingPage />
+//       </>
+//     );
+//   if (error)
+//     return (
+//       <>
+//         <PageNotFound />
+//       </>
+//     );
 
   return (
     <div>
@@ -179,9 +171,9 @@ const Product = () => {
               mt={"5rem"}
             >
               {" "}
-              Mens -
+              Women -
             </Text>{" "}
-            ({totalPages})
+            ({womensData.length})
           </Box>
           <Box
             display={{ sm: "none",base:'none',md:'none', lg: "inline-block" }}
@@ -200,12 +192,13 @@ const Product = () => {
                 Filters
               </Text>
               <Text
-                onClick={() => handleClear()}
-                fontSize={"0.9rem"}
-                fontWeight={"700"}
-                color={"red"}
-                _hover={{cursor:"pointer"}}
-              >
+            //     onClick={() => handleClear()}
+            //     fontSize={"0.9rem"}
+            //     fontWeight={"700"}
+            //     color={"red"}
+            //     _hover={{cursor:"pointer"}}
+            //  
+             >
                 Clear All
               </Text>
             </Flex>
@@ -221,21 +214,14 @@ const Product = () => {
                 Brands
               </Heading>
 
-              <Flex flexDirection={"column"} textAlign={"left"}>
-                {brands?.map((brand, i) => (
-                  <Checkbox
-                    textAlign={"left"}
-                    fontSize={"0.7rem"}
-                    key={i}
-                    pl={"1rem"}
-                    value={brand}
-                    // isChecked
-                    onChange={(e) => handleCheck(e)}
-                  >
-                    {brand}
-                  </Checkbox>
-                ))}
-              </Flex>
+              <CheckboxGroup colorScheme="blue" value={filterValues} onChange={handleFilterChange}>
+          <Stack spacing={1} direction={["column"]} border={"0px solid black"} pb={1} height={"495px"} overflowY={"scroll"} >
+            {brands.map((el)=>(
+                 <Checkbox value={el}>{el}</Checkbox>
+            ))}
+          
+          </Stack>
+        </CheckboxGroup>
             </Box>
           </Box>
           {/* filters end */}
@@ -277,12 +263,12 @@ const Product = () => {
                     placeholder="All"
                     p={2}
                     bg={"gray.200"}
-                    onChange={(e) => handleChange(e)}
+                    value={sortValue} onChange={(e)=>setSortValue(e.target.value)}
                   >
                     <option value="rating">Rating </option>
                     <option value="discount">Better Discount</option>
-                    <option value="PriceLTH">Price:Low To High</option>
-                    <option value="PriceHTL">Price:High To Low</option>
+                   <option value="rating_count">Reviews:High To Low</option> 
+                    <option value="discounted_price">Price:High To Low</option>
                   </Select>
                   </Box>
                   {/* filters */}
@@ -307,7 +293,9 @@ const Product = () => {
                       lg: "none",
                     }}
                   >
-                    <SampleBrand brands={brands} handleCheck={handleCheck} />
+                    <SampleBrand brands={brands} 
+                    // handleCheck={handleCheck} 
+                    />
                   </Stack>
                   </Box>
                   <Box border={'0px solid green'} width={'100%'} display={{base:'inline-block',sm:'inline-block',md:'inline-block',lg:'none'}} justifyContent={'flex-end'}  textAlign={{base:'center',sm:'center',md:'right'}} >
@@ -319,9 +307,9 @@ const Product = () => {
                      
                     >
                       {" "}
-                      Mens -
+                      Women -
                     </Text>{" "}
-                    ({totalPages})
+                    ({womensData.length})
                   </Box>
                 </Box>
               </Flex>
@@ -337,30 +325,22 @@ const Product = () => {
                 m={'auto'}
                 mt={{ lg: "0rem", sm: "1rem", md: "1rem" }}
               >
-                {checked ? (
                   <>
-                    {filteredBrandData &&
-                      filteredBrandData?.map((prod) => (
+                    {womensData &&
+                      womensData?.map((prod) => (
                         <SingleCard key={prod.id} prod={prod} />
                       ))}
                   </>
-                ) : (
-                  <>
-                    {products &&
-                      products?.map((prod) => (
-                        <SingleCard key={prod.id} prod={prod} />
-                      ))}
-                  </>
-                )}
+            
               </Grid>
             </div>
             <Box>
-              <Pagination
+              {/* <Pagination
                 handlePage={handlePage}
                 setCurrentPage={setCurrentPage}
                 currentPage={currentPage}
-                totalPages={totalPages}
-              />
+                totalPages={womensData.length}
+              /> */}
             </Box>
             <FinalFooter/>
           </Box>
@@ -374,4 +354,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default WomensProduct;

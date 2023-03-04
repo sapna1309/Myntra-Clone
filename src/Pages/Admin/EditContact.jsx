@@ -10,7 +10,7 @@ export default function EditContact({handleContactSubmit}) {
     const [contact,setContact]=useState("");
     useEffect(()=>{
         dispatch(getAdminData());
-    },[])
+    },[dispatch])
     /* Here's a custom control */
     const handleAdmin=()=>{
       handleContactSubmit(contact)

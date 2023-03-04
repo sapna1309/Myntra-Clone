@@ -14,6 +14,7 @@ import {
   getAdminData,
   updateAdminContact,
   updateAdminEmail,
+  updateAdminLogout,
   updateAdminName,
   updateAdminPassword,
 } from "../../Redux/Admin/Admin.action";
@@ -113,7 +114,10 @@ const AdminProfilePage = () => {
             </HStack>
             <HStack justifyContent={"center"} width="full" border={"0px solid black"}>
             <Button bg={'pink.700'} color='white' textAlign={"center"} width={"100px"} _hover={{color:'black',bg:'gray.200'}} 
-            onClick={()=>navigate("/")}>
+            onClick={()=>{
+              dispatch(updateAdminLogout());
+              navigate("/login")
+            }}>
              LOGOUT
             </Button>
             </HStack>

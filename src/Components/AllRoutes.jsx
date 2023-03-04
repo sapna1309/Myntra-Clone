@@ -21,6 +21,8 @@ import Cart from "../Pages/Cart";
 import Payment from "../Pages/Payment";
 import Success from "../Pages/Success";
 import { PrivateRoute } from "./PrivateRouting";
+import { AdminPrivateRoute } from "./AdminPrivateRoute";
+import WomensProduct from "../Pages/WomensProducts";
 
 const AllRoutes = () => {
   // console.log(userName);
@@ -30,12 +32,13 @@ const AllRoutes = () => {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/product" element={<Product />}></Route>
+        <Route path="/womens" element={<WomensProduct/>}></Route>
         <Route path="/product/:id" element={<SingleProductPage />}></Route>
         <Route
           path="/wishlist"
           element={
             // <PrivateRoute>
-              <Wishlist />
+            <Wishlist />
             //</PrivateRoute>
           }
         ></Route>
@@ -50,13 +53,62 @@ const AllRoutes = () => {
         <Route path="*" element={<PageNotFound />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
-        <Route path="/admin-dashboard" element={<AdminDashboard />}></Route>
-        <Route path="/add-products" element={<AddProductsPage />}></Route>
-        <Route path="/admin-men" element={<MensPage />}></Route>
-        <Route path="/admin-women" element={<WomensPage />}></Route>
-        <Route path="/admin-kids" element={<KidsPage />}></Route>
-        <Route path="/admin-users" element={<UsersPage />}></Route>
-        <Route path="/admin-profile" element={<AdminProfilePage />}></Route>
+        <Route
+          path="/admin-dashboard"
+          element={
+            <AdminPrivateRoute>
+              <AdminDashboard />
+            </AdminPrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/add-products"
+          element={
+            <AdminPrivateRoute>
+              <AddProductsPage />
+            </AdminPrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/admin-men"
+          element={
+            <AdminPrivateRoute>
+              <MensPage />
+            </AdminPrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/admin-women"
+          element={
+            <AdminPrivateRoute>
+              <WomensPage />
+            </AdminPrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/admin-kids"
+          element={
+            <AdminPrivateRoute>
+              <KidsPage />
+            </AdminPrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/admin-users"
+          element={
+            <AdminPrivateRoute>
+              <UsersPage />
+            </AdminPrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/admin-profile"
+          element={
+            <AdminPrivateRoute>
+              <AdminProfilePage />
+            </AdminPrivateRoute>
+          }
+        ></Route>
         <Route
           path="/address"
           element={
