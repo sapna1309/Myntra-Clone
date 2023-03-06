@@ -57,7 +57,7 @@ export default function Login() {
     dispatch(getAdminData());
     dispatch(getUsersListData());
     dispatch(getCurrentUserData());
-  }, []);
+  }, [dispatch]);
 
   const [value, setValue] = useState({
     email: "",
@@ -72,6 +72,7 @@ export default function Login() {
       adminData.password === value.password
     ) {
       dispatch(updateAdminLogin())
+      console.log(adminData.isAuth,"admin");
       if(adminData.isAuth===true) {
         return gotoAdmin("/admin-dashboard");
       }
@@ -143,7 +144,7 @@ export default function Login() {
       localStorage.setItem("email", data.user.email);
       const { metadata } = data.user;
       const {lastSignInTime,createdAt,creationTime,lastLoginAt}=metadata
-      console.log("Metadata",metadata);
+      //console.log("Metadata",metadata);
       const user = {
         email: data.user.email,
         name: data.user.displayName,
@@ -169,7 +170,10 @@ export default function Login() {
         ) {
           dispatch(updateUsersListData(el.id, true)).then(()=>dispatch(getUsersListData()));
           dispatch(updateCurrentUserData(true)).then(()=>dispatch(getCurrentUserData()));
-
+          console.log(comingFrom,"isAuth",currentUserData.isAuth);
+          if(currentUserData.isAuth){
+            return navigate(comingFrom,{replace:true});
+          }
          }  
         if (
           el.email === user.email &&
@@ -179,6 +183,10 @@ export default function Login() {
         ) {
           dispatch(updateUsersListData(el.id, true)).then(()=>dispatch(getUsersListData()));
           dispatch(postCurrentUserData(user)).then(()=>dispatch(getCurrentUserData()));
+          console.log(comingFrom,"isAuth",currentUserData.isAuth);
+          if(currentUserData.isAuth){
+            return navigate(comingFrom,{replace:true});
+          }
         }
          if (
          ( el.email !== user.email &&
@@ -198,9 +206,14 @@ export default function Login() {
       }
       if(userCount===usersListData.length){
         dispatch(postUsersListData(user)).then(()=>dispatch(getUsersListData()));
-        dispatch(postCurrentUserData(user)).then(()=>dispatch(getCurrentUserData(user)));
+        dispatch(postCurrentUserData(user)).then(()=>dispatch(getCurrentUserData()));
+        console.log(comingFrom,"isAuth",currentUserData.isAuth);
+          if(currentUserData.isAuth){
+            return navigate(comingFrom,{replace:true});
+          }
       }
       navigate("/");
+      console.log(comingFrom,"isAuth",currentUserData.isAuth);
       //navigate(comingFrom,{replace:true});
       //console.log("userCount", userCount);
       //console.log("currentUser",currentUserData);

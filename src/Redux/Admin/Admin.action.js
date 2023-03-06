@@ -6,8 +6,11 @@ import {
   deleteUsersListdataAPI,
   getAdminDataAPI,
   getAdminKidsdataAPI,
+  getAdminKidSingleProductAPI,
   getAdminMensdataAPI,
+  getAdminMenSingleProductAPI,
   getAdminWomensdataAPI,
+  getAdminWomenSingleProductAPI,
   getCurrentUserAPI,
   getUsersListAPI,
   postAdminKidsdataAPI,
@@ -41,12 +44,15 @@ import {
   DELETE_USERSLIST_DATA,
   GET_ADMINDATA_SUCCESS,
   GET_CURRENT_USER,
+  GET_KIDS_SINGLE_PRODUCT,
   GET_KIDS_SUCCESS,
+  GET_MENS_SINGLE_PRODUCT,
   GET_MENS_SUCCESS,
   GET_PRODUCTS_ERROR,
   GET_PRODUCTS_LOADING,
   GET_USERSLIST_SUCCESS,
   GET_WOMENS_SUCCESS,
+  GET_WOMEN_SINGLE_PRODUCT,
   UPDATE_ADMIN_CONTACT,
   UPDATE_ADMIN_EMAIL,
   UPDATE_ADMIN_NAME,
@@ -116,15 +122,25 @@ export const postCurrentUserData=(currentUser)=>async(dispatch)=>{
 
 // GET-FUNCTION
 
-export const getMensData = () => async (dispatch) => {
+export const getMensData = (getProductParam) => async (dispatch) => {
   dispatch({ type: GET_PRODUCTS_LOADING });
   try {
-    let data = await getAdminMensdataAPI();
+    let data = await getAdminMensdataAPI(getProductParam||"");
     dispatch({ type: GET_MENS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: GET_PRODUCTS_ERROR });
   }
 };
+
+// export const getSingleMenData = (id) => async (dispatch) => {
+//   dispatch({ type: GET_PRODUCTS_LOADING });
+//   try {
+//     let data = await getAdminMenSingleProductAPI(id);
+//     dispatch({ type: GET_MENS_SINGLE_PRODUCT, payload: data });
+//   } catch (error) {
+//     dispatch({ type: GET_PRODUCTS_ERROR });
+//   }
+// };
 
 export const getWomensData = (getProductParam) => async (dispatch) => {
   dispatch({ type: GET_PRODUCTS_LOADING });
@@ -136,15 +152,35 @@ export const getWomensData = (getProductParam) => async (dispatch) => {
   }
 };
 
-export const getKidsData = () => async (dispatch) => {
+// export const getSingleWomenData = (id) => async (dispatch) => {
+//   dispatch({ type: GET_PRODUCTS_LOADING });
+//   try {
+//     let data = await getAdminWomenSingleProductAPI(id);
+//     dispatch({ type: GET_WOMEN_SINGLE_PRODUCT, payload: data });
+//   } catch (error) {
+//     dispatch({ type: GET_PRODUCTS_ERROR });
+//   }
+// };
+
+export const getKidsData = (getProductParam) => async (dispatch) => {
   dispatch({ type: GET_PRODUCTS_LOADING });
   try {
-    let data = await getAdminKidsdataAPI();
+    let data = await getAdminKidsdataAPI(getProductParam||"");
     dispatch({ type: GET_KIDS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: GET_PRODUCTS_ERROR });
   }
 };
+
+// export const getSingleKidData = (id) => async (dispatch) => {
+//   dispatch({ type: GET_PRODUCTS_LOADING });
+//   try {
+//     let data = await getAdminKidSingleProductAPI(id);
+//     dispatch({ type: GET_KIDS_SINGLE_PRODUCT, payload: data });
+//   } catch (error) {
+//     dispatch({ type: GET_PRODUCTS_ERROR });
+//   }
+// };
 
 export const getUsersListData = () => async (dispatch) => {
   dispatch({ type: GET_PRODUCTS_LOADING });

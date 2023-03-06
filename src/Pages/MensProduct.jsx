@@ -28,45 +28,35 @@ import PageNotFound from "./PageNotFound";
 import Pagination from "../Components/Pagination";
 import FinalNavbar from "../Components/FinalNavbar";
 import FinalFooter from "../Components/FinalFooter";
-import { getWomensData } from "../Redux/Admin/Admin.action";
+import { getMensData } from "../Redux/Admin/Admin.action";
 import { useSearchParams } from "react-router-dom";
 import { MdFilterList } from "react-icons/md";
 import NavSearch from "../Components/NavSearch";
 
 let brands = [
-  "KALINI",
-  "Khushal K",
-  "Anouk",
-  "Indo Era",
-  "Anubhutee",
-  "FASHOR",
-  "Ahalyaa",
-  "Nayo",
-  "Varanga",
-  "H&M",
-  "AHIKA",
+  "HRX Hrithik Roshan ",
   "Roadster",
-  "JAIPURI BUNAAI",
-  "KASSUALLY",
-  "InWeave",
-  "Mitera",
-  "Antheaa",
-  "Berrylush",
-  "Chemistry",
-  "SASSAFRAS",
-  "Yufta",
-  "MOKSHA DESIGNS",
-  "DOLCE CRUDO",
-  "Libas",
-  "Tokyo Talkies",
-  "ADDYVERO",
-  "heemara",
-  "Difference of Opinion",
-  "Kotty",
-  "Anubhutee"
+  "Indian Garage Co ",
+  "HIGHLANDER",
+  "LOCOMOTIVE",
+  "United Benetton",
+  "IVOC",
+  "H&M",
+  "Mast & Harbour",
+  "Lee",
+  "DENNISON",
+  "HERE&NOW",
+  "Levis",
+  "WROGN",
+  "Urbano Fashion",
+  "High Star",
+  "KRA",
+  "Blackberrys",
+  "Artengo By Decathlon",
+  "FITINC",
 ]; 
 
-const WomensProduct = () => {
+const MensProduct = () => {
 const [searchParams ,setSearchParams] =useSearchParams()
 const initFilterValues =searchParams.getAll('filter')
 const initSortValue =searchParams.getAll('sort')
@@ -81,7 +71,7 @@ const [page,setPage] = useState(1);
 const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = useRef()
 
-const { womensData } = useSelector((store) => store.adminManager);
+const { mensData,loading,error } = useSelector((store) => store.adminManager);
 const dispatch = useDispatch();
 
 useEffect(()=>{
@@ -119,7 +109,7 @@ useEffect(()=>{
         }
       }
       console.log("get",getProductParam)
-    dispatch(getWomensData(getProductParam));
+    dispatch(getMensData(getProductParam));
   },[searchParams,dispatch,page])
 
   const handleFilterChange = (value)=>{
@@ -129,7 +119,7 @@ useEffect(()=>{
 
 const handleClear = () => {
   setFilterValues([])
-  dispatch(getWomensData());
+  dispatch(getMensData());
   // onClose();
 };
 
@@ -138,14 +128,14 @@ const handlePage = (val) => {
 };
 
 
-//console.log(Math.ceil(womensData.length/12));
-  // if (loading)
+console.log("loading",loading,"error",error);
+  // if (loading===true)
   //   return (
   //     <>
   //       <LoadingPage />
   //     </>
   //   );
-  // if (error)
+  // if (error===true)
   //   return (
   //     <>
   //       <PageNotFound />
@@ -191,14 +181,14 @@ const handlePage = (val) => {
               mt={"5rem"}
             >
               {" "}
-              Women -
+              Mens -
             </Text>{" "}
-            ({womensData.length})
+            ({mensData.length})
           </Box>
           <Box
             display={{ sm: "none",base:'none',md:'inline-block', lg: "inline-block" }}
             position={"fixed"}
-            w={"20%"}
+            w={["20%","20%","21%","20%"]}
             top={"9rem"}
             zIndex={"100"}
             backgroundColor={"#FFF"}
@@ -249,8 +239,8 @@ const handlePage = (val) => {
 
           <Box
             border={"0px solid gray"}
-            w={{ lg: "80%", sm: "100%", md: "80%",base:'100%' }}
-            ml={{base:0,sm:0,md:"22%",lg:"22%"}}
+            w={{ lg: "80%", sm: "100%", md: "79%",base:'100%' }}
+            ml={{base:0,sm:0,md:"21%",lg:"22%"}}
           >
             <div className={prodStyle.products}>
               <Flex
@@ -305,7 +295,7 @@ const handlePage = (val) => {
                       pr={2}
                     >
                       {" "}
-                      Women - <span style={{color:"gray",fontSize:"15px"}}> ({womensData.length})</span>
+                      Mens - <span style={{color:"gray",fontSize:"15px"}}> ({mensData.length})</span>
                     </Text>{" "}
                    
                   </Box>
@@ -377,7 +367,7 @@ const handlePage = (val) => {
                      
                     >
                       {" "}
-                      Women - <span style={{color:"gray",fontSize:"13px"}} > ({womensData.length})</span>
+                      Mens - <span style={{color:"gray",fontSize:"13px"}} > ({mensData.length})</span>
                     </Text>{" "}
                   </Box>
                 </Box>
@@ -394,7 +384,7 @@ const handlePage = (val) => {
                 // m={'auto'}
                 mt={{ lg: "0rem", sm: "1rem", md: "1rem" }}
               >
-                {womensData.length > 0 && womensData.filter((el,i)=>{
+                {mensData.length > 0 && mensData.filter((el,i)=>{
             return i>=12 * (page -1) && i< 12 *(page) 
           })
            .map((prod) => <SingleCard key={prod.id} prod={prod} />)}
@@ -406,7 +396,7 @@ const handlePage = (val) => {
                 handlePage={handlePage}
                 setPage={setPage}
                 page={page}
-                totalPages={Math.ceil(womensData.length/12)}
+                totalPages={Math.ceil(mensData.length/12)}
               />
             </Box>
             <FinalFooter/>
@@ -486,4 +476,4 @@ const handlePage = (val) => {
   );
 };
 
-export default WomensProduct;
+export default MensProduct;

@@ -4,9 +4,7 @@ import Home from "../Pages/Home";
 import Login from "../Pages/Login";
 import PageNotFound from "../Pages/PageNotFound";
 import Register from "../Pages/Register";
-import Product from "../Pages/Product";
 import AdminDashboard from "../Pages/Admin/AdminDashboard";
-import SingleProductPage from "../Pages/SingleProductPage";
 import AddProductsPage from "../Pages/Admin/AddProductsPage";
 import MensPage from "../Pages/Admin/MensPage";
 import WomensPage from "../Pages/Admin/WomensPage";
@@ -23,6 +21,11 @@ import Success from "../Pages/Success";
 import { PrivateRoute } from "./PrivateRouting";
 import { AdminPrivateRoute } from "./AdminPrivateRoute";
 import WomensProduct from "../Pages/WomensProducts";
+import WomenSingleProductPage from "../Pages/WomenSingleProductPage";
+import KidsProduct from "../Pages/KIdsProduct";
+import KidSingleProductPage from "../Pages/KidSingleProductPage";
+import MensProduct from "../Pages/MensProduct";
+import MenSingleProductPage from "../Pages/MenSingleProductPage";
 
 const AllRoutes = () => {
   // console.log(userName);
@@ -31,9 +34,12 @@ const AllRoutes = () => {
     <div>
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/product" element={<Product />}></Route>
+        <Route path="/mens" element={<MensProduct />}></Route>
         <Route path="/womens" element={<WomensProduct/>}></Route>
-        <Route path="/product/:id" element={<SingleProductPage />}></Route>
+        <Route path="/kids" element={<KidsProduct/>}></Route>
+        <Route path="/product/Mens/:id" element={<MenSingleProductPage />}></Route>
+        <Route path="/product/Womens/:id" element={<WomenSingleProductPage />}></Route>
+        <Route path="/product/Child/:id" element={<KidSingleProductPage />}></Route>
         <Route
           path="/wishlist"
           element={
