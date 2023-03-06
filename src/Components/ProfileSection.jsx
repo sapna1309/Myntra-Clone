@@ -34,10 +34,12 @@ export default function ProfileSection() {
   const dispatch = useDispatch();
   const {usersListData,currentUserData} = useSelector((store)=>store.adminManager);
  
+  let isAuth=JSON.parse(localStorage.getItem("isAuth"));
+
   useEffect(()=>{
     dispatch(getUsersListData());
     dispatch(getCurrentUserData());
-  },[dispatch])
+  },[dispatch,isAuth])
 
   //console.log("CrU",currentUserData);
   let booleanValue = Boolean(currentUserData.isAuth);
@@ -50,8 +52,9 @@ export default function ProfileSection() {
       dispatch(updateCurrentUserData(false)).then(()=>dispatch(getCurrentUserData()));
       
       }
-      //console.log("b",booleanValue);
+      console.log("b",isAuth);
       booleanValue= Boolean(currentUserData.isAuth);
+     
     }
     
     
@@ -90,7 +93,7 @@ export default function ProfileSection() {
                 fontSize="md"
                 colorScheme={"pink"}
               >
-               Hello, {booleanValue ? currentUserData.name : "Welcome"}
+               Hello, {isAuth ? currentUserData.name : "Welcome"}
               </Button>
               <Button
                 w="auto"
@@ -101,7 +104,7 @@ export default function ProfileSection() {
                 colorScheme="pink"
                 fontSize="sm"
               >
-                {booleanValue ? currentUserData.email : "To access account and orders"}
+                {isAuth ? currentUserData.email : "To access account and orders"}
               </Button>
               <Button
                 w="auto"
@@ -111,7 +114,7 @@ export default function ProfileSection() {
                 fontWeight="semibold"
                 colorScheme="pink"
                 fontSize="sm"
-                isDisabled={booleanValue}
+                isDisabled={isAuth}
               >
                 <NavLink to="/Login">LOGIN </NavLink>/{" "}
                 <NavLink to="/Register">SIGNUP</NavLink>
