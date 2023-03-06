@@ -23,8 +23,8 @@ import {
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import LoadingPage from "./LoadingPage";
-import PageNotFound from "./PageNotFound";
+//import LoadingPage from "./LoadingPage";
+//import PageNotFound from "./PageNotFound";
 import Pagination from "../Components/Pagination";
 import FinalNavbar from "../Components/FinalNavbar";
 import FinalFooter from "../Components/FinalFooter";
@@ -52,7 +52,7 @@ let brands = [
     "BONKIDS",
     "HERE&NOW",
     "Pantaloons Baby",
-    "HRX by Hrithik Roshan",
+    "HRX Hrithik Roshan",
     "Aj DEZInES",
     "Superminis",
     "Luke & Lilly",
@@ -69,9 +69,11 @@ const initFilterValues =searchParams.getAll('filter')
 const initSortValue =searchParams.getAll('sort')
 const initOrder =searchParams.getAll('order')  
 
-const [filterValues,setFilterValues] = useState(initFilterValues || [])
-const [sortValue , setSortValue] = useState(initSortValue)
-const [order, setOrder] = useState(initOrder)
+const [filterValues,setFilterValues] = useState(initFilterValues || []);
+const [sortValue , setSortValue] = useState(initSortValue);
+const [order, setOrder] = useState(initOrder);
+
+const [drawerFilter,setDrawerfilter]=useState(initFilterValues ||[]);
 
 const [page,setPage] = useState(1);
 
@@ -83,7 +85,7 @@ const dispatch = useDispatch();
 
 useEffect(()=>{
     let params={}
-    if(filterValues.length) params.filter = filterValues
+    if(filterValues.length || drawerFilter.length) params.filter = filterValues || drawerFilter;
     if(sortValue) {
         params._sort = sortValue
     }
@@ -133,6 +135,10 @@ const handleClear = () => {
 const handlePage = (val) => {
   setPage((prev) => prev + val);
 };
+
+const handleDrawerFilter=()=>{
+
+}
 
 
 //console.log(Math.ceil(kidsData.length/12));

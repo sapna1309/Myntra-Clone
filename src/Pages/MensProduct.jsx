@@ -71,7 +71,7 @@ const [page,setPage] = useState(1);
 const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = useRef()
 
-const { mensData,loading,error } = useSelector((store) => store.adminManager);
+const { mensData,loadingMen,error } = useSelector((store) => store.adminManager);
 const dispatch = useDispatch();
 
 useEffect(()=>{
@@ -128,14 +128,9 @@ const handlePage = (val) => {
 };
 
 
-console.log("loading",loading,"error",error);
-  // if (loading===true)
-  //   return (
-  //     <>
-  //       <LoadingPage />
-  //     </>
-  //   );
-  // if (error===true)
+console.log("loading",loadingMen,"error",error);
+ // if (loadingMen) return <LoadingPage />;
+  // if (error)
   //   return (
   //     <>
   //       <PageNotFound />

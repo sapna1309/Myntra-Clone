@@ -28,7 +28,7 @@ const WomenSingleProductPage = () => {
 
   useEffect(() => {
     fetchSingleProduct();
-  }, []);
+  }, [id]);
 
 console.log(singleProduct,id);
   const {
@@ -50,14 +50,14 @@ console.log(singleProduct,id);
         title: 'Successfully Added.',
         description: "This product has been added to your wishlist.",
         status: 'success',
-        duration:2000,
+        duration:1500,
         isClosable: true,
       }))
       .catch((err) => toast({
         title: 'Already Exist.',
         description: "This product already exist in your wishlist.",
         status: 'error',
-        duration:2000,
+        duration:1500,
         isClosable: true,
       }));
   };
@@ -69,7 +69,7 @@ console.log(singleProduct,id);
           title: 'Successfully Added.',
           description: "This product has been added to your cart.",
           status: 'success',
-          duration:2000,
+          duration:1500,
           isClosable: true,
         });
         dispatch(fetchCartData());
@@ -78,7 +78,7 @@ console.log(singleProduct,id);
         title: 'Already Exist.',
         description: "This product already exist in your cart.",
         status: 'error',
-        duration:2000,
+        duration:1500,
         isClosable: true,
       }));
   };

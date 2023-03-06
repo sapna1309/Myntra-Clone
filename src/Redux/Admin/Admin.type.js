@@ -1,7 +1,13 @@
 //GET_TYPE
 
 export const GET_PRODUCTS_LOADING='get/productsLoading';
+export const GET_MENS_LOADING='get/mensLoading';
+export const GET_WOMENS_LOADING='get/womensLoading';
+export const GET_KIDS_LOADING='get/kidsLoading';
 export const GET_PRODUCTS_ERROR='get/productsError';
+export const GET_MENS_ERROR='get/mensError';
+export const GET_WOMENS_ERROR='get/womensError';
+export const GET_KIDS_ERROR='get/kidsError';
 export const GET_MENS_SUCCESS='get/mansSuccess';
 export const GET_WOMENS_SUCCESS='get/womensSuccess';
 export const GET_KIDS_SUCCESS='get/kidsSuccess';

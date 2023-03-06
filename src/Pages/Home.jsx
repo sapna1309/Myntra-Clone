@@ -5,6 +5,7 @@ import HomePageHeader from '../assets/HomePageHeader.png';
 import { useEffect } from 'react';
 import FinalNavbar from '../Components/FinalNavbar';
 import FinalFooter from '../Components/FinalFooter';
+import NavSearch from '../Components/NavSearch';
 //import Footer from '../Components/Footer';
 
 const Home = () => {
@@ -24,8 +25,10 @@ const Home = () => {
   //console.log("Data",data);
   return (
     <Box width={'100%'} >
-        {/* <Navbar/> */}
         <FinalNavbar/>
+        <Box border={"0px solid black"} display={{base:"flex",sm:"flex",md:"none",lg:"npne"}} mt={"75px"} mb={"-60px"} width={"85%"} mx={"auto"} >
+        <NavSearch/>
+      </Box>
         <Center>
         <Image src={HomePageHeader}
           alt='home-page-header' width={['100%','100%',"95%","95%"]} mt={'60px'} 

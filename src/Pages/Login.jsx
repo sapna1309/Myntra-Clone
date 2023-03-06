@@ -53,11 +53,14 @@ export default function Login() {
   const dispatch = useDispatch();
   const location = useLocation();
   const comingFrom = location.state?.from?.pathname || "/";
+
+  let isAuth = JSON.parse(localStorage.getItem("isAuth"));
+
   useEffect(() => {
     dispatch(getAdminData());
     dispatch(getUsersListData());
     dispatch(getCurrentUserData());
-  }, [dispatch]);
+  }, [dispatch,isAuth]);
 
   const [value, setValue] = useState({
     email: "",
@@ -96,10 +99,10 @@ export default function Login() {
           currentUserData.password === el.password
         ) {
           dispatch(updateUsersListData(el.id, true)).then(() =>
-            dispatch(getUsersListData())
+            dispatch(getUsersListData(checkAuth))
           );
           dispatch(updateCurrentUserData(true)).then(() =>
-            dispatch(getCurrentUserData())
+            dispatch(getCurrentUserData(checkAuth))
           );
         }
       }
@@ -107,19 +110,28 @@ export default function Login() {
       value.email !== currentUserData.email &&
       currentUserData.password !== value.password
     ) {
+      let c=0;
       for (let j = 0; j < usersListData.length; j++) {
         let ele = usersListData[j];
         if (ele.email === value.email && ele.password === value.password) {
           dispatch(postCurrentUserData(ele)).then(() =>
-            dispatch(getCurrentUserData())
+            dispatch(getCurrentUserData(checkAuth))
           );
           dispatch(updateUsersListData(ele.id, true)).then(() =>
             dispatch(getUsersListData())
           );
           dispatch(updateCurrentUserData(true)).then(() =>
-            dispatch(getCurrentUserData())
+            dispatch(getCurrentUserData(checkAuth))
           );
+        }else if(ele.email!==value.email && ele.password!==value.password){
+              c=c+1;
         }
+      }
+      if(c===usersListData.length){
+        toast.error(`You don't have account, please register first!`, {
+          position: "top-center",
+        });
+        return;
       }
     }
 
@@ -169,11 +181,8 @@ export default function Login() {
           user.password === currentUserData.password)
         ) {
           dispatch(updateUsersListData(el.id, true)).then(()=>dispatch(getUsersListData()));
-          dispatch(updateCurrentUserData(true)).then(()=>dispatch(getCurrentUserData()));
-          console.log(comingFrom,"isAuth",currentUserData.isAuth);
-          if(currentUserData.isAuth){
-            return navigate(comingFrom,{replace:true});
-          }
+          dispatch(updateCurrentUserData(true)).then(()=>dispatch(getCurrentUserData(checkAuth)));
+          
          }  
         if (
           el.email === user.email &&
@@ -182,11 +191,8 @@ export default function Login() {
           user.password !== currentUserData.password
         ) {
           dispatch(updateUsersListData(el.id, true)).then(()=>dispatch(getUsersListData()));
-          dispatch(postCurrentUserData(user)).then(()=>dispatch(getCurrentUserData()));
-          console.log(comingFrom,"isAuth",currentUserData.isAuth);
-          if(currentUserData.isAuth){
-            return navigate(comingFrom,{replace:true});
-          }
+          dispatch(postCurrentUserData(user)).then(()=>dispatch(getCurrentUserData(checkAuth)));
+         
         }
          if (
          ( el.email !== user.email &&
@@ -206,20 +212,18 @@ export default function Login() {
       }
       if(userCount===usersListData.length){
         dispatch(postUsersListData(user)).then(()=>dispatch(getUsersListData()));
-        dispatch(postCurrentUserData(user)).then(()=>dispatch(getCurrentUserData()));
-        console.log(comingFrom,"isAuth",currentUserData.isAuth);
-          if(currentUserData.isAuth){
-            return navigate(comingFrom,{replace:true});
-          }
+        dispatch(postCurrentUserData(user)).then(()=>dispatch(getCurrentUserData(checkAuth)));
+        
       }
-      navigate("/");
       console.log(comingFrom,"isAuth",currentUserData.isAuth);
-      //navigate(comingFrom,{replace:true});
-      //console.log("userCount", userCount);
-      //console.log("currentUser",currentUserData);
-      //console.log("user",user);
+      navigate(comingFrom,{replace:true});
+     
     });
   };
+  
+const checkAuth=()=>{
+  return navigate(comingFrom,{replace:true});
+}
 
   return (
     <Box>
