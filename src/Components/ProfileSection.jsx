@@ -42,7 +42,6 @@ export default function ProfileSection() {
   },[dispatch,isAuth])
 
   //console.log("CrU",currentUserData);
-  let booleanValue = Boolean(currentUserData.isAuth);
 
   const handleLogout = () => {
     for(let i=0;i<usersListData.length;i++){
@@ -50,10 +49,9 @@ export default function ProfileSection() {
       if( el.email===currentUserData.email && el.name===currentUserData.name && currentUserData.password===el.password){
       dispatch(updateUsersListData(el.id,false)).then(()=>dispatch(getUsersListData()));
       dispatch(updateCurrentUserData(false)).then(()=>dispatch(getCurrentUserData()));
-      
+      console.log("sapna");
       }
       console.log("b",isAuth);
-      booleanValue= Boolean(currentUserData.isAuth);
      
     }
     
