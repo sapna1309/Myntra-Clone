@@ -211,7 +211,7 @@ export default function ProfileSection() {
                 fontWeight="semibold"
                 colorScheme="red"
                 fontSize="sm"
-                isDisabled={!booleanValue}
+                isDisabled={!isAuth}
                 onClick={handleLogout}
               >
                 Logout

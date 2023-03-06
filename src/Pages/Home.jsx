@@ -6,10 +6,17 @@ import { useEffect } from 'react';
 import FinalNavbar from '../Components/FinalNavbar';
 import FinalFooter from '../Components/FinalFooter';
 import NavSearch from '../Components/NavSearch';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCurrentUserData } from '../Redux/Admin/Admin.action';
 //import Footer from '../Components/Footer';
 
 const Home = () => {
   const [data, setData] = useState([]);
+  const {currentUserData}=useSelector((store)=>store.adminManager);
+  
+  const dispatch=useDispatch();
+  //let isAuth = JSON.parse(localStorage.getItem("isAuth"));
+
   const getImagedata=async()=>{
     try {
       let res = await axios.get(`https://classic-world.onrender.com/HomePageData`);
@@ -21,8 +28,10 @@ const Home = () => {
 
   useEffect(()=>{
     getImagedata();
-  },[])
+    dispatch(getCurrentUserData());
+  },[dispatch])
   //console.log("Data",data);
+  localStorage.setItem("isAuth",currentUserData.isAuth);
   return (
     <Box width={'100%'} >
         <FinalNavbar/>
