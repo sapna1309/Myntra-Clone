@@ -41,6 +41,7 @@
 - Login/Signup User Account
 - Add & Delete poduct to your cart or wishlist
 - Filter your product
+- Search functionnality
 - Sorting to get a appropriate product
 - Admin-panel-functionalities
 - Data visualization at admin-dashboard
