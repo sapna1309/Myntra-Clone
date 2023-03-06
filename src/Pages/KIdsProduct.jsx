@@ -28,45 +28,42 @@ import PageNotFound from "./PageNotFound";
 import Pagination from "../Components/Pagination";
 import FinalNavbar from "../Components/FinalNavbar";
 import FinalFooter from "../Components/FinalFooter";
-import { getWomensData } from "../Redux/Admin/Admin.action";
+import { getKidsData } from "../Redux/Admin/Admin.action";
 import { useSearchParams } from "react-router-dom";
 import { MdFilterList } from "react-icons/md";
 import NavSearch from "../Components/NavSearch";
 
 let brands = [
-  "KALINI",
-  "Khushal K",
-  "Anouk",
-  "Indo Era",
-  "Anubhutee",
-  "FASHOR",
-  "Ahalyaa",
-  "Nayo",
-  "Varanga",
-  "H&M",
-  "AHIKA",
-  "Roadster",
-  "JAIPURI BUNAAI",
-  "KASSUALLY",
-  "InWeave",
-  "Mitera",
-  "Antheaa",
-  "Berrylush",
-  "Chemistry",
-  "SASSAFRAS",
-  "Yufta",
-  "MOKSHA DESIGNS",
-  "DOLCE CRUDO",
-  "Libas",
-  "Tokyo Talkies",
-  "ADDYVERO",
-  "heemara",
-  "Difference of Opinion",
-  "Kotty",
-  "Anubhutee"
+    "HELLCAT",  
+    "VASTRAMAY",
+    "A.T.U.N.",
+    "MANZON",
+    "H&M",
+    "max",
+    "Urbano Juniors",
+    "PLUM TREE",
+    "Hopscotch",
+    "YK Disney",
+    "UTH by Roadster",
+    "Nauti Nati",
+    "JBN Creation",
+    "x2o",
+    "YK Marvel",
+    "BONKIDS",
+    "HERE&NOW",
+    "Pantaloons Baby",
+    "HRX by Hrithik Roshan",
+    "Aj DEZInES",
+    "Superminis",
+    "Luke & Lilly",
+    "Bodycare Kids",
+    "U.S. Polo Assn. Kids",
+    "Tiber Taber",
+    "YK",
+    "Pantaloons Junior",
 ]; 
 
-const WomensProduct = () => {
+const KidsProduct = () => {
 const [searchParams ,setSearchParams] =useSearchParams()
 const initFilterValues =searchParams.getAll('filter')
 const initSortValue =searchParams.getAll('sort')
@@ -81,7 +78,7 @@ const [page,setPage] = useState(1);
 const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = useRef()
 
-const { womensData } = useSelector((store) => store.adminManager);
+const { kidsData } = useSelector((store) => store.adminManager);
 const dispatch = useDispatch();
 
 useEffect(()=>{
@@ -119,7 +116,7 @@ useEffect(()=>{
         }
       }
       console.log("get",getProductParam)
-    dispatch(getWomensData(getProductParam));
+    dispatch(getKidsData(getProductParam));
   },[searchParams,dispatch,page])
 
   const handleFilterChange = (value)=>{
@@ -129,7 +126,7 @@ useEffect(()=>{
 
 const handleClear = () => {
   setFilterValues([])
-  dispatch(getWomensData());
+  dispatch(getKidsData());
   // onClose();
 };
 
@@ -138,7 +135,7 @@ const handlePage = (val) => {
 };
 
 
-//console.log(Math.ceil(womensData.length/12));
+//console.log(Math.ceil(kidsData.length/12));
   // if (loading)
   //   return (
   //     <>
@@ -191,9 +188,9 @@ const handlePage = (val) => {
               mt={"5rem"}
             >
               {" "}
-              Women -
+              Kids -
             </Text>{" "}
-            ({womensData.length})
+            ({kidsData.length})
           </Box>
           <Box
             display={{ sm: "none",base:'none',md:'inline-block', lg: "inline-block" }}
@@ -305,7 +302,7 @@ const handlePage = (val) => {
                       pr={2}
                     >
                       {" "}
-                      Women - <span style={{color:"gray",fontSize:"15px"}}> ({womensData.length})</span>
+                      Kids - <span style={{color:"gray",fontSize:"15px"}}> ({kidsData.length})</span>
                     </Text>{" "}
                    
                   </Box>
@@ -377,7 +374,7 @@ const handlePage = (val) => {
                      
                     >
                       {" "}
-                      Women - <span style={{color:"gray",fontSize:"13px"}} > ({womensData.length})</span>
+                      Kids - <span style={{color:"gray",fontSize:"13px"}} > ({kidsData.length})</span>
                     </Text>{" "}
                   </Box>
                 </Box>
@@ -394,7 +391,7 @@ const handlePage = (val) => {
                 // m={'auto'}
                 mt={{ lg: "0rem", sm: "1rem", md: "1rem" }}
               >
-                {womensData.length > 0 && womensData.filter((el,i)=>{
+                {kidsData.length > 0 && kidsData.filter((el,i)=>{
             return i>=12 * (page -1) && i< 12 *(page) 
           })
            .map((prod) => <SingleCard key={prod.id} prod={prod} />)}
@@ -406,7 +403,7 @@ const handlePage = (val) => {
                 handlePage={handlePage}
                 setPage={setPage}
                 page={page}
-                totalPages={Math.ceil(womensData.length/12)}
+                totalPages={Math.ceil(kidsData.length/12)}
               />
             </Box>
             <FinalFooter/>
@@ -486,4 +483,4 @@ const handlePage = (val) => {
   );
 };
 
-export default WomensProduct;
+export default KidsProduct;

@@ -1,17 +1,32 @@
 import axios from 'axios';
 //GET-API
-export const getAdminMensdataAPI=async()=>{
- let res = await axios.get('https://classic-world.onrender.com/MensData');
+export const getAdminMensdataAPI=async(getProductParam)=>{
+ let res = await axios.get('https://classic-world.onrender.com/MensData',getProductParam);
  return res.data;
 }
+
+export const getAdminMenSingleProductAPI=async(id)=>{
+    let res = await axios.get(`https://classic-world.onrender.com/MensData/${id}`);
+    return res.data;
+   }
 
 export const getAdminWomensdataAPI=async(getProductParam)=>{
     let res = await axios.get('https://classic-world.onrender.com/WomensData',getProductParam);
     return res.data;
 }
 
-export const getAdminKidsdataAPI=async()=>{
-    let res = await axios.get('https://classic-world.onrender.com/ChildrensData');
+export const getAdminWomenSingleProductAPI=async(id)=>{
+    let res = await axios.get(`https://classic-world.onrender.com/WomensData/${id}`);
+    return res.data;
+}
+
+export const getAdminKidsdataAPI=async(getProductParam)=>{
+    let res = await axios.get('https://classic-world.onrender.com/ChildrensData',getProductParam);
+    return res.data;
+}
+
+export const getAdminKidSingleProductAPI=async(id)=>{
+    let res = await axios.get(`https://classic-world.onrender.com/ChildrensData/${id}`);
     return res.data;
 }
 

@@ -37,6 +37,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCartData } from "../Redux/Cart/Cart.action";
+import NavSearch from "./NavSearch";
 
 
 export default function FinalNavbar() {
@@ -70,6 +71,8 @@ export default function FinalNavbar() {
           flex={{ base: 1, md: "auto" }}
           ml={{ base: -2 }}
           display={{ base: "flex", md: "flex",lg:"none" }}
+          border={"0px solid black"}
+
         >
           <IconButton
             onClick={onToggle}
@@ -80,11 +83,11 @@ export default function FinalNavbar() {
             aria-label={"Toggle Navigation"}
           />
         </Flex>
-        <Flex flex={{ base: 1 }} justify={{ base: "center", sm:'center',  md: "start" }}>
+        <Flex flex={{ base: 1 }} justify={{ base: "center", sm:'center',  md: "start" }} border={"0px solid black"} >
           <NavLink to='/' >
           <Image
             src={CWLOGO}
-            w={{ base: "40%", sm: "40%", md: "25%", lg: "25%" }}
+            w={{ base: "40%", sm: "40%", md: "40%", lg: "25%" }}
             mr={{sm:60, base:50,lg:0,md:0}}
           />
 </NavLink>
@@ -97,29 +100,8 @@ export default function FinalNavbar() {
           </Flex>
         </Flex>
 
-        <Stack alignItems={'center'} >
-          <InputGroup
-            display={{ base: "none", sm: "none", md: "none", lg: "block" }}
-          >
-            <InputLeftElement
-              pointerEvents="none"
-              children={<SearchIcon color="gray.500" />}
-            />
-            <Input
-              type="text"
-              placeholder="Search..."
-              borderBottom={"1px solid #BB1679"}
-            />
-          </InputGroup>
-         
-           <IconButton display={{base:'flex',sm:'flex',md:'flex',lg:'none'}}
-                aria-label="Searchicon" 
-                icon={ <SearchIcon color="gray.500" 
-                mr={{base:-4,sm:-4,md:3,lg:0}} />}
-                variant="ghost"
-                w="fit-content"
-                _hover={{ bg: "white" }}
-              />
+        <Stack alignItems={'center'} border={"0px solid black"} display={{base:"none",sm:"none",md:"flex",lg:"flex"}}>
+          <NavSearch/>
         </Stack>
 
         <Stack
@@ -284,14 +266,15 @@ const DesktopNav = () => {
                   borderBottom: "3px solid #BB1679",
                 }}
               >
-                {navItem.label==="MENS"?<NavLink to='/product' >
+                {navItem.label==="MENS"?<NavLink to='/mens' >
                 {navItem.label}
-                </NavLink>:<NavLink to='/womens' >
+                </NavLink>:navItem.label==="WOMEN"?<NavLink to='/womens' >
+                {navItem.label}
+                </NavLink>:navItem.label==="KIDS"?<NavLink to='/kids' >
+                {navItem.label}
+                </NavLink>:<NavLink to='*' >
                 {navItem.label}
                 </NavLink>}
-                {/* <NavLink to='/product' >
-                {navItem.label}
-                </NavLink> */}
               </Link>
             </PopoverTrigger>
 
@@ -398,7 +381,7 @@ const MobileNavItem = ({ label, children, href }) => {
         py={1}
         as={Link}
         href={href ?? "#"}
-        justify={"space-between"}
+        justify={"space-evenly"}
         align={"center"}
         zIndex={9999}
         _hover={{
@@ -409,10 +392,14 @@ const MobileNavItem = ({ label, children, href }) => {
         <Text
           fontWeight={600}
           color={useColorModeValue("gray.600", "gray.200")}
-          fontSize={{base:12,sm:13,md:18,lg:18}}
-        >{label==="MENS"?<NavLink  to="/product">
+          fontSize={{base:12,sm:13,md:15,lg:18}}
+        >{label==="MENS"?<NavLink  to="/mens">
         {label}
-        </NavLink>:<NavLink  to="/womens">
+        </NavLink>:label==="WOMEN"?<NavLink  to="/womens">
+          {label}
+          </NavLink>:label==="KIDS"?<NavLink  to="/kids">
+          {label}
+          </NavLink>:<NavLink  to="*">
           {label}
           </NavLink>}
           
@@ -604,7 +591,7 @@ const NAV_ITEMS = [
           "Suits",
           "Rain Jackets",
         ],
-        href: "#",
+        href: "/kids",
       },
       {
         label: "Girls Clothing",
@@ -618,7 +605,7 @@ const NAV_ITEMS = [
           "Hair Styling",
           "Hair Thinning & Loss",
         ],
-        href: "#",
+        href: "/kids",
       },
       {
         label: "Footwear",
@@ -630,7 +617,7 @@ const NAV_ITEMS = [
           "Sports Shoes & Floaters",
           "Sports and Active Wear",
         ],
-        href: "#",
+        href: "/kids",
       },
       {
         label: "Toys",
@@ -640,7 +627,7 @@ const NAV_ITEMS = [
       {
         label: "Infants",
         subLabel: [" Removal Devices", " Removal Products", " Beauty Products"],
-        href: "#",
+        href: "/kids",
       },
     ],
   },

@@ -59,9 +59,9 @@ KidsData.reverse();
   return (
     <Box bg={"gray.100"} width={"100%"}>
       <AdminNavbar />
-      <Box style={{ width: "83%", marginLeft: "250px", marginTop: "80px" }}>
+      <Box  width={["95%","95%","83%","83%"]} mt={"80px"} ml={[1,1,"250px","250px"]}>
         <TableContainer>
-          <Table variant="striped" colorScheme="pink">
+          <Table variant="striped" colorScheme="pink" overflowX={"scroll"}>
             <Thead bg={"#990578"}>
               <Tr>
                 <Th color={"white"}>So No.</Th>

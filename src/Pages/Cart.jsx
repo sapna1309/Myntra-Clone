@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Image, Stack, Text } from "@chakra-ui/react";
 import axios from "axios";
 import React from "react";
 import { useEffect, useState } from "react";
@@ -16,6 +16,7 @@ const Cart = () => {
   const { loading, error } = useSelector((store) => store.cart);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const goToAddress = useNavigate()
   const [sampleData, setSampleData] = useState([]);
 
@@ -118,8 +119,12 @@ const Cart = () => {
     <Box>
     <PaymentNavbar/>
       </Box>
-
-    <Box m={"auto"} mt={{base:'4rem',sm:"4rem",md:'6rem',lg:'6rem' }}
+   {sampleData.length===0?<Stack height={"100vh"} pt={"130px"}  alignItems={"center"} align={"center"} >
+        <Image src='https://www.pavejewelers.com/assets/images/empty-wishlist.png' />
+        <Heading color={"pink.500"}fontSize={[18,20,22,25]} >YOUR CART IS EMPTY!!</Heading>
+        <Text fontSize={[15,18,18,20]}>Add items that you like to purchase</Text>
+        <Button bg={"teal.300"} color={"white"} _hover={{backgroundColor:"#D63F8C"}} onClick={()=> navigate("/")} >Continue Shopping</Button>
+        </Stack>: <Box m={"auto"} mt={{base:'4rem',sm:"4rem",md:'6rem',lg:'6rem' }}
     //m={{sm:"8rem 1rem", md: "3rem 1rem", lg: "3rem 5rem" }}
     width={{base:"90%",sm:"90%",md:"70%",lg:"70%"}}
     >
@@ -215,7 +220,8 @@ const Cart = () => {
 
         
       </Flex>
-    </Box>
+    </Box>}
+   
     </>
   );
 };

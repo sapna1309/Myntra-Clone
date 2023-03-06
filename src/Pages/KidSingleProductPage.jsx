@@ -1,35 +1,36 @@
 import { Box, Button, Flex, Grid, Image, Stack, Text } from "@chakra-ui/react";
 import { FaRegHeart } from "react-icons/fa";
 import axios from "axios";
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getSingleProductAPI } from "../Redux/Product/Product.api";
 import { useDispatch } from "react-redux";
 import { fetchCartData } from "../Redux/Cart/Cart.action";
 import FinalNavbar from "../Components/FinalNavbar";
 import FinalFooter from "../Components/FinalFooter";
+import { getAdminKidSingleProductAPI } from "../Redux/Admin/Admin.api";
+import { useToast } from '@chakra-ui/react';
 
-const SingleProductPage = () => {
-  const [singleProduct, setSingleProduct] = useState({});
-  const [poster, setPoster] = useState("");
-  const dispatch = useDispatch();
+const KidSingleProductPage = () => {
+    const [singleProduct, setSingleProduct] = useState({});
+    const [poster, setPoster] = useState("");
+    const toast = useToast();
+    const dispatch = useDispatch();
+  
+    const { id } = useParams();
+    const fetchSingleProduct = async () => {
+      await getAdminKidSingleProductAPI(id)
+        .then((res) => {
+          setSingleProduct(res);
+          setPoster(res?.images[0]);
+        })
+        .catch((err) => console.log(err));
+    };
+  
+    useEffect(() => {
+      fetchSingleProduct();
+    }, []);
 
-  const { id } = useParams();
-  const fetchSingleProduct = async () => {
-    await getSingleProductAPI(id)
-      .then((res) => {
-        setSingleProduct(res?.data);
-        //console.log(res);
-        setPoster(res?.data?.images[0]);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  useEffect(() => {
-    fetchSingleProduct();
-  }, []);
-
+console.log(singleProduct,id);
   const {
     title,
     brand,
@@ -43,21 +44,43 @@ const SingleProductPage = () => {
   } = singleProduct;
 
   const handleAddToWishlist = async () => {
-    // console.log("newItem:",props)
     await axios
       .post(`https://classic-world.onrender.com/WishList/`, singleProduct)
-      .then((res) => alert("Added to Wishlist Successfully...."))
-      .catch((err) => alert("Already Exists in Your Bag"));
+      .then((res) => toast({
+        title: 'Successfully Added.',
+        description: "This product has been added to your wishlist.",
+        status: 'success',
+        duration:2000,
+        isClosable: true,
+      }))
+      .catch((err) => toast({
+        title: 'Already Exist.',
+        description: "This product already exist in your wishlist.",
+        status: 'error',
+        duration:2000,
+        isClosable: true,
+      }));
   };
   const AddtoBag = async () => {
-    // console.log("newItem:",props)
     await axios
       .post(`https://classic-world.onrender.com/cart/`, singleProduct)
       .then((res) => {
-        alert("Added to bag Successfully....");
+        toast({
+          title: 'Successfully Added.',
+          description: "This product has been added to your cart.",
+          status: 'success',
+          duration:2000,
+          isClosable: true,
+        });
         dispatch(fetchCartData());
       })
-      .catch((err) => alert("Already Exists in Your Bag"));
+      .catch((err) => toast({
+        title: 'Already Exist.',
+        description: "This product already exist in your cart.",
+        status: 'error',
+        duration:2000,
+        isClosable: true,
+      }));
   };
 
   return (
@@ -71,7 +94,6 @@ const SingleProductPage = () => {
           mt={100}
           border={"0px solid black"}
         >
-          {/* box-shadow: ; */}
           <Flex
             flexDirection={{
               base: "column",
@@ -81,11 +103,11 @@ const SingleProductPage = () => {
             }}
             alignItems={"flex-start"}
             m={"auto"}
-            width={{ base: "100%", sm: "100%", md: "70%", lg: "70%" }}
+            width={{ base: "98%", sm: "80%", md: "98%", lg: "70%" }}
             border={"0px solid black"}
           >
             <Box
-              w={{ base: "100%", sm: "100%", md: "45%", lg: "45%" }}
+              w={{ base: "100%", sm: "100%", md: "100%", lg: "44%" }}
               boxShadow={
                 "rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px"
               }
@@ -126,7 +148,7 @@ const SingleProductPage = () => {
 
               <Flex alignItems={"baseline"}>
                 <Text fontWeight={600} fontSize={"1.3rem"} color={"gray.700"}>
-                  ₹ {discounted_price===null?Number(strike_price-275):discounted_price}
+                  ₹ {discounted_price}
                 </Text>
                 <Text pl={"1.2rem"} fontSize={"0.9rem"}>
                   MRP{" "}
@@ -152,7 +174,7 @@ const SingleProductPage = () => {
               </Text>
 
               <Box textAlign={"left"} mt={"1rem"} borderTop={"2px solid gray"}>
-                <Text m={" 0.5rem 0"} fontWeight={"500"} fontSize={"0.8rem"}>
+                <Text m={" 0.5rem 0"} fontWeight={"500"} fontSize={"1rem"}>
                   Select Size
                 </Text>
                 <Grid
@@ -170,7 +192,8 @@ const SingleProductPage = () => {
                       backgroundColor={"#fff"}
                       border={"1px solid gray"}
                       borderRadius={"50%"}
-                      p={"1rem"}
+                      p={"1.5rem"}
+                      // style={i?{backgroundColor:"pink.500",color:"white"}:{backgroundColor:"white",color:"black"}}
                     >
                       {sz}
                     </Button>
@@ -179,72 +202,50 @@ const SingleProductPage = () => {
               </Box>
 
               <Stack
-                spacing={3}
+                spacing={4}
                 textAlign={"left"}
                 mt={-1}
                 borderTop={"2px solid gray"}
               >
-                <Text m={"0.5rem 0"} fontWeight={"500"} fontSize={"0.8rem"}>
+                <Text m={"0.5rem 0"} fontWeight={"500"} fontSize={"1rem"}>
                   Product Details
                 </Text>
                 <Flex
-                  flexDirection={{ sm: "column", lg: "row" }}
-                  justifyContent={"space-between"}
                 >
                   <Text color={"gray.600"} display={"inline-block"}>
-                    Category:
-                  </Text>
-                  <Text color={"gray.400"}> {category}</Text>
+                    Category : <span style={{color:"gray"}} >{category}</span>
+                    </Text>
                 </Flex>
-
                 <Flex
-                  flexDirection={{ sm: "column", lg: "row" }}
-                  justifyContent={"space-between"}
                 >
                   <Text color={"gray.600"} display={"inline-block"}>
-                    Brand:
-                  </Text>
-                  <Text color={"gray.400"} noOfLines={{ base: 1, sm: 1 }}>
-                    {"  "}
-                    {brand}
+                    Brand : <span style={{color:"gray"}} >{brand}</span>
                   </Text>
                 </Flex>
 
                 <Flex
-                  flexDirection={{ sm: "column", lg: "row" }}
-                  justifyContent={"space-between"}
                 >
-                  <Text color={"gray.600"} display={"inline-block"}>
-                    Description:
-                  </Text>
-                  <Text noOfLines={{ base: 1, sm: 1 }} color={"gray.400"}>
-                    {" "}
-                    {title}
-                  </Text>
+                   <Text color={"gray.600"} display={"inline-block"}>
+                    Description : <span style={{color:"gray"}} >{title}</span>
+                    </Text>
                 </Flex>
                 <Flex
-                  flexDirection={{ sm: "column", lg: "row" }}
-                  justifyContent={"space-between"}
                 >
-                  <Text color={"gray.600"} display={"inline-block"}>
-                    Rating:
-                  </Text>
-                  <Text color={"gray.400"}> {rating}</Text>
+                   <Text color={"gray.600"} display={"inline-block"}>
+                    Rating : <span style={{color:"gray"}} >{rating}</span>
+                    </Text>
                 </Flex>
                 <Flex
-                  flexDirection={{ sm: "column", lg: "row" }}
-                  justifyContent={"space-between"}
                 >
-                  <Text color={"gray.600"} display={"inline-block"}>
-                    Review:
-                  </Text>
-                  <Text color={"gray.400"}> {rating_count}</Text>
+              <Text color={"gray.600"} display={"inline-block"}>
+                    Review : <span style={{color:"gray"}} >{rating_count}</span>
+                    </Text>
                 </Flex>
               </Stack>
               <Box
                 textAlign={"left"}
                 w={"100%"}
-                mt={"1rem"}
+                mt={0}
                 borderTop={"2px solid gray"}
                 p={"1rem"}
                 display={{
@@ -253,7 +254,6 @@ const SingleProductPage = () => {
                   lg: "inline-block",
                 }}
               >
-                {/* fontSize={"1.2rem"} color={"pink.500"} fontWeight={700} */}
                 <Flex
                   gap={"0.5rem"}
                   justifyContent={"center"}
@@ -266,19 +266,20 @@ const SingleProductPage = () => {
                   }}
                 >
                   <Button
-                    _hover={{ color: "black" }}
-                    fontSize={"1.2rem"}
-                    color={"pink.500"}
-                    border={"2px solid gray"}
-                    borderRadius={"0.2rem"}
-                    onClick={handleAddToWishlist}
-                    px={2}
-                  >
-                    <Flex gap={"0.5rem"}>
-                      <FaRegHeart fontSize={"1.5rem"} backgroundColor="#fff" />
-                      Wishlist
-                    </Flex>
-                  </Button>
+                   _hover={{ border: "2px solid #BB1679",borderRadius:5 }}
+                   fontSize={"1.2rem"}
+                   colorScheme={"pink"}
+                   borderRadius={"0.2rem"}
+                   onClick={handleAddToWishlist}
+                   p={2}
+                   variant={"outline"}
+                   display={"flex"}
+                   gap={3}
+                 >
+                  
+                     <FaRegHeart size={21} backgroundColor="#fff" />
+                     Wishlist
+                 </Button>
                   <Button
                     _hover={{
                       backgroundColor: "white",
@@ -307,4 +308,4 @@ const SingleProductPage = () => {
   );
 };
 
-export default SingleProductPage;
+export default KidSingleProductPage;

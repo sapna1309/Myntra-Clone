@@ -60,10 +60,10 @@ export default function FinalFooter() {
           }}
           border={'0px solid red'}
           gap={'50px'}
-          justifyContent={'space-evenly'}
+          justifyContent={['center','center','space-evenly','space-evenly']}
           fontSize={[15, 15, 15, 15]}
         >
-          <Stack align={"flex-start"} boxShadow={'sm'} textAlign={'left'} border={'0px solid black'}>
+          <Stack align={["center","center","flex-start","flex-start"]} boxShadow={'sm'} textAlign={['center','center','left','left']} border={'0px solid black'}>
             <Text fontWeight={'bold'} fontSize={15} noOfLines={1}>ONLINE SHOPPING</Text>
             <Text noOfLines={1}>Men</Text>
             <Text noOfLines={1}>Women</Text>
@@ -77,7 +77,7 @@ export default function FinalFooter() {
             <Text noOfLines={1}>Contact Us</Text>
           </Stack>
 
-          <Stack align={"flex-start"} boxShadow={'sm'}textAlign={'left'} border={'0px solid black'}>
+          <Stack align={["center","center","flex-start","flex-start"]} boxShadow={'sm'} textAlign={['center','center','left','left']} border={'0px solid black'}>
             <Text fontWeight={'bold'} fontSize={15} noOfLines={1}>USEFUL LINKS</Text>
             <Text noOfLines={1}>Blog</Text>
             <Text noOfLines={1}>Careers</Text>
@@ -91,7 +91,7 @@ export default function FinalFooter() {
             <Text noOfLines={1}>Community Guidelines</Text>
           </Stack>
 
-          <Stack align={"flex-start"}boxShadow={'sm'} textAlign={'left'} border={'0px solid black'}>
+          <Stack align={["center","center","flex-start","flex-start"]} boxShadow={'sm'} textAlign={['center','center','left','left']} border={'0px solid black'}>
             <Text fontWeight={'bold'} fontSize={15} noOfLines={1}>CUSTOMER POLICIES</Text>
             <Text noOfLines={1}>Contact Us</Text>
             <Text noOfLines={1}>FAQ</Text>
@@ -105,7 +105,7 @@ export default function FinalFooter() {
             <Text noOfLines={1}>Grievance Officer</Text>
           </Stack>
 
-          <Stack alignItems={"flex-start"} boxShadow={'sm'}textAlign={'left'}border={'0px solid black'}  >
+          <Stack align={["center","center","flex-start","flex-start"]} boxShadow={'sm'} textAlign={['center','center','left','left']} border={'0px solid black'}  >
             <Text fontWeight={'bold'} fontSize={15} noOfLines={1}>REGISTER OFFICE ADDRESS</Text>
             <Text noOfLines={1}>Begonia and Clover situated,</Text>
             <Text noOfLines={1}>BegEmbassy Tech Village,</Text>
@@ -117,7 +117,7 @@ export default function FinalFooter() {
             <Text noOfLines={1}>Telephone: +91-80-61561999</Text>
           </Stack>
 
-          <Stack align={"flex-start"}>
+          <Stack align={["center","center","flex-start","flex-start"]} boxShadow={'sm'} textAlign={['center','center','left','left']}>
             <Text fontWeight={'bold'} fontSize={15} noOfLines={1}>EXPERIENCE MYNTRA APP ON MOBILE</Text>
 
             <Image
@@ -132,11 +132,11 @@ export default function FinalFooter() {
             />
           </Stack>
 
-          <Stack align={"flex-start"}>
+          <Stack align={["center","center","flex-start","flex-start"]} boxShadow={'sm'} textAlign={['center','center','left','left']} display={["none","none","flex","flex"]}>
             <Text fontWeight={'bold'} fontSize={15} noOfLines={1}>Accurance</Text>
-            <HStack>
+            <HStack display={["none","none","flex","flex"]}>
               <Image
-                src="https://previews.123rf.com/images/arcady31/arcady311304/arcady31130400034/19245976-original-stamp.jpg"
+            src="https://previews.123rf.com/images/arcady31/arcady311304/arcady31130400034/19245976-original-stamp.jpg"
                 alt="playStore"
                 width={["26%", "26%", "38%", "45%"]}
               />

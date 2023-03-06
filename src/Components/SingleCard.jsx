@@ -10,11 +10,13 @@ import {
   Flex,
   Stack,
 } from "@chakra-ui/react";
+import { useToast } from '@chakra-ui/react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchCartData } from "../Redux/Cart/Cart.action";
 function SingleCard({ ...props }) {
+  const toast = useToast();
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -24,6 +26,7 @@ function SingleCard({ ...props }) {
     brand,
     images,
     discount,
+    category,
     discounted_price,
     strike_price,
     rating,
@@ -36,14 +39,27 @@ function SingleCard({ ...props }) {
       await axios
         .post(`https://classic-world.onrender.com/WishList/`, prod)
         .then((res) => {
-          alert("Added to Wishlist Successfully....");
+          // alert("Added to Wishlist Successfully....");
+          toast({
+            title: 'Added Successfully.',
+            description: "This product has been added to your wishlist.",
+            status: 'success',
+            duration:2000,
+            isClosable: true,
+          });
           dispatch(fetchCartData());
         })
 
-        .catch((err) => alert("Already Exists"));
+        .catch((err) => toast({
+          title: 'Already Exist.',
+          description: "This product already exist in your wishlist.",
+          status: 'error',
+          duration:2000,
+          isClosable: true,
+        }));
     
   };
-console.log(typeof discounted_price)
+//console.log(typeof discounted_price) 
   return (
     // <div className={Style.cardContainer}>
     <Card
@@ -52,11 +68,11 @@ console.log(typeof discounted_price)
     >
       <CardBody textAlign={"left"}>
         <Stack spacing={2}>
-          <Box onClick={() => navigate(`/product/${id}`)}>
+          <Box onClick={() => navigate(`/product/${category}/${id}`)}>
             <Image
               src={images[0]}
               width={"100%"}
-              //_hover={{ p: "0.5rem" }}
+              _hover={{transform: "scale(1.1)",marginBottom:"15px" }}
               overflow={"hidden"}
               borderRadius={"0.9rem"}
             />
@@ -84,7 +100,7 @@ console.log(typeof discounted_price)
             >
               ₹ {strike_price}
             </Text>
-            <Text fontSize={"0.7rem"} color="pink.300">
+            <Text fontSize={"0.7rem"} fontWeight={"medium"} color="pink.300">
               {discount}
             </Text>
           </Box>
@@ -95,7 +111,7 @@ console.log(typeof discounted_price)
                 {" "}
                 {rating} <StarIcon fontSize={"0.8rem"} />
               </Text>
-              <Text>{rating_count}</Text>
+              <Text>{rating_count}k</Text>
             </Flex>
           </Box>
 
