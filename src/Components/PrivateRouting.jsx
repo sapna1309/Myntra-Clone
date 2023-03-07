@@ -12,7 +12,7 @@ export const PrivateRoute = ({ children }) => {
     dispatch(getCurrentUserData());
   },[dispatch,isAuth])
   console.log("CurrentUser",currentUserData,"ISAUTH",isAuth);
-  if(!currentUserData.isAuth){
+  if(!isAuth){
    return <Navigate to='/login' state={{from:location}} replace />
   }
   return children;
