@@ -1,5 +1,5 @@
 import { CloseIcon } from "@chakra-ui/icons";
-import { Box, Button, Flex, Image, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Stack, Text, useToast } from "@chakra-ui/react";
 import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
@@ -8,7 +8,7 @@ import { fetchCartData } from "../Redux/Cart/Cart.action";
 import { fetchWishlistData, removeProdData } from "../Redux/Wishlist/Wishlist.action";
 
 const WishlistCard = ({ prod }) => {
-
+  const toast = useToast();
   //console.log(prod);
 
   const { id,brand, discount, discounted_price, images, strike_price } = prod;
@@ -22,11 +22,23 @@ useEffect(()=>{
     await axios
       .post(`https://classic-world.onrender.com/cart/`, prod)
       .then((res) => {
-        alert("Added to bag Successfully....");
+        toast({
+          title: 'Added Successfully.',
+          description: "This product has been added to your cart.",
+          status: 'success',
+          duration:1500,
+          isClosable: true,
+        });
         dispatch(fetchCartData()) 
         dispatch(removeProdData(id));
       })
-      .catch((err) => alert("Already Exists in Your Bag"));
+      .catch((err) => toast({
+        title: 'Already Exist.',
+        description: "This product already exist in your cart.",
+        status: 'error',
+        duration:1500,
+        isClosable: true,
+      }));
   };
 
   

@@ -44,7 +44,7 @@ function SingleCard({ ...props }) {
             title: 'Added Successfully.',
             description: "This product has been added to your wishlist.",
             status: 'success',
-            duration:2000,
+            duration:1500,
             isClosable: true,
           });
           dispatch(fetchCartData());
@@ -54,7 +54,7 @@ function SingleCard({ ...props }) {
           title: 'Already Exist.',
           description: "This product already exist in your wishlist.",
           status: 'error',
-          duration:2000,
+          duration:1500,
           isClosable: true,
         }));
     
