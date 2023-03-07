@@ -68,7 +68,7 @@ const CartComponent = ({ cart, handleCheckData, handleChangeQty,removeFromCart }
                   display={"flex"}
                   justifyContent={"space-between"}
                   alignItems={"baseline"}
-                  gap={"0.5rem"}
+                  gap={"0.7rem"}
                   mt={1}
                 >
                   <Text fontSize={"0.9rem"} fontWeight={"600"}>
@@ -81,7 +81,7 @@ const CartComponent = ({ cart, handleCheckData, handleChangeQty,removeFromCart }
                   >
                     Rs.{cart.strike_price * cart.qty}
                   </Text>
-                  <Text fontSize={"0.7rem"} color="pink.300">
+                  <Text fontSize={"0.8rem"} fontWeight={"medium"}  color="pink.500">
                     {cart.discount}
                   </Text>
                 </Box>

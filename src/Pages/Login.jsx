@@ -123,7 +123,8 @@ export default function Login() {
           dispatch(updateCurrentUserData(true)).then(() =>
             dispatch(getCurrentUserData(checkAuth))
           );
-        }else if(ele.email!==value.email && ele.password!==value.password){
+        }
+        else if(ele.email!==value.email && ele.password!==value.password){
               c=c+1;
         }
       }
