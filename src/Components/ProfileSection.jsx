@@ -29,16 +29,19 @@ import { NavLink } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUserData, getUsersListData, updateCurrentUserData, updateUsersListData } from "../Redux/Admin/Admin.action";
+import { deleteCartData, fetchCartData } from "../Redux/Cart/Cart.action";
 
 export default function ProfileSection() {
   const dispatch = useDispatch();
   const {usersListData,currentUserData} = useSelector((store)=>store.adminManager);
+  const { cartData } = useSelector((store) => store.cart);
  
   let isAuth=JSON.parse(localStorage.getItem("isAuth"));
 
   useEffect(()=>{
     dispatch(getUsersListData());
     dispatch(getCurrentUserData());
+    dispatch(fetchCartData());
   },[dispatch,isAuth])
 
   //console.log("CrU",currentUserData);
@@ -54,7 +57,10 @@ export default function ProfileSection() {
       console.log("b",isAuth);
      
     }
-    
+    for(let i=0;i<cartData.length;i++){
+      let el = cartData[i];
+      dispatch(deleteCartData(el.id)).then(()=>dispatch(fetchCartData()));
+    }
     
   };
   return (
