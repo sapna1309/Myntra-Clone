@@ -48,8 +48,9 @@ export default function PageNotFound() {
           color={"white"}
           bg={"#08cf65"}
           _hover={{
-            bg: "red.300",
+            bg: "pink.500",
             textDecoration:"none",
+            color:"white"
           }}
         >
           Home
