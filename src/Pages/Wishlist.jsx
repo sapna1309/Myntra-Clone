@@ -29,7 +29,7 @@ if(error){
   return (
     <div>
       <FinalNavbar/>
-      <Box border={"0px solid black"} display={{base:"flex",sm:"flex",md:"none",lg:"npne"}} mt={"75px"} mb={"-60px"} width={"85%"} mx={"auto"} >
+      <Box border={"0px solid black"} display={{base:"flex",sm:"flex",md:"none",lg:"none"}} mt={"75px"} mb={"-60px"} width={"85%"} mx={"auto"} >
         <NavSearch/>
       </Box>
         <Box textAlign={"left"} px={4} mt={'5rem'} color={"gray.600"} fontSize={"1.2rem"}><Text fontWeight={600} color={"pink.500"} display={"inline-block"}>My WishList : <span style={{color:'gray'}} >{wishlistData.length} Items</span></Text></Box>

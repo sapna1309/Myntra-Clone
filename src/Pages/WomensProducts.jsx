@@ -155,7 +155,7 @@ const handlePage = (val) => {
   return (
     <div>
       <FinalNavbar />
-      <Box border={"0px solid black"} display={{base:"flex",sm:"flex",md:"none",lg:"npne"}} mt={"75px"} mb={"-60px"} width={"85%"} mx={"auto"} >
+      <Box border={"0px solid black"} display={{base:"flex",sm:"flex",md:"none",lg:"none"}} mt={"75px"} mb={"-60px"} width={"85%"} mx={"auto"} >
         <NavSearch/>
       </Box>
       <Box
