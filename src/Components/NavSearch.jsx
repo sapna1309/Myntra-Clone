@@ -100,7 +100,7 @@ useEffect(()=>{
               type="text"
               value={query}
               width={"100%"}
-              onChange={(e)=>{setQuery(e.target.value);
+              onChange={(e)=>{setQuery(e.target.value.toLowerCase());
             onOpen()}}
               placeholder="Search..."
               borderBottom={"2px solid #BB1679"}

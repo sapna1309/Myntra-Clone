@@ -9,6 +9,7 @@ import FinalNavbar from "../Components/FinalNavbar";
 import FinalFooter from "../Components/FinalFooter";
 import { getAdminWomenSingleProductAPI } from "../Redux/Admin/Admin.api";
 import { useToast } from '@chakra-ui/react';
+import NavSearch from "../Components/NavSearch";
 
 const WomenSingleProductPage = () => {
   const [singleProduct, setSingleProduct] = useState({});
@@ -86,6 +87,9 @@ console.log(singleProduct,id);
   return (
     <div style={{ width: "100%", border: "0px solid red", margin: "auto" }}>
       <FinalNavbar />
+      <Box border={"0px solid black"} display={{base:"flex",sm:"flex",md:"none",lg:"none"}} mt={"75px"} mb={"-60px"} width={"85%"} mx={"auto"} >
+        <NavSearch/>
+      </Box>
       <div style={{ width: "100%", border: "0px solid red", margin: "auto" }}>
         <Box
           mb={"4rem"}
