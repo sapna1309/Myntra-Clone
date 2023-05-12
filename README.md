@@ -79,7 +79,7 @@
 
 ## Getting Started
 
-This project was built using React v 17.0.2, Redux v 4.1.1, Chakra UI, CSS, JavaScript, React Router Dom, Firebase. It is a time & task management web application and for running on your local environment you should follow these guidelines.
+This project was built using React v 17.0.2, Redux v 4.1.1, Chakra UI, CSS, JavaScript, React Router Dom, Firebase. It is an e-commerce web application and for running on your local environment you should follow these guidelines.
 
 
 ### Prerequisites
