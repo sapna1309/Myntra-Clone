@@ -27,6 +27,7 @@ const initialState = {
     },
 }
 export const adminReducer = (state = initialState, { type, payload }) => {
+    //console.log(payload);
     switch (type) {
         case GET_PRODUCTS_LOADING: {
             return {
