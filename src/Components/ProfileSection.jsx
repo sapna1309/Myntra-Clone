@@ -39,12 +39,16 @@ export default function ProfileSection() {
   let isAuth=JSON.parse(localStorage.getItem("isAuth"));
 
   useEffect(()=>{
+    if(currentUserData.email==="") {
+      localStorage.setItem("isAuth",false);
+      dispatch(updateCurrentUserData(false)).then(()=>dispatch(getCurrentUserData()));
+    }
     dispatch(getUsersListData());
     dispatch(getCurrentUserData());
     dispatch(fetchCartData());
   },[dispatch,isAuth])
 
-  //console.log("CrU",currentUserData);
+  console.log("CrU",currentUserData);
 
   const handleLogout = () => {
     for(let i=0;i<usersListData.length;i++){
@@ -52,6 +56,7 @@ export default function ProfileSection() {
       if( el.email===currentUserData.email && el.name===currentUserData.name && currentUserData.password===el.password){
       dispatch(updateUsersListData(el.id,false)).then(()=>dispatch(getUsersListData()));
       dispatch(updateCurrentUserData(false)).then(()=>dispatch(getCurrentUserData()));
+      // localStorage.setItem("isAuth",false);
       console.log("sapna");
       }
       console.log("b",isAuth);
