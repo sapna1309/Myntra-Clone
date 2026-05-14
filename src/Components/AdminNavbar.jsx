@@ -49,7 +49,7 @@ export default function AdminNavbar({
   const dispatch = useDispatch();
   useEffect(()=>{
     dispatch(getAdminData());
-  },[])
+  },[dispatch])
   return (
   <Box border={'0px solid black'} pos={'fixed'} top={0} right={0} left={0} zIndex={999}>
       <SidebarContent
